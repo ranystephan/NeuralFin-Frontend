@@ -1,6 +1,10 @@
 import './styles/globals.css';
 
-const RootLayout = ({ children }) => (
+type RootLayoutProps = {
+  children: React.ReactNode;
+}
+
+const RootLayout = ({ children } : RootLayoutProps) => (
   <html lang="en">
     <head>
       <link rel="preconnect" href="https://stijndv.com" />
