@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  body{
+    @apply dark:bg-black dark:text-white bg-white text-black;
+
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Eudoxus Sans", sans-serif;
+  font-family: "Crimson Text", serif;
   scroll-behavior: smooth;
 }
 

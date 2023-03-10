@@ -32,11 +32,11 @@ const Hero = () => (
         className="relative w-full md:-mt-[20px] -mt-[12px]"
       >
         <div className="absolute  z-[0] -top-[180px]" >
-        <img
+        {/* <img
           src="/neuralfin-logo/neuralfin-logo-beta-transpb.png"
           alt="NeuralFin Logo"
           className="w-[600px] h-[600px] object-contain z-10 relative"
-        />
+        /> */}
         </div>
       </motion.div>
 
