@@ -27,7 +27,7 @@ const Navbar = () => {
       if (currentTheme === 'dark') {
         return (
           <button onClick={() => setTheme('light')}>
-            <h2 className="text-[24px] leading-[30]px">
+            <h2 className="text-2xl leading-8">
               {'🌜'}
             </h2>
           </button>
@@ -35,7 +35,7 @@ const Navbar = () => {
         } else {
           return (
             <button onClick={() => setTheme('dark')}>
-              <h2 className="text-[24px] leading-[30]px">
+              <h2 className="text-2xl leading-8">
                 {'🌞'}
               </h2>
             </button>
@@ -52,10 +52,10 @@ const Navbar = () => {
       whileInView="show"
       className={`${styles.xPaddings} py-8 relative`}
     >
-      <div className="absolute w-[50%] inset-0 gradient-01 bg-blend-overlay" />
-      <div className={`${styles.innerWidth} mx-auto flex justify-between gap-8`}>
-        <div className="text-2xl cursor-pointer hover:text-purple-700 duration-300">search</div>
-        <h2 className="font-extrabold text-[24px] leading-[30]px cursor-pointer hover:text-purple-700 duration-300">
+      <div className="absolute w-[50%] z-[-1] inset-0 dark:gradient-01 gradient-01-light " />
+      <div className={`${styles.innerWidth} mx-auto flex justify-between gap-8 items-center`}>
+{/*         <div className="text-2xl cursor-pointer hover:text-purple-700 duration-300 text-center">?  </div> */}
+        <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
           neuralfin
         </h2>
         {renderThemeChanger()}
