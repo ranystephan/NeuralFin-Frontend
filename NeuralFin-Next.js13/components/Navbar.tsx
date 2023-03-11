@@ -5,6 +5,7 @@ import styles from '../styles'
 import { navVariants } from '../utils/motion'
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 
 
@@ -55,9 +56,23 @@ const Navbar = () => {
       <div className="absolute w-[50%] z-[-1] inset-0 dark:gradient-01 gradient-01-light " />
       <div className={`${styles.innerWidth} mx-auto flex justify-between gap-8 items-center`}>
 {/*         <div className="text-2xl cursor-pointer hover:text-purple-700 duration-300 text-center">?  </div> */}
-        <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+        {/* <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
           neuralfin
-        </h2>
+        </h2> */}
+        <div className="relative group">
+          <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300">
+            neuralfin
+          </h2> 
+          <div className="hidden absolute group-hover:block">
+            <Link href={"/news"}>
+              <div className='font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300'>news</div>
+            </Link>
+            <Link href={"/dashboard"}>
+              <div className='font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300'>dashboard</div>
+            </Link>
+        </div>
+</div>
+
         {renderThemeChanger()}
 
 
