@@ -7,12 +7,13 @@ const styles = {
   rightHeader: 'flex items-center justify-end text-white gap-8 mr-5 mt-3 text-2xl',
   logoname: 'cursor-pointer font-bold hover:text-purple-700 duration-300 text-black',
   menuItem: 'cursor-pointer font-bold hover:text-purple-700 duration-300',
-  searchForm: 'relative',
-  searchInput: ' h-8 px-3 pr-8 text-sm w-28 focus:outline-none border-none placeholder-white placeholder:text-2xl',
+  searchForm: 'relative w-20',
+  searchInput: ' h-8 px-3 pr-8 text-2xl focus:outline-0 focus:border-none border-none placeholder-white placeholder:text-2xl focus:text-2xl w-22 border-transparent focus:border transparent focus:ring-0',
   searchButton: 'absolute bg-green-500 hover:bg-green-700 h-8 right-0 rounded-full text-white w-8'
 }
 
 const Header_News_Phones = () => {
+  
   const handleSearchSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     // handle search submit here
