@@ -3,7 +3,13 @@
 import { motion } from 'framer-motion';
 import { textContainer, textVariant2 } from '../utils/motion';
 
-export const TypingText = ({ title, textStyles }) => (
+interface TypingTextProps {
+  title: string;
+  textStyles?: string;
+}
+
+
+export const TypingText = ({ title, textStyles } : TypingTextProps) => (
   <motion.p
     variants={textContainer}
     className={`font-normal text-sm dark:text-secondary-white text-green-900 ${textStyles}`} 
@@ -17,7 +23,7 @@ export const TypingText = ({ title, textStyles }) => (
   </motion.p>
 );
 
-export const TitleText = ({ title, textStyles }) => (
+export const TitleText = ({ title, textStyles } : TypingTextProps) => (
   <motion.h2
     variants={textVariant2}
     initial="hidden"
