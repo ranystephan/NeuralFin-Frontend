@@ -13,7 +13,7 @@ const styles = {
 }
 
 const Header_News_Phones = () => {
-  const handleSearchSubmit = (event) => {
+  const handleSearchSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     // handle search submit here
   }
