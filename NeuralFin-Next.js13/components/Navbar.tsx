@@ -45,6 +45,27 @@ const Navbar = () => {
 
   }
 
+const dropdownVariants = {
+  hidden: {
+    opacity: 0,
+    y: -10,
+    transition: {
+      type: 'ease',
+      stiffness: 100,
+      damping: 100,
+    },
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'ease',
+      stiffness: 20,
+      delay: 0,
+    },
+  },
+};
+
 
   return (
     <motion.nav
@@ -53,25 +74,31 @@ const Navbar = () => {
       whileInView="show"
       className={`${styles.xPaddings} py-8 relative`}
     >
-      <div className="absolute w-[50%] z-[-1] inset-0 dark:gradient-01 gradient-01-light " />
+      <div className="absolute w-[50%] inset-0 dark:gradient-01 gradient-01-light " />
       <div className={`${styles.innerWidth} mx-auto flex justify-between gap-8 items-center`}>
-{/*         <div className="text-2xl cursor-pointer hover:text-purple-700 duration-300 text-center">?  </div> */}
-        {/* <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-          neuralfin
-        </h2> */}
         <div className="relative group">
           <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300">
             neuralfin
           </h2> 
-          <div className="hidden absolute group-hover:block">
+          <motion.div
+            className="hidden absolute group-hover:block"
+            variants={dropdownVariants}
+            initial="hidden"
+            whileInView="show"
+
+          >
             <Link href={"/news"}>
-              <div className='font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300'>news</div>
+              <div className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300">
+                news
+              </div>
             </Link>
             <Link href={"/dashboard"}>
-              <div className='font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300'>dashboard</div>
+              <div className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300">
+                dashboard
+              </div>
             </Link>
+          </motion.div>
         </div>
-</div>
 
         {renderThemeChanger()}
 
