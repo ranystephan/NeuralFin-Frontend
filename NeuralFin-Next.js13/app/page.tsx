@@ -12,8 +12,8 @@ const Page = () => (
       <Navbar />
       <Hero />
       <WaveGrid />
-      {/*<About />
-      <Explore />
+      <About />
+      {/*<Explore />
       <GetStarted />
       <WhatsNew />
       <World />
