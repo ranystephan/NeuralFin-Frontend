@@ -75,7 +75,7 @@ const dropdownVariants = {
       className={`${styles.xPaddings} py-8 relative`}
     >
       <div className="absolute w-[50%] inset-0 dark:gradient-01 gradient-01-light " />
-      <div className={`${styles.innerWidth} mx-auto flex justify-between gap-8 items-center`}>
+      <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
           <h2 className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-green-700 duration-300">
             neuralfin

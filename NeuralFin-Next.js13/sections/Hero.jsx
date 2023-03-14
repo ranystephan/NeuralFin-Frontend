@@ -3,7 +3,7 @@
 
 import { motion } from 'framer-motion'
 import styles from '../styles'
-import { slideIn, staggerContainer, staggetContainer, textVariant } from '../utils/motion'
+import { slideIn, staggerContainer, textVariant } from '../utils/motion'
 
 
 const Hero = () => (
@@ -16,11 +16,11 @@ const Hero = () => (
       className={`${styles.innerWidth} mx-auto flex flex-col`}
     >
       <div className='flex justify-center items-center flex-col relative z-10'>
-        <motion.h1 variants={textVariant(1.1)} className={`${styles.heroHeading} hero-font`}>
+        <motion.h1 variants={textVariant(0.2)} className={`${styles.heroHeading} hero-font`}>
           Smart finance,
         </motion.h1>
         <motion.div
-        variants={textVariant(1.2)}
+        variants={textVariant(0)}
         className='flex flex-row justify-center items-center'
         >
           <h1 className={`${styles.heroHeading} italic hero-font`}>simplified.</h1>

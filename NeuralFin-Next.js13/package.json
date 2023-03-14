@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "dat.gui": "^0.7.9",
     "eslint-config-next": "^13.1.6",
     "framer-motion": "^9.0.2",
     "gsap": "^3.11.4",
