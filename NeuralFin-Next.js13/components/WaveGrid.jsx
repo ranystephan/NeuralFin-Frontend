@@ -154,7 +154,8 @@ let speed = 0.02;
 let xOffset = 0;
 let zOffset = 0;
 
-function calculateVertexHeight(x: number, z: number, xOffset: number, zOffset: number): number {
+function calculateVertexHeight(x, z, xOffset, zOffset) {
+  //(x: number, z: number, xOffset: number, zOffset: number): number {
   let frequency = 0.1;
   let amplitude = 2;
   let vertexHeight = Math.sin(x * frequency + xOffset) * Math.cos(z * frequency + zOffset) * amplitude;
@@ -162,7 +163,7 @@ function calculateVertexHeight(x: number, z: number, xOffset: number, zOffset: n
 }
 
 
-function animate(time: number) {
+function animate(_time) { //(time: number)
   xOffset += speed;
   zOffset += speed;
 
