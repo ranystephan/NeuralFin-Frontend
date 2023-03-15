@@ -11,7 +11,7 @@ import '../utils/motion';
 
 const About = () => (
   <section className={`${styles.paddings} relative z-10`}>
-    <div className='gradient-02 z-0' />
+    <div className=' z-0' /> {/* This div is for the background gradient (and image) */}
     <motion.div
       variants={staggerContainer}
       initial="hidden"
@@ -22,7 +22,7 @@ const About = () => (
       <TypingText title="" textStyles="text-center" />
 
       <motion.p
-        variants={fadeIn('up', 'tween', 0.2, 1)}
+        variants={fadeIn('up', 'tween', 0.2, 0.3)}
         className='mt-[8px] font-normal sm:text-[32px] text-[20px] text-center dark:text-secondary-white text-green-900'
       >
         <span className='font-extrabold dark:text-white'>NeuralFin</span> is a financial technology company that combines cutting-edge artificial intelligence 
