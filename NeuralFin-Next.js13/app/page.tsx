@@ -11,9 +11,9 @@ const Page = () => (
     <div className="overflow-hidden">
       <Navbar />
       <Hero />
-      <WaveGrid />
+      {/*<WaveGrid />
       <About />
-      {/*<Explore />
+      <Explore />
       <GetStarted />
       <WhatsNew />
       <World />
