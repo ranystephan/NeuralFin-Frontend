@@ -2,9 +2,6 @@ import gsap from "gsap";
 
 import React, { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useInView } from "react-intersection-observer";
-import { useAnimation } from "framer-motion";
-
 //import globals
 
 
@@ -35,9 +32,9 @@ const BallAnimation = () => {
     const context = canvas.getContext("2d");
     const frameCount = 179;
 
-    const currentFrame = (index) => `/BallAnimationImages/${(index + 1).toString()}.jpg`;
+    const currentFrame = (index: number) => `/BallAnimationImages/${(index + 1).toString()}.jpg`;
 
-    const images = [];
+    const images: any[] = [];
     let ball = { frame: 0 };
 
     for (let i = 0; i < frameCount; i++) {
@@ -70,7 +67,6 @@ const BallAnimation = () => {
           scrub: 1,
           start: "70%",
           end: "80%",
-          markers: true,
         },
         onComplete: () => {
           gsap.to(ballTextRef.current, { opacity: 0 });

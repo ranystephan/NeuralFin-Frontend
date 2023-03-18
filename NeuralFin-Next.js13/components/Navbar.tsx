@@ -77,7 +77,7 @@ const dropdownVariants = {
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
-          <h2 className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+          <h2 className="font-extrabold sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
             neuralfin
           </h2> 
           <motion.div
@@ -88,12 +88,12 @@ const dropdownVariants = {
 
           >
             <Link href={"/news"}>
-              <div className="font-extrabold text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
                 news
               </div>
             </Link>
             <Link href={"/dashboard"}>
-              <div className="font-extrabold text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
                 dashboard
               </div>
             </Link>
