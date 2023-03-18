@@ -20,8 +20,11 @@ const styles = {
 
 const BallAnimation = () => {
   const canvasRef = useRef(null);
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  if (typeof window !== "undefined") {
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+  }
+
   const ballTextRef = useRef(null);
 
   useEffect(() => {
