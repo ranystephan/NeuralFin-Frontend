@@ -25,7 +25,7 @@ const BallAnimation = () => {
   const ballTextRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current as unknown as HTMLCanvasElement;
     canvas.width = width;
     canvas.height = height;
 
