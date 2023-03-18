@@ -77,6 +77,8 @@ const BallAnimation = () => {
     images[0].onload = render;
 
     function render() {
+      if (!context) return;
+
       context.canvas.width = images[0].width;
       context.canvas.height = images[0].height;
 
