@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import NewsBar from './NewsBar';
 
 
 type OverviewData = {
@@ -12,7 +13,7 @@ type OverviewData = {
 
 
 const styles = {
-  wrapper: "overflow-hidden bg-white shadow sm:rounded-lg",
+  wrapper: "overflow-hidden",
   companyName: "text-2xl font-bold mb-4",
   description: "text-sm text-gray-400",
 
@@ -43,8 +44,6 @@ function StockForm() {
     <div>
       <div className={styles.wrapper}>
         <div className="px-4 sm:px-6">
-{/*           <h3 className="text-base font-semibold leading-6 text-gray-900">Stock Details</h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500 mb-2">Get an overview of the stock you wish to input</p> */}
           <div>
             <form onSubmit={handleSubmit}>
               <label htmlFor='stock-ticker' />
@@ -75,6 +74,7 @@ function StockForm() {
           </div>
         </div>
       </div>
+      <NewsBar symbol={symbol} />
     </div>
   );
 }

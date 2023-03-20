@@ -15,7 +15,7 @@ body {
   display: flex;
 }
 
-.right-half {
+/* .right-half {
   background: linear-gradient(180deg, rgb(3, 33, 26) 0%, rgb(12, 13, 13) 100%);
   width: 50%;
   height: 100%;
@@ -25,7 +25,7 @@ body {
   background-color: white;
   width: 50%;
   height: 100%;
-}
+} */
 
 a {
   color: inherit;
