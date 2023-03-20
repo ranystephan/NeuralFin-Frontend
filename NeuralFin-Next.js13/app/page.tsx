@@ -1,12 +1,13 @@
 'use client';
 
 
-import { Footer, Navbar } from '@/components';
-import { About, Explore, Feedback, GetStarted, Hero, Insights, WhatsNew, World } from '../sections';
+import { Navbar } from '@/components';
 import { ThemeProvider } from 'next-themes';
 import BallAnimation from '@/components/BallAnimation';
 import React from 'react';
-import { relative } from 'path';
+import '../styles/globals.css'
+
+
 
 const Page = () => (
   <ThemeProvider attribute="class">
@@ -20,17 +21,6 @@ const Page = () => (
           <BallAnimation />
         </div>
       </div>
-
-      {/*
-      <Hero />
-      <About />
-      <Explore />
-      <GetStarted />
-      <WhatsNew />
-      <World />
-      <Insights />
-      <Feedback />
-      <Footer /> */}
     </div>
   </ThemeProvider>
 )

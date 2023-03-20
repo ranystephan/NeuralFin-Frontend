@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import NewsBar from './NewsBar';
 
 
@@ -19,7 +19,8 @@ const styles = {
 
 }
 
-function StockForm() {
+
+function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
   const [symbol, setSymbol] = useState('');
   const [overviewData, setOverviewData] = useState(null as OverviewData | null);
   const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
@@ -37,8 +38,13 @@ function StockForm() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    props.onSymbolChange(symbol);
     fetchOverviewData();
   }
+
+    const handleSymbolChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+      setSymbol(event.target.value);
+    };
 
   return (
     <div>
@@ -54,7 +60,8 @@ function StockForm() {
                   <input
                     type="text"
                     value={symbol} 
-                    onChange={event => setSymbol(event.target.value)}
+                    /* onChange={event => setSymbol(event.target.value)} */
+                    onChange={handleSymbolChange}
                     name="stock-ticker"
                     id="stock-ticker"
                     className="block w-full p-4 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green sm:text-sm sm:leading-6"
@@ -65,6 +72,7 @@ function StockForm() {
                 <div>
                   <div className={styles.companyName}>{overviewData.Name}</div>
                   <div className={styles.description}>{overviewData.Description}</div>
+
                 </div>
               ) : (
                 <div>Loading...</div>
@@ -74,7 +82,6 @@ function StockForm() {
           </div>
         </div>
       </div>
-      <NewsBar symbol={symbol} />
     </div>
   );
 }

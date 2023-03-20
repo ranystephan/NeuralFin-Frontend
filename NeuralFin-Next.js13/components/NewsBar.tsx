@@ -1,8 +1,4 @@
-'use client'
-
-
 import { useState, useEffect } from 'react';
-
 
 type NewsData = {
   title: string;
@@ -14,22 +10,34 @@ type NewsBarProps = {
 };
 
 const NewsBar = (props: NewsBarProps) => {
-  const [newsData, setNewsData] = useState(null as NewsData[] | null);
+  const [newsData, setNewsData] = useState([] as NewsData[]);
   const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
 
+  const fetchNewsData = async () => {
+    try {
+      const response = await fetch(`https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${props.symbol}&apikey=${apiKey}`);
+      const data = await response.json();
+      const articles = data.feed.map((article: { title: any; summary: any; }) => ({
+        title: article.title,
+        summary: article.summary,
+      }));
+      setNewsData(articles);
+    } catch (error) {
+      console.error('Error fetching news data:', error);
+    }
+  }
 
   useEffect(() => {
-    fetch(`https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${props.symbol}&apikey=${apiKey}`)
-      .then(response => response.json())
-      .then(data => setNewsData(data.articles));
+    fetchNewsData();
   }, [props.symbol]);
 
+
   return (
-    <div style={{ height: '400px', overflowY: 'scroll' }}>
-      {newsData && newsData.map((article, index) => (
+    <div className='overflow-y-scroll max-h-auto'>
+      {newsData && newsData.length && newsData.map((article, index) => (
         <div key={index}>
-          <h3>{article.title}</h3>
-          <p>{article.summary}</p>
+          <div className='m-3 text-sm text-white font-bold'>{article.title}</div>
+          <div className='m-3 text-sm text-gray-400'>{article.summary}</div>
         </div>
       ))}
     </div>

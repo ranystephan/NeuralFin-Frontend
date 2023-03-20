@@ -1,27 +1,34 @@
 'use client'
 
-import StockForm from '@/components/StockForm'
-import Header_News from '../../components/Header_News'
-import Header_News_Phones from '../../components/Header_News_Phones'
-import NewsBar from '@/components/NewsBar'
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import StockForm from '@/components/StockForm';
+import Header_News from '../../components/Header_News';
+import Header_News_Phones from '../../components/Header_News_Phones';
+import NewsBar from '@/components/NewsBar';
+import '@/styles/globals.css';
 
 const styles = {
-  wrapper: "w-screen h-screen flex flex-col",
-  leftContainer: "absolute w-1/2 h-full flex",
-  leftSidebar: "absolute w-72 h-full border-r flex flex-col mt-16 border-gray-200",
+  wrapper: "relative w-full h-full flex flex-col",
+  leftContainer: "absolute w-1/2 h-full flex mt-16",
+  leftSidebar: "absolute w-72 bottom-0 border-r flex flex-col top-0 border-gray-200",
   rightContainer: "absolute w-1/2 left-1/2 h-full flex ",
-  rightSidebar: "absolute w-72 h-full border-r flex flex-col mt-16 border-white-200",
-
+  rightSidebar: "absolute w-72 bottom-4 border-r-2 flex flex-col top-4 border-gray-600",
 }
 
 const Page = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [symbol, setSymbol] = useState('');
+
+
+  const handleSymbolChange = (newSymbol: string) => {
+    setSymbol(newSymbol);
+  };
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768); // Change the breakpoint to match your needs
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // Change the breakpoint to match your needs
-    }
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
@@ -39,19 +46,19 @@ const Page = () => {
 
   return (
     <div className={styles.wrapper}>
-        <Header_News />
+      <Header_News />
       <div className={styles.leftContainer}>
         <div className={styles.leftSidebar}>
-          <StockForm />
+          <StockForm onSymbolChange={handleSymbolChange} />
         </div>
       </div>
       <div className={styles.rightContainer}>
         <div className={styles.rightSidebar}>
-          <NewsBar symbol={'AAPL'} />
+          <NewsBar symbol={symbol} />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Page;
