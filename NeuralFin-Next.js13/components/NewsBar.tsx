@@ -38,6 +38,9 @@ const NewsBar = (props: NewsBarProps) => {
         <div key={index}>
           <div className='m-3 text-sm text-white font-bold'>{article.title}</div>
           <div className='m-3 text-sm text-gray-400'>{article.summary}</div>
+          <div className='text-center'>
+            <div className='border-b border-gray-600 w-52 inline-block'></div>
+          </div>
         </div>
       ))}
     </div>

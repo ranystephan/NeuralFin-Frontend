@@ -9,8 +9,8 @@ import '@/styles/globals.css';
 
 const styles = {
   wrapper: "relative w-full h-full flex flex-col",
-  leftContainer: "absolute w-1/2 h-full flex mt-16",
-  leftSidebar: "absolute w-72 bottom-0 border-r flex flex-col top-0 border-gray-200",
+  leftContainer: "absolute w-1/2 top-12 bottom-0 flex",
+  leftSidebar: "absolute w-72 top-0 mt-4 bottom-0 border-r flex flex-col border-gray-200",
   rightContainer: "absolute w-1/2 left-1/2 h-full flex ",
   rightSidebar: "absolute w-72 bottom-4 border-r-2 flex flex-col top-4 border-gray-600",
 }

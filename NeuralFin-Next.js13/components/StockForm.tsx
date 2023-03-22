@@ -1,37 +1,39 @@
-'use client'
-
 import { SetStateAction, useState } from 'react';
-import NewsBar from './NewsBar';
-
 
 type OverviewData = {
   Name: string;
   Exchange: string;
   Description: string;
+  Sector: string;
+  Empty : string;
 };
-
-
 
 const styles = {
   wrapper: "overflow-hidden",
-  companyName: "text-2xl font-bold mb-4",
+  companyName: "text-2xl font-bold mb-2",
+  sector: "text-sm text-gray-400 font-bold mb-1",
   description: "text-sm text-gray-400",
-
-}
-
+};
 
 function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
   const [symbol, setSymbol] = useState('');
   const [overviewData, setOverviewData] = useState(null as OverviewData | null);
+  const [isLoading, setIsLoading] = useState(false);
   const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
-  
 
   async function fetchOverviewData() {
     try {
+      setIsLoading(true);
       const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`);
       const data = await response.json();
-      setOverviewData(data);
+      if (Object.keys(data).length === 0) {
+        setOverviewData( {Name: '', Exchange: '', Description: '', Sector: '', Empty: 'Empty'} );
+      } else {
+        setOverviewData(data);
+      }
+        setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error('Error fetching overview data:', error);
     }
   }
@@ -39,12 +41,20 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onSymbolChange(symbol);
-    fetchOverviewData();
+    if (symbol.trim() !== ''){
+      fetchOverviewData();
+    } else {
+      setOverviewData(null);
+    }
+
   }
 
-    const handleSymbolChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-      setSymbol(event.target.value);
-    };
+  const handleSymbolChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setSymbol(event.target.value);
+  };
+
+
+
 
   return (
     <div>
@@ -54,30 +64,58 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
             <form onSubmit={handleSubmit}>
               <label htmlFor='stock-ticker' />
               <div className="mt-2 flex mb-4">
-                  <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
-                    Symbol
-                  </span>
-                  <input
-                    type="text"
-                    value={symbol} 
-                    /* onChange={event => setSymbol(event.target.value)} */
-                    onChange={handleSymbolChange}
-                    name="stock-ticker"
-                    id="stock-ticker"
-                    className="block w-full p-4 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green sm:text-sm sm:leading-6"
-                    placeholder="AAPL"
-                  />
-                </div>
-              {overviewData ? (
+                <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
+                  Symbol
+                </span>
+                <input
+                  type="text"
+                  value={symbol}
+                  onChange={handleSymbolChange}
+                  name="stock-ticker"
+                  id="stock-ticker"
+                  className="block w-full p-4 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green sm:text-sm sm:leading-6"
+                  placeholder="Example: 'AAPL'"
+                />
+              </div>
+              {isLoading ? (
                 <div>
-                  <div className={styles.companyName}>{overviewData.Name}</div>
-                  <div className={styles.description}>{overviewData.Description}</div>
-
+                  <div className="flex items-center justify-center">
+                    <span className="mr-2">Loading...</span>
+                    <div className="w-6 h-6 border-4 border-gray-400 rounded-full animate-spin"></div>
+                  </div>
                 </div>
               ) : (
-                <div>Loading...</div>
-              )}
+                <div>
+                  {overviewData?.Empty === 'Empty' && 
+                    <div>
+                      <div className="flex items-center justify-center h-24 text-lg text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                        </svg>
+                        <span>We're sorry, but this stock is not yet available</span>
+                      </div>
 
+                    </div>
+                  }
+                  {overviewData === null && 
+                    <div>
+                      <div className={styles.companyName}>NeuralFin</div>
+                      <div className={styles.sector}>FINTECH - TECHNOLOGY</div>
+                      <div className={styles.description}>
+                        NeuralFin is a Fintech startup that is disrupting the investment industry through its cutting-edge technology and AI-powered platform. The company aims to provide a comprehensive platform for stock market analysis and investment recommendations, with a user-friendly interface and transparent fee structure.
+                        NeuralFin's mission is to democratize finance by making information and tools available to everyone.
+                      </div>
+                    </div>
+                  }
+                  {overviewData && (
+                    <div>
+                      <div className={styles.companyName}>{overviewData.Name}</div>
+                      <div className={styles.sector}>{overviewData.Sector}</div>
+                      <div className={styles.description}>{overviewData.Description}</div>
+                    </div>
+                  )}
+                </div>
+              )}
             </form>
           </div>
         </div>
