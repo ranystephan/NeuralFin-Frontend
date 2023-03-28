@@ -83,9 +83,7 @@ const StockChart = (props: StockChartProps) => {
     <div>
       <div>
         <button onClick={() => setIsModalOpen(true)}>O</button>
-        {isModalOpen && <StockChartModal stockData={stockData} isOpen={false} onClose={function (): void {
-          throw new Error('Function not implemented.');
-        } } />}
+        {isModalOpen && <StockChartModal stockData={stockData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
 
         <button 
           onClick={() => setChartRange('1D')}
