@@ -6,24 +6,22 @@ html,
 body {
   /* font-family: "Eudoxus Sans", sans-serif; */
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 100%;
+  
+
 }
 
 .page-container {
-  background-color: white;
-  height: 100vh;
-  display: flex;
+  background: repeating-linear-gradient(90deg, #ffffff, #ffffff 50%,rgb(2, 20, 15) 0%,rgb(3, 3, 3) 100%);
 }
 
 .right-half {
   background: linear-gradient(180deg, rgb(3, 33, 26) 0%, rgb(12, 13, 13) 100%);
-  width: 50%;
-  height: 100%;
+
 }
 
 .left-half {
   background-color: white;
-  width: 50%;
-  height: 100%;
 }
 
 a {

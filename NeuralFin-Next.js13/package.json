@@ -2,15 +2,19 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "dat.gui": "^0.7.9",
+    "date-fns": "^2.29.3",
     "eslint-config-next": "^13.1.6",
     "framer-motion": "^9.0.2",
     "gsap": "^3.11.5",
     "next": "^13.1.6",
     "next-themes": "^0.2.1",
     "next-transpile-modules": "^10.0.0",
+    "plotly.js-dist": "^2.20.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-responsive-modal": "^6.4.1",
+    "recharts": "^2.5.0",
     "three": "^0.150.1"
   },
   "scripts": {
@@ -20,6 +24,7 @@
     "lint": "next lint"
   },
   "devDependencies": {
+    "@types/d3": "^7.4.0",
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
     "@types/three": "^0.149.0",

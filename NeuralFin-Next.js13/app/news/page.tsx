@@ -6,14 +6,18 @@ import Header_News from '../../components/Header_News';
 import Header_News_Phones from '../../components/Header_News_Phones';
 import NewsBar from '@/components/NewsBar';
 import '@/styles/globals.css';
+import StockChart from '@/components/StockChart';
 
 const styles = {
-  wrapper: "relative w-full h-full flex flex-col",
-  leftContainer: "absolute w-1/2 top-12 bottom-0 flex",
-  leftSidebar: "absolute w-72 top-0 mt-4 bottom-0 border-r flex flex-col border-gray-200",
-  rightContainer: "absolute w-1/2 left-1/2 h-full flex ",
-  rightSidebar: "absolute w-72 bottom-4 border-r-2 flex flex-col top-4 border-gray-600",
+  wrapper: "flex-col page-container h-screen w-screen overflow-hidden",
+  mainContainer: "h-screen w-screen flex",
+  leftContainer: "w-1/2 flex ",
+  leftSidebar: "w-72 mt-4 border-r flex flex-col border-gray-200",
+  leftChart: "m-4 flex-1 ",
+  rightContainer: "w-1/2 flex",
+  rightSidebar: "w-72 mb-4 border-r-2 flex flex-col border-gray-600",
 }
+
 
 const Page = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -47,14 +51,19 @@ const Page = () => {
   return (
     <div className={styles.wrapper}>
       <Header_News />
-      <div className={styles.leftContainer}>
-        <div className={styles.leftSidebar}>
-          <StockForm onSymbolChange={handleSymbolChange} />
+      <div className={styles.mainContainer}>
+        <div className={styles.leftContainer}>
+          <div className={styles.leftSidebar}>
+            <StockForm onSymbolChange={handleSymbolChange} />
+          </div>
+          <div className={styles.leftChart}>
+            <StockChart symbol={symbol? symbol: 'SPY'} />
+          </div>
         </div>
-      </div>
-      <div className={styles.rightContainer}>
-        <div className={styles.rightSidebar}>
-          <NewsBar symbol={symbol} />
+        <div className={styles.rightContainer}>
+          <div className={styles.rightSidebar}>
+            <NewsBar symbol={symbol} />
+          </div> 
         </div>
       </div>
     </div>
