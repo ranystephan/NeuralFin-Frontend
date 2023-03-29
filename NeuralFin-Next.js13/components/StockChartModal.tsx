@@ -23,7 +23,7 @@ type StockChartModalProps = {
 const StockChartModal = ({ stockData, isOpen, onClose }: StockChartModalProps) => {
   return (
     <Modal isOpen={isOpen} toggle={onClose} size="lg" className="fixed inset-0 flex justify-center items-center">
-      <div className="absolute inset-0 bg-gray-900 opacity-90 z-1"></div>
+      <div className="absolute inset-0 z-1 bg-white bg-opacity-25 backdrop-filter backdrop-blur-lg backdrop-brightness-75 "></div>
       <div className="absolute inset-0 flex justify-center items-center z-10">
         <div className="absolute inset-0 flex justify-start z-15">
           <ModalHeader toggle={onClose}>
