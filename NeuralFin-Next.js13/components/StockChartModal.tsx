@@ -2,6 +2,13 @@ import { format, parseISO } from 'date-fns';
 import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import Image from 'next/image';
+import expand_ios from '../public/LogosItems/expand_ios.png';
+
+const styles = {
+  button: "hover:bg-gray-200 font-bold py-2 px-2 rounded ",
+
+}
 
 type StockData = {
   Open: number;
@@ -23,12 +30,12 @@ type StockChartModalProps = {
 const StockChartModal = ({ stockData, isOpen, onClose }: StockChartModalProps) => {
   return (
     <Modal isOpen={isOpen} toggle={onClose} size="lg" className="fixed inset-0 flex justify-center items-center">
-      <div className="absolute inset-0 z-1 bg-white bg-opacity-25 backdrop-filter backdrop-blur-lg backdrop-brightness-75 "></div>
+      <div className="absolute inset-0 z-1 bg-grey-800 bg-opacity-50 backdrop-filter backdrop-blur-lg backdrop-brightness-75 "></div>
       <div className="absolute inset-0 flex justify-center items-center z-10">
         <div className="absolute inset-0 flex justify-start z-15">
           <ModalHeader toggle={onClose}>
-            <button className="btn btn-secondary" onClick={onClose}>
-              X
+            <button className={styles.button} onClick={onClose}>
+              <Image src={expand_ios} alt="expand" width={15} height={15} />
             </button>
           </ModalHeader>
         </div>

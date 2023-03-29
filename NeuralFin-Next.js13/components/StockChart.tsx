@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { parseISO, format, subDays, subWeeks, subMonths, subYears, startOfYear } from 'date-fns';
 import StockChartModal from './StockChartModal';
-import zoom_gif from '../public/LogosItems/zoom_gif.gif';
+import expand_ios from '../public/LogosItems/expand_ios.png';
 import Image from 'next/image';
 
 
@@ -84,11 +84,11 @@ const StockChart = (props: StockChartProps) => {
 
   return (
     <div>
-      <div>
-        <button onClick={() => setIsModalOpen(true)}>
-          <Image src={zoom_gif} alt="Zoom GIF" width={20} height={20} />
+      <div className='flex'>
+        <button onClick={() => setIsModalOpen(true)} className={`${styles.chartRangeButton}`}>
+          <Image src={expand_ios} alt="expand" width={15} height={15} />
         </button>
-        
+
         {isModalOpen && <StockChartModal stockData={stockData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
 
         <button 
