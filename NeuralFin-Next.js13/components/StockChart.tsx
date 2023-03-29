@@ -148,7 +148,7 @@ const StockChart = (props: StockChartProps) => {
             </linearGradient>
           </defs>
           <XAxis dataKey="date" tickFormatter={(date) => format(parseISO(date), 'MMM dd')} />
-          <YAxis tickCount={6} orientation='right' domain={['dataMin - 10', 'dataMax']} axisLine={false}  tickFormatter={(tick) => Math.round(tick)} strokeWidth={0} />
+          <YAxis tickCount={6} orientation='right' domain={['dataMin - 10', 'dataMax']} axisLine={false}  tickFormatter={(tick) => Math.round(tick).toString()} strokeWidth={0} />
           <CartesianGrid strokeOpacity={0.2} />
           <Tooltip labelFormatter={(date) => format(parseISO(date as string), 'PPPPppp')} />
           <Area type="monotone" dataKey="Close" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
