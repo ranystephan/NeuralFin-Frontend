@@ -43,8 +43,8 @@ const StockChart = (props: StockChartProps) => {
 
   useEffect(() => {
     const fetchStockData = async () => {
-      const apiUrl_local = `http://localhost:8000/api/stocks/${props.symbol}/`;
-      const response = await fetch(apiUrl_local);
+      const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/stocks/${props.symbol}/`;
+      const response = await fetch(apiUrl_deployed);
       const data: StockResponse = await response.json();
 
       // Filter the data based on the selected chart range
