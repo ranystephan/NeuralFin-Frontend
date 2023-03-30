@@ -78,7 +78,7 @@ const StockChartModal = ({ stockData, isOpen, onClose }: StockChartModalProps) =
                 <XAxis dataKey="date" tickFormatter={(date) => format(parseISO(date), 'MMM dd')} />
                 <YAxis tickCount={6} orientation='right' domain={['dataMin - 10', 'dataMax']} axisLine={false}  tickFormatter={(tick) => Math.round(tick).toString()} strokeWidth={0} />
                 <CartesianGrid strokeOpacity={0.2} />
-                <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} position={{ x: 0, y: 0 }}  />
+                <Tooltip content={<CustomTooltip active={false} payload={[]} label={''}  />} position={{ x: 0, y: 0 }}  />
                 <Area type="monotone" dataKey="Close" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 <Area type="monotone" dataKey="Open" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
               </AreaChart>
