@@ -31,7 +31,14 @@ type StockChartProps = {
   symbol: string;
 };
 
-function CustomTooltip({ active, payload, label }) {
+type CustomTooltipProps = {
+  active: boolean;
+  payload: Array<{ value: number }>;
+  label: string;
+}
+
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active) {
     return (
       <div className={styles.tooltip}>

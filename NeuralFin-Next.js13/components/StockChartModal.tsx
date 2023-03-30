@@ -28,11 +28,18 @@ type StockChartModalProps = {
   onClose: () => void;
 };
 
-function CustomTooltip({ active, payload, label }) {
+type CustomTooltipProps = {
+  active: boolean;
+  payload: Array<{ value: number }>;
+  label: string;
+}
+
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active) {
     return (
       <div className={styles.tooltip}>
-        <div>{format(parseISO(label), 'PPPP')}</div>
+        <h4>{format(parseISO(label), 'PPPP')}</h4>
         <p>Open: {payload[0].value.toFixed(2)}</p>
         <p>High: {payload[1].value.toFixed(2)}</p>
       </div>
@@ -40,6 +47,7 @@ function CustomTooltip({ active, payload, label }) {
   }
   return null;
 }
+
 
 const StockChartModal = ({ stockData, isOpen, onClose }: StockChartModalProps) => {
   return (
