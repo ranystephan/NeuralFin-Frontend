@@ -15,7 +15,10 @@ const styles = {
   leftSidebar: "w-72 mt-4 border-r flex flex-col border-gray-200",
   leftChart: "m-4 flex-1 ",
   rightContainer: "w-1/2 flex",
-  rightSidebar: "w-72 mb-4 border-r-2 flex flex-col border-gray-600",
+  rightSidebar: "w-72 border-r-2 flex flex-col border-gray-600",
+  rightDataContainer: "flex flex-col flex-1 ",
+  rightDataBottom: "flex bg-blue-800 flex-1",
+  rightDataTop: "flex bg-green-800 flex-1",
 }
 
 
@@ -64,6 +67,15 @@ const Page = () => {
           <div className={styles.rightSidebar}>
             <NewsBar symbol={symbol} />
           </div> 
+          <div className={styles.rightDataContainer}>
+            <div className={styles.rightDataTop}>
+              <p>Maybe correlation between news sentiments and stock trajectory?</p>
+            </div>
+            <div className={styles.rightDataBottom}>
+              <p>More financial data about the company</p>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

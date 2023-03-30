@@ -99,9 +99,13 @@ const dropdownVariants = {
             </Link>
           </motion.div>
     </div>
-        <h2 className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-          ~
-        </h2> 
+        <div className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+          <Link href={"/login"}>
+            <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              click me
+            </div>
+          </Link>
+        </div> 
 
 
 {/*         {renderThemeChanger()} */}

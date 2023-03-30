@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 
 const styles = {
-  tooltip: "rounded-sm bg-gray-900 p-1 shadow-lg text-center text-white  border-0",
+  tooltip: "rounded font-bold ",
   chartRangeButton: "hover:bg-gray-200 font-bold py-2 px-2 rounded ",
 
 };
@@ -30,6 +30,20 @@ type StockResponse = {
 type StockChartProps = {
   symbol: string;
 };
+
+function CustomTooltip({ active, payload, label }) {
+  if (active) {
+    return (
+      <div className={styles.tooltip}>
+        <h4>{format(parseISO(label), 'PPPP')}</h4>
+        <p>Open: {payload[0].value.toFixed(2)}</p>
+        <p>High: {payload[1].value.toFixed(2)}</p>
+      </div>
+    );
+  }
+  return null;
+}
+
 
 type ChartRange = '1D' | '1W' | '1M' | '3M' | '6M' | 'YTD' | 'ALL';
 
@@ -150,7 +164,7 @@ const StockChart = (props: StockChartProps) => {
           <XAxis dataKey="date" tickFormatter={(date) => format(parseISO(date), 'MMM dd')} />
           <YAxis tickCount={6} orientation='right' domain={['dataMin - 10', 'dataMax']} axisLine={false}  tickFormatter={(tick) => Math.round(tick).toString()} strokeWidth={0} />
           <CartesianGrid strokeOpacity={0.2} />
-          <Tooltip labelFormatter={(date) => format(parseISO(date as string), 'PPPPppp')} />
+          <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} position={{ x: 0, y: 0 }}  />
           <Area type="monotone" dataKey="Close" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
           <Area type="monotone" dataKey="Open" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
         </AreaChart>

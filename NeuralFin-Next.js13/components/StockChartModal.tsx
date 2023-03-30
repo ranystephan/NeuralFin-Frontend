@@ -7,6 +7,7 @@ import expand_ios from '../public/LogosItems/expand_ios.png';
 
 const styles = {
   button: "hover:bg-gray-200 font-bold py-2 px-2 rounded ",
+  tooltip: "rounded  text-lg font-bold "
 
 }
 
@@ -26,6 +27,19 @@ type StockChartModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
+
+function CustomTooltip({ active, payload, label }) {
+  if (active) {
+    return (
+      <div className={styles.tooltip}>
+        <div>{format(parseISO(label), 'PPPP')}</div>
+        <p>Open: {payload[0].value.toFixed(2)}</p>
+        <p>High: {payload[1].value.toFixed(2)}</p>
+      </div>
+    );
+  }
+  return null;
+}
 
 const StockChartModal = ({ stockData, isOpen, onClose }: StockChartModalProps) => {
   return (
@@ -56,7 +70,7 @@ const StockChartModal = ({ stockData, isOpen, onClose }: StockChartModalProps) =
                 <XAxis dataKey="date" tickFormatter={(date) => format(parseISO(date), 'MMM dd')} />
                 <YAxis tickCount={6} orientation='right' domain={['dataMin - 10', 'dataMax']} axisLine={false}  tickFormatter={(tick) => Math.round(tick).toString()} strokeWidth={0} />
                 <CartesianGrid strokeOpacity={0.2} />
-                <Tooltip labelFormatter={(date) => format(parseISO(date as string), 'PPPPppp')} />
+                <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} position={{ x: 0, y: 0 }}  />
                 <Area type="monotone" dataKey="Close" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 <Area type="monotone" dataKey="Open" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
               </AreaChart>

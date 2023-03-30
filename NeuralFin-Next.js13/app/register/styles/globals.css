@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  /* font-family: "Eudoxus Sans", sans-serif; */
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 100%;
+  
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
