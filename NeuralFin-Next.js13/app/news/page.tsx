@@ -67,7 +67,7 @@ const Page = () => {
           <div className={styles.rightSidebar}>
             <NewsBar symbol={symbol} />
           </div> 
-          <div className={styles.rightDataContainer}>
+          {/* <div className={styles.rightDataContainer}>
             <div className={styles.rightDataTop}>
               <p>Maybe correlation between news sentiments and stock trajectory?</p>
             </div>
@@ -75,7 +75,7 @@ const Page = () => {
               <p>More financial data about the company</p>
             </div>
 
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
