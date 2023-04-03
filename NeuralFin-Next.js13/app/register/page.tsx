@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import '@/styles/globals.css';
+import transLogo from '@/public/neuralfinLogo/transLogo.png';
+import Image from 'next/image';
+
 
 const styles = {
   container: " h-screen w-screen overflow-hidden bg-purple-100",
