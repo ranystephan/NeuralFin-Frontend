@@ -12,8 +12,8 @@ const styles = {
   blobContainer: "flex flex-col items-center justify-center w-full z-0",
   loginContainer: "absolute inset-0 flex justify-center items-center z-5 bg-white bg-opacity-25",
   login: "w-96 h-2/3 rounded z-10 flex flex-col items-center",
-  logo: "w-14 h-14 bg-white rounded-2xl mt-4",
-  loginHeader: "text-2xl font-bold mt-4",
+  logo: "w-20 h-20 rounded-2xl mt-2",
+  loginHeader: "text-2xl font-bold ",
   emailForm: "w-80 h-16 bg-white border border-gray-300 border-2 rounded-xl mt-10 items-center justify-center flex text-gray-400",
   passwordForm: "w-80 h-16 bg-white border border-gray-300 border-2 rounded-xl mt-3 items-center justify-center flex text-gray-400",
   loginButton: "w-40 h-10 bg-white rounded-xl mt-12 bg-gradient-to-r from-purple-400 to-blue-500 items-center justify-center flex text-gray-400 hover:text-white font-bold",
@@ -35,7 +35,9 @@ const RegisterPage = () => {
       </div>
       <div className={styles.loginContainer}>
         <div className={styles.login}>
-          <div className={styles.logo}></div>
+          <div className={styles.logo}>
+            <Image src={transLogo} alt="logo" width={250} height={250} />
+          </div>
           <div className={styles.loginHeader}>Welcome</div>
           <div className={styles.emailForm}>EMAIL</div>
           <div className={styles.passwordForm}>PASSWORD</div>
