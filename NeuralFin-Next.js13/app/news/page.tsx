@@ -7,6 +7,7 @@ import Header_News_Phones from '../../components/Header_News_Phones';
 import NewsBar from '@/components/NewsBar';
 import '@/styles/globals.css';
 import StockChart from '@/components/StockChart';
+import CompanyKPIs from '@/components/CompanyKPIs';
 
 const styles = {
   wrapper: "flex-col page-container h-screen w-screen overflow-hidden",
@@ -18,7 +19,7 @@ const styles = {
   rightSidebar: "w-72 border-r-2 flex flex-col border-gray-600",
   rightDataContainer: "flex flex-col flex-1 ",
   rightDataBottom: "flex bg-blue-800 flex-1",
-  rightDataTop: "flex bg-green-800 flex-1",
+  rightDataTop: "flex flex-1",
 }
 
 
@@ -67,15 +68,14 @@ const Page = () => {
           <div className={styles.rightSidebar}>
             <NewsBar symbol={symbol} />
           </div> 
-          {/* <div className={styles.rightDataContainer}>
+          <div className={styles.rightDataContainer}>
             <div className={styles.rightDataTop}>
-              <p>Maybe correlation between news sentiments and stock trajectory?</p>
             </div>
             <div className={styles.rightDataBottom}>
-              <p>More financial data about the company</p>
+              <CompanyKPIs />
             </div>
 
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
