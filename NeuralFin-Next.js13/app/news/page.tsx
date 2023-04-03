@@ -7,7 +7,6 @@ import Header_News_Phones from '../../components/Header_News_Phones';
 import NewsBar from '@/components/NewsBar';
 import '@/styles/globals.css';
 import StockChart from '@/components/StockChart';
-import CompanyKPIs from '@/components/CompanyKPIs';
 
 const styles = {
   wrapper: "flex-col page-container h-screen w-screen overflow-hidden",
@@ -72,7 +71,6 @@ const Page = () => {
             <div className={styles.rightDataTop}>
             </div>
             <div className={styles.rightDataBottom}>
-              <CompanyKPIs />
             </div>
 
           </div>
