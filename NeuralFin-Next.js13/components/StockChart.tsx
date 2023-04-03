@@ -65,7 +65,8 @@ const StockChart = (props: StockChartProps) => {
   useEffect(() => {
     const fetchStockData = async () => {
       const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/stocks/${props.symbol}/`;
-      const response = await fetch(apiUrl_deployed);
+      const apiUrl_local = `http://localhost:8000/api/stocks/${props.symbol}/`;
+      const response = await fetch(apiUrl_local);
       const data: StockResponse = await response.json();
 
       // Filter the data based on the selected chart range
@@ -105,7 +106,7 @@ const StockChart = (props: StockChartProps) => {
 
   return (
     <div>
-      <div className='flex'>
+      <div className='flex items-center justify-start'>
         <button onClick={() => setIsModalOpen(true)} className={`${styles.chartRangeButton}`}>
           <Image src={expand_ios} alt="expand" width={15} height={15} />
         </button>
