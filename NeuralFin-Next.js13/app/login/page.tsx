@@ -1,9 +1,16 @@
+'use strict'
 'use client'
 
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import '@/styles/globals.css';
 import transLogo from '@/public/neuralfinLogo/transLogo.png';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
 
 
 const styles = {
@@ -16,18 +23,41 @@ const styles = {
   loginContainer: "absolute inset-0 flex justify-center items-center z-5 bg-white bg-opacity-25",
   login: "w-96 h-2/3 rounded z-10 flex flex-col items-center",
   logo: "w-20 h-20 rounded-2xl mt-2",
-  loginHeader: "text-2xl font-bold ",
-  orCreateAccount: "text-sm ",
-  emailForm: "w-80 h-16 bg-white border border-gray-300 border-2 rounded-xl mt-10 items-center justify-center flex text-gray-400",
-  passwordForm: "w-80 h-16 bg-white border border-gray-300 border-2 rounded-xl mt-3 items-center justify-center flex text-gray-400",
-  loginButton: "w-40 h-10 bg-white rounded-xl mt-12 bg-gradient-to-r from-purple-400 to-blue-500 items-center justify-center flex text-gray-400 hover:text-white font-bold",
-  forgotPassword: "text-sm mt-4 text-blue-700",
+  loginHeader: "text-2xl font-bold font-mono",
+  orCreateAccount: "text-sm",
+  emailForm: "w-80 h-16 bg-opacity-60 backdrop-blur-md border border-gray-300 border-2 rounded-xl mt-10 items-center justify-center flex text-black font-mono hover:bg-gray-200 duration-300",
+  passwordForm: "w-80 h-16 border border-gray-300 border-2 rounded-xl mt-3 items-center justify-center flex text-black font-mono hover:bg-gray-200 duration-300",
+  loginButton: "w-40 h-10 rounded-md bg-blue-700 mt-12 mx-auto items-center justify-center flex text-gray-400 hover:text-white font-bold hover:w-44 hover:h-12 duration-300 font-mono",
+  forgotPassword: "text-sm mt-4 text-blue-700 font-mono hover:font-bold duration-300",
 
 }
 
 
 const LoginPage = () => {
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+
+  const submit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/login`;
+    const apiUrl_local = `http://localhost:8000/api/login`;
+
+    await fetch(apiUrl_deployed, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    router.push('/');
+
+  }
 
   return (
     <div className={styles.container}>
@@ -40,13 +70,30 @@ const LoginPage = () => {
       <div className={styles.loginContainer}>
         <div className={styles.login}>
           <div className={styles.logo}>
-            <Image src={transLogo} alt="logo" width={250} height={250} />
+            <Link href={"/"}>
+              <Image src={transLogo} alt="logo" width={250} height={250} />
+            </Link>
           </div>
           <div className={styles.loginHeader}>Sign In</div>
-          <div className={styles.orCreateAccount}>or create an account</div>
-          <div className={styles.emailForm}>EMAIL</div>
-          <div className={styles.passwordForm}>PASSWORD</div>
-          <div className={styles.loginButton}>Continue</div>
+          <div className={styles.orCreateAccount}>
+            <Link href={"/register"}>
+              <span>or </span>
+              <span className="cursor-pointer hover:text-purple-700 duration-300">
+                create an account
+              </span>
+            </Link>
+          </div>
+            <form onSubmit={submit}>
+              <input type='email' placeholder='email' className={styles.emailForm} required
+                onChange={e => setEmail(e.target.value)}
+              />
+              <input type='password' placeholder='password' className={styles.passwordForm} required
+                onChange={e => setPassword(e.target.value)}
+              />
+              <button className={styles.loginButton} type='submit'>
+                continue<span style={{ marginLeft: '10px' }}></span><FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            </form>
           <div className={styles.forgotPassword}>Forgot your password?</div>
         </div>
       </div>

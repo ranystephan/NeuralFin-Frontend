@@ -5,9 +5,10 @@
 html,
 body {
   /* font-family: "Eudoxus Sans", sans-serif; */
-  font-family: "Crimson Text", serif;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   height: 100%;
   
+
 }
 
 a {

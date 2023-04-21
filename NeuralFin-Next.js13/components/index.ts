@@ -5,9 +5,11 @@ import StartSteps from './StartSteps';
 import NewFeatures from './NewFeatures';
 import InsightCard from './InsightCard';
 import Footer from './Footer';
+import UserNavbar from './UserNavbar';
 
 export {
   Navbar,
+  UserNavbar,
   TitleText,
   TypingText,
   StartSteps,
@@ -15,4 +17,5 @@ export {
   ExploreCard,
   InsightCard,
   Footer,
+
 };

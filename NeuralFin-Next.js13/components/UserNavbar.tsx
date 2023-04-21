@@ -1,15 +1,17 @@
 'use client';
+import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion'
 import styles from '../styles'
 import { navVariants } from '../utils/motion'
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+type UserProps = {
+  name: string
+};
 
 
-
-const Navbar = () => {
+const UserNavbar = ( props: UserProps ) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -64,17 +66,17 @@ const dropdownVariants = {
                 news
               </div>
             </Link>
-            <Link href={"/info"}>
+            <Link href={"/dashboard"}>
               <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-                info
+                dashboard
               </div>
             </Link>
           </motion.div>
     </div>
         <div className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-          <Link href={"/register"}>
+          <Link href={"/user"}>
             <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-              register
+              {props.name}
             </div>
           </Link>
         </div> 
@@ -83,4 +85,4 @@ const dropdownVariants = {
   )
 };
 
-export default Navbar;
+export default UserNavbar;

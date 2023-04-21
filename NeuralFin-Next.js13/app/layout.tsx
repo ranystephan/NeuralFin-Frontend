@@ -12,6 +12,8 @@ const RootLayout = ({ children } : RootLayoutProps) => (
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet" />
+      <script src="https://kit.fontawesome.com/c8331e70b8.js" crossOrigin="anonymous"></script>
+
       
     </head>
     <body>{children}</body>

@@ -1,8 +1,8 @@
-import gsap from "gsap";
+'use client'
 
-import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import React, { useLayoutEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-//import globals
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,22 +19,19 @@ const styles = {
 
 
 const BallAnimation = () => {
-  const canvasRef = useRef(null);
-  if (typeof window !== "undefined") {
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-  }
-
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const ballTextRef = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current as unknown as HTMLCanvasElement;
-    canvas.width = width;
-    canvas.height = height;
 
+  useLayoutEffect(() => {
+    if (!canvasRef.current) return;
+    
+    const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const frameCount = 179;
 
+    if (!context) return;
+
+    const frameCount = 179;
     const currentFrame = (index: number) => `/BallAnimationImages/${(index + 1).toString()}.jpg`;
 
     const images: any[] = [];
@@ -81,18 +78,22 @@ const BallAnimation = () => {
 
     function render() {
       if (!context) return;
-
       context.canvas.width = images[0].width;
       context.canvas.height = images[0].height;
 
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(images[ball.frame], 0, 0);
     }
+
+    return () => {
+      gsap.killTweensOf(ball);
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+
   }, [canvasRef]);
 
   return (
     <div>
-
       <canvas className={styles.canvas} ref={canvasRef}></canvas>
       <div className={styles.ballText} ref={ballTextRef}>
         <h1 className={`${styles.heroHeading} text-4xl text-center font-bold`}>Smart Finance,</h1>
