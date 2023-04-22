@@ -18,7 +18,7 @@ const styles = {
   menuItem: 'cursor-pointer font-bold hover:text-green-500 duration-300',
 }
 
-const Header = () => {
+const DashboardHeader = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftHeader}>
@@ -36,14 +36,16 @@ const Header = () => {
         </div>
       </div>
       <div className={styles.rightHeader}>
-        <div className={styles.menuItem}>Portfolio</div>
-        <div className={styles.menuItem}>News</div>
-        <div className={styles.menuItem}>Learn</div>
-        <div className={styles.menuItem}>Login</div>
+        <Link href={"/news"}>
+          <div className={styles.menuItem}>News</div>
+        </Link>
+        <Link href={"/user"}>
+          <div className={styles.menuItem}>Profile</div>
+        </Link>
         
       </div>
     </div>
   )
 }
 
-export default Header
+export default DashboardHeader

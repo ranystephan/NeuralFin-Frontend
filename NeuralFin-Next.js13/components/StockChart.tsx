@@ -7,12 +7,12 @@ import Image from 'next/image';
 
 
 const styles = {
-  tooltip: "rounded font-bold ",
-  chartRangeButton: "hover:bg-gray-200 font-bold py-2 px-2 rounded ",
+  tooltip: "rounded font-bold text-grey-700 ",
+  chartRangeButton: "hover:bg-gray-200 font-bold py-2 px-2 rounded text-black",
 
 };
 
-type StockData = {
+type ChartData = {
   Open: number;
   High: number;
   Low: number;
@@ -23,8 +23,8 @@ type StockData = {
   date: string;
 };
 
-type StockResponse = {
-  stock_data: StockData[];
+type ChartResponse = {
+  chart_data: ChartData[];
 };
 
 type StockChartProps = {
@@ -56,7 +56,7 @@ type ChartRange = '1D' | '1W' | '1M' | '3M' | '6M' | 'YTD' | 'ALL';
 
 
 const StockChart = (props: StockChartProps) => {
-  const [stockData, setStockData] = useState<StockData[]>([]);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
   const [chartRange, setChartRange] = useState<ChartRange>('1W');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -65,43 +65,47 @@ const StockChart = (props: StockChartProps) => {
   useEffect(() => {
     const fetchStockData = async () => {
       const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/charts/${props.symbol}/`;
-      const apiUrl_local = `http://localhost:8000/api/stocks/${props.symbol}/`;
+      const apiUrl_local = `http://localhost:8000/api/charts/${props.symbol}/`;
       const response = await fetch(apiUrl_deployed);
-      const data: StockResponse = await response.json();
+      const data: ChartResponse = await response.json();
 
-      console.log('data.stock_data: ', data.stock_data);
+      console.log('response: ', response);
+      console.log('data.chart_data: ', data.chart_data);
+      console.log('data: ', data);
 
 
       // Filter the data based on the selected chart range
-      let filteredData = data.stock_data;
+      let filteredData = data.chart_data;
       const endDate = new Date();
-      switch (chartRange) {
-        case '1D':
-          filteredData = data.stock_data.filter((d) => parseISO(d.date) >= subDays(endDate, 1));
-          break;
-        case '1W':
-          filteredData = data.stock_data.filter((d) => parseISO(d.date) >= subWeeks(endDate, 1));
-          break;
-        case '1M':
-          filteredData = data.stock_data.filter((d) => parseISO(d.date) >= subMonths(endDate, 1));
-          break;
-        case '3M':
-          filteredData = data.stock_data.filter((d) => parseISO(d.date) >= subMonths(endDate, 3));
-          break;
-        case '6M':
-          filteredData = data.stock_data.filter((d) => parseISO(d.date) >= subMonths(endDate, 6));
-          break;
-        case 'YTD':
-          filteredData = data.stock_data.filter((d) => parseISO(d.date) >= startOfYear(endDate));
-          break;
-        case 'ALL':
-          // no filter needed
-          break;
-        default:
-          break;
+      if (data && data.chart_data) {
+        switch (chartRange) {
+          case '1D':
+            filteredData = data.chart_data.filter((d) => parseISO(d.date) >= subDays(endDate, 1));
+            break;
+          case '1W':
+            filteredData = data.chart_data.filter((d) => parseISO(d.date) >= subWeeks(endDate, 1));
+            break;
+          case '1M':
+            filteredData = data.chart_data.filter((d) => parseISO(d.date) >= subMonths(endDate, 1));
+            break;
+          case '3M':
+            filteredData = data.chart_data.filter((d) => parseISO(d.date) >= subMonths(endDate, 3));
+            break;
+          case '6M':
+            filteredData = data.chart_data.filter((d) => parseISO(d.date) >= subMonths(endDate, 6));
+            break;
+          case 'YTD':
+            filteredData = data.chart_data.filter((d) => parseISO(d.date) >= startOfYear(endDate));
+            break;
+          case 'ALL':
+            // no filter needed
+            break;
+          default:
+            break;
+        }
       }
 
-      setStockData(filteredData);
+      setChartData(filteredData);
     };
 
     fetchStockData();
@@ -114,7 +118,7 @@ const StockChart = (props: StockChartProps) => {
           <Image src={expand_ios} alt="expand" width={15} height={15} />
         </button>
 
-        {isModalOpen && <StockChartModal stockData={stockData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
+        {isModalOpen && <StockChartModal stockData={chartData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
 
         <button 
           onClick={() => setChartRange('1D')}
@@ -161,7 +165,7 @@ const StockChart = (props: StockChartProps) => {
       </div>
 
       <ResponsiveContainer width="100%" height={700}>
-        <AreaChart data={stockData}>
+        <AreaChart data={chartData}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>

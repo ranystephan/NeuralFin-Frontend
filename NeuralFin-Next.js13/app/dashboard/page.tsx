@@ -1,4 +1,4 @@
-import Header from '../../components/Header'
+import DashboardHeader from '../../components/DashboardHeader'
 
 
 //Icons
@@ -34,7 +34,7 @@ const styles = {
 export default function Home() {
   return (
     <div className={styles.wrapper}>
-      <Header />
+      <DashboardHeader />
       <div className={styles.mainContainer}>
         <div className={styles.leftMain}>
           <div className={styles.portfolioAmountContainer}>

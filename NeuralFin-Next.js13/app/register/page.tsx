@@ -24,6 +24,7 @@ const styles = {
   login: "w-96 h-2/3 rounded z-10 flex flex-col items-center",
   logo: "w-20 h-20 rounded-2xl mt-2",
   loginHeader: "text-2xl font-bold text-black ",
+  alreadyHaveAccount: "text-sm text-gray-500 mt-2 font-mono",
   nameForm: "w-80 h-16 bg-opacity-60 backdrop-blur-md border border-gray-300 border-2 rounded-xl mt-3 items-center justify-center flex text-black font-mono hover:bg-gray-200 duration-300",
   emailForm: "w-80 h-16 bg-opacity-60 backdrop-blur-md border border-gray-300 border-2 rounded-xl mt-10 items-center justify-center flex text-black font-mono hover:bg-gray-200 duration-300",
   passwordForm: "w-80 h-16 border border-gray-300 border-2 rounded-xl mt-3 items-center justify-center flex text-black font-mono hover:bg-gray-200 duration-300",
@@ -74,6 +75,13 @@ const RegisterPage = () => {
             </Link>
           </div>
           <div className={styles.loginHeader}>Welcome!</div>
+          <div className={styles.alreadyHaveAccount}>
+            <Link href={"/login"}>
+              <span className="cursor-pointer hover:text-purple-700 duration-300">
+                Already have an account?
+              </span>
+            </Link>
+          </div>
           <form onSubmit={submit}>
             <input type='text' placeholder='name' className={styles.emailForm} required
               onChange={e => setName(e.target.value)}
