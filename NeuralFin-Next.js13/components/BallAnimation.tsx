@@ -1,8 +1,9 @@
 'use client'
 
 import gsap from "gsap";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsomorphicLayoutEffect } from "framer-motion";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,7 +24,7 @@ const BallAnimation = () => {
   const ballTextRef = useRef(null);
 
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!canvasRef.current) return;
     
     const canvas = canvasRef.current;

@@ -1,13 +1,12 @@
 'use strict'
 'use client'
 
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import '@/styles/globals.css';
 import transLogo from '@/public/neuralfinLogo/transLogo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -39,6 +38,7 @@ const LoginPage = () => {
   const router = useRouter();
 
 
+
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -54,8 +54,10 @@ const LoginPage = () => {
         password
       })
     });
+    console.log(email, password);
+    console.log('login success');
+    router.push('/'); // redirect to home page
 
-    router.push('/');
 
   }
 

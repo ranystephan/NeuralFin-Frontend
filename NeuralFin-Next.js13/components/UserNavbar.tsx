@@ -7,7 +7,8 @@ import { navVariants } from '../utils/motion'
 import Link from 'next/link'
 
 type UserProps = {
-  name: string
+  name: string,
+
 };
 
 

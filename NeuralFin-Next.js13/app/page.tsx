@@ -1,24 +1,27 @@
 'use client';
 
 
-import { Navbar } from '@/components';
-import { UserNavbar } from '@/components';
+import { Navbar, UserNavbar } from '@/components';
 import { ThemeProvider } from 'next-themes';
 import BallAnimation from '@/components/BallAnimation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import '../styles/globals.css'
+import { AuthContext } from '@/contexts/AuthContext';
 
 
 
-const Page = () => {
-  const [name, setName] = React.useState('');
+const Page: React.FC = () => {
+  const { auth, updateAuth } = useContext(AuthContext);
+
 
   useEffect(() => {
     const abortController = new AbortController();
     (
       async () => {
         try {
-          const response = await fetch('https://neuralfin-backend-production.up.railway.app/api/user', {
+          const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/user`;
+          const apiUrl_local = `http://localhost:8000/api/user`;
+          const response = await fetch(apiUrl_deployed, {
             credentials: 'include',
             signal: abortController.signal,
           });
@@ -28,16 +31,19 @@ const Page = () => {
           }
 
           const content = await response.json()
-          setName(content.name);
-          console.log(content.name);
+          updateAuth({ isAuthenticated: true, user: { name: content.name, email: content.email} });
+          console.log('Logged in');
+          console.log(auth.user?.name);
         } catch (err) {
           if (err instanceof Error) {
             console.log(err.message);
           } else {
             console.log('Something went wrong', err);
           }
-          setName('Not logged in');
-          console.log('Not logged in');
+
+          updateAuth({ isAuthenticated: false, user: null });
+
+          console.log('Not logged in!!');
         }
 
       }
@@ -53,8 +59,8 @@ const Page = () => {
         {/* set the navbar over BallAnimation */}
         <div className="overflow-hidden relative">
           <div className="absolute top-0 left-0 w-full z-10">
-            {name != 'Not logged in' ? (
-              <UserNavbar name={name} /> 
+            {auth.isAuthenticated == true ? (
+              <UserNavbar  name={auth.user?.name !== undefined ? auth.user.name : ''}  /> 
             ) : (
             <Navbar />
             )}
