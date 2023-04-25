@@ -5,8 +5,9 @@ import { Navbar, UserNavbar } from '@/components';
 import { ThemeProvider } from 'next-themes';
 import BallAnimation from '@/components/BallAnimation';
 import React, { useEffect, useContext } from 'react';
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import { AuthContext } from '@/contexts/AuthContext';
+import Grainy from '@/components/Grainy';
 
 
 
@@ -57,16 +58,17 @@ const Page: React.FC = () => {
     <ThemeProvider attribute="class">
       <div className="overflow-hidden">
         {/* set the navbar over BallAnimation */}
-        <div className="overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full z-10">
+        <div className="flex-col page-container h-screen w-screen overflow-hidden relative">
+          <div className="">
             {auth.isAuthenticated == true ? (
               <UserNavbar  name={auth.user?.name !== undefined ? auth.user.name : ''}  /> 
             ) : (
             <Navbar />
             )}
           </div>
-          <div className=" top-0 left-0 w-full h-full z-0">
-            <BallAnimation />
+          <div className="m-16" >
+            {/* <BallAnimation /> */}
+            <Grainy />
           </div>
         </div>
       </div>

@@ -10,8 +10,8 @@ type OverviewData = {
 
 const styles = {
   wrapper: "overflow-hidden",
-  companyName: "text-2xl font-bold mb-2",
-  sector: "text-sm text-gray-400 font-bold mb-1",
+  companyName: "text-2xl font-bold mb-2 font-mono",
+  sector: "text-sm text-gray-400 font-bold mb-1 font-mono",
   description: "text-sm text-gray-400",
 };
 
@@ -64,7 +64,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
             <form onSubmit={handleSubmit}>
               <label htmlFor='stock-ticker' />
               <div className="mt-2 flex mb-4">
-                <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
+                <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm font-mono">
                   Symbol
                 </span>
                 <input
@@ -73,7 +73,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
                   onChange={handleSymbolChange}
                   name="stock-ticker"
                   id="stock-ticker"
-                  className="block w-full p-4 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green sm:text-sm sm:leading-6"
+                  className="font-mono block w-full p-4 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green sm:text-sm sm:leading-6"
                   placeholder="Example: 'AAPL'"
                 />
               </div>

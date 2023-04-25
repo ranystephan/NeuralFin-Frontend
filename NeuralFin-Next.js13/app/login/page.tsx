@@ -62,8 +62,22 @@ const LoginPage = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.blobContainer}>
+    <div className={styles.container} >
+
+      {/* SVG */}
+      <svg>
+        <filter id="noiseFilter">
+          <feTurbulence 
+            type='fractalNoise' 
+            baseFrequency='0.99' 
+            stitchTiles='stitch'
+            result='colorNoise' />
+          <feColorMatrix in="colorNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+              <feComposite operator="in" in2="SourceGraphic" result="monoNoise"/>
+              <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+        </filter>
+      </svg>
+      <div className={styles.blobContainer} >
         <div className={styles.shape1}></div>
         <div className={styles.shape2}></div>
         <div className={styles.shape3}></div>
@@ -99,7 +113,15 @@ const LoginPage = () => {
           <div className={styles.forgotPassword}>Forgot your password?</div>
         </div>
       </div>
+
+
+
+
+
     </div>
+
+
+
   );
 };
 

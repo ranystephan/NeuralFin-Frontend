@@ -9,13 +9,13 @@ import '@/styles/globals.css';
 import StockChart from '@/components/StockChart';
 
 const styles = {
-  wrapper: "flex-col page-container h-screen w-screen overflow-hidden",
+  wrapper: "flex-col page-container h-screen w-screen overflow-hidden ",
   mainContainer: "h-screen w-screen flex",
   leftContainer: "w-1/2 flex ",
   leftSidebar: "w-72 mt-4 border-r flex flex-col border-gray-200",
   leftChart: "m-4 flex-1 ",
   rightContainer: "w-1/2 flex",
-  rightSidebar: "w-72 border-r-2 flex flex-col border-gray-600",
+  rightSidebar: "w-96 border-r-2 flex flex-col border-gray-600",
   rightDataContainer: "flex flex-col flex-1 ",
   rightDataBottom: "flex bg-blue-800 flex-1",
   rightDataTop: "flex flex-1",
