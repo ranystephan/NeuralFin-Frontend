@@ -12,7 +12,6 @@ type TransactionFormProps = {
   setTransactionType: Dispatch<SetStateAction<'buy' | 'sell'>>;
 };
 
-
 const TransactionForm: React.FC<TransactionFormProps> = ({
   stocks,
   onSubmit,
@@ -68,7 +67,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
           id="transactionType"
           className="w-full border p-2 rounded"
           value={transactionType}
-          onChange={(e) => setTransactionType(e.target.value)}
+          onChange={(e) => setTransactionType(e.target.value as 'buy' | 'sell')}
         >
           <option value="buy">Buy</option>
           <option value="sell">Sell</option>
@@ -84,4 +83,3 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
 };
 
 export default TransactionForm;
-
