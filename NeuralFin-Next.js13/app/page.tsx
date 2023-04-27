@@ -8,6 +8,7 @@ import React, { useEffect, useContext } from 'react';
 import '@/styles/globals.css'
 import { AuthContext } from '@/contexts/AuthContext';
 import Grainy from '@/components/Grainy';
+import LineAnimation from '@/components/LineAnimation';
 
 
 
@@ -53,12 +54,15 @@ const Page: React.FC = () => {
 
   }, []);
 
+
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+
   return (
 
     <ThemeProvider attribute="class">
-      <div className="overflow-hidden">
+      <div ref={scrollContainerRef} className="overflow-x-hidden overflow-y-scroll scrollbar-hide">
         {/* set the navbar over BallAnimation */}
-        <div className="flex-col page-container h-screen w-screen overflow-hidden relative">
+        <div className="flex-col page-container h-screen w-screen  relative">
           <div className="">
             {auth.isAuthenticated == true ? (
               <UserNavbar  name={auth.user?.name !== undefined ? auth.user.name : ''}  /> 
@@ -69,6 +73,9 @@ const Page: React.FC = () => {
           <div className="m-16" >
             {/* <BallAnimation /> */}
             <Grainy />
+          </div>
+          <div>
+            <LineAnimation scrollContainer={scrollContainerRef.current}/>
           </div>
         </div>
       </div>

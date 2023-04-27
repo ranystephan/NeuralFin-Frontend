@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 
-
 /* @layer base {
   body{
     @apply dark:bg-black dark:text-white bg-white text-black;
@@ -14,7 +13,7 @@
 }
  */
 :root {
-  --bg: #02300b;
+  --bg: #022b03;
   --text: #151515;
   --yellow: #EDB74D;
   --red: #EB6666;
@@ -65,7 +64,11 @@ body::before {
   }
 }
 
-
+svg {
+  display: inline-block;
+  height: 100%;
+  
+}
 
 /* * {
   margin: 0;
