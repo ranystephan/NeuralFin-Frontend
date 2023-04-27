@@ -1,15 +1,17 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Stock } from '../api';
 
-interface TransactionFormProps {
+type TransactionFormProps = {
   stocks: Stock[];
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   selectedStock: Stock | null;
-  setSelectedStock: React.Dispatch<React.SetStateAction<Stock | null>>;
+  setSelectedStock: Dispatch<SetStateAction<Stock | null>>;
   shares: number;
-  setShares: React.Dispatch<React.SetStateAction<number>>;
-  transactionType: string;
-  setTransactionType: React.Dispatch<React.SetStateAction<string>>;
-}
+  setShares: Dispatch<SetStateAction<number>>;
+  transactionType: 'buy' | 'sell';
+  setTransactionType: Dispatch<SetStateAction<'buy' | 'sell'>>;
+};
+
 
 const TransactionForm: React.FC<TransactionFormProps> = ({
   stocks,

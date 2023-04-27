@@ -12,7 +12,7 @@ const Portfolio = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [shares, setShares] = useState(0);
-  const [transactionType, setTransactionType] = useState<'buy' | 'sell'>('buy'); // Change the type here
+  const [transactionType, setTransactionType] = useState<'buy' | 'sell'>('buy');
 
   useEffect(() => {
     const fetchData = async () => {
