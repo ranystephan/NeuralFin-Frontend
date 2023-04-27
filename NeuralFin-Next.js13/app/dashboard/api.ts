@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/portfolio'; // Replace with your Django backend URL
+const API_URL = 'https://neuralfin-backend-production.up.railway.app/api/portfolio'; // Replace with your Django backend URL
 
 export interface Stock {
   id: number;
