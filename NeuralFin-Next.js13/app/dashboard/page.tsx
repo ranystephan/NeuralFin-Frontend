@@ -6,7 +6,6 @@ import './styles/globals.css'
 
 import { useState } from 'react'
 
-import './mockDashboard_components/NewsFeed.css'
 
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
