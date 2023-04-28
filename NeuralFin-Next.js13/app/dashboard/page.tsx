@@ -3,8 +3,7 @@
 
 import DashboardHeader from '../../components/DashboardHeader'
 import './styles/globals.css'
-import PortfolioChart from './mockDashboard_components/PortfolioChart'
-import styles from '@/styles/Grainy.module.css'
+
 import { useState } from 'react'
 
 import './mockDashboard_components/NewsFeed.css'
