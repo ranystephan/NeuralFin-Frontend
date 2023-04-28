@@ -95,8 +95,8 @@ export default function Dashboard() {
               </div>
             </div>
             <div className={stylesL.buyingPowerContainer}>
-              <div className={stylesL.buyingPowerTitle}>Buying Power</div>
-              <div className={stylesL.buyingPowerAmount}>$12,534.21</div>
+              <div className={stylesL.buyingPowerTitle}>Diversification Score</div>
+              <div className={stylesL.buyingPowerAmount}>5.77/10</div>
             </div>
             <div className={stylesL.buyingPowerContainer}>
               <Link href={"/info"}>
