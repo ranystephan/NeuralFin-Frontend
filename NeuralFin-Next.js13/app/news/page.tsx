@@ -11,11 +11,11 @@ import StockChart from '@/components/StockChart';
 const styles = {
   wrapper: "flex-col page-container h-screen w-screen overflow-hidden ",
   mainContainer: "h-screen w-screen flex",
-  leftContainer: "w-1/2 flex ",
+  leftContainer: "w-2/3 flex ",
   leftSidebar: "w-72 mt-4 border-r flex flex-col border-gray-200",
   leftChart: "m-4 flex-1 ",
-  rightContainer: "w-1/2 flex",
-  rightSidebar: "w-96 border-r-2 flex flex-col border-gray-600",
+  rightContainer: "w-1/3 flex",
+  rightSidebar: "w-full border-r-2 flex flex-col border-gray-600",
   rightDataContainer: "flex flex-col flex-1 ",
   rightDataBottom: "flex bg-blue-800 flex-1",
   rightDataTop: "flex flex-1",
@@ -67,13 +67,12 @@ const Page = () => {
           <div className={styles.rightSidebar}>
             <NewsBar symbol={symbol} />
           </div> 
-          <div className={styles.rightDataContainer}>
+{/*           <div className={styles.rightDataContainer}>
             <div className={styles.rightDataTop}>
             </div>
             <div className={styles.rightDataBottom}>
             </div>
-
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@
 
 import { Navbar, UserNavbar } from '@/components';
 import { ThemeProvider } from 'next-themes';
-import BallAnimation from '@/components/BallAnimation';
 import React, { useEffect, useContext } from 'react';
 import '@/styles/globals.css'
 import { AuthContext } from '@/contexts/AuthContext';

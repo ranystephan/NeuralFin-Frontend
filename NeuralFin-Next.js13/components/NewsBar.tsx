@@ -36,8 +36,8 @@ const NewsBar = (props: NewsBarProps) => {
     <div className='overflow-y-scroll max-h-auto'>
       {newsData && newsData.length && newsData.map((article, index) => (
         <div key={index}>
-          <div className='m-3 text-sm text-white font-bold'>{article.title}</div>
-          <div className='m-3 text-sm text-gray-400'>{article.summary}</div>
+          <div className='m-3 text-md text-white font-bold font-mono '>{article.title}</div>
+          <div className='m-3 text-md text-white'>{article.summary}</div>
           <div className='text-center'>
             <div className='border-b border-gray-600 w-52 inline-block'></div>
           </div>

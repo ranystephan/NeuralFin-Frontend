@@ -24,6 +24,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "sections/Hero.jsx", "components/WaveGrid.jsx", "components/StockChartModal.jsx", "components/StockChart.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "sections/Hero.jsx", "components/WaveGrid.jsx", "components/StockChartModal.jsx", "components/StockChart.jsx", "components/PortfolioChart.js", "components/Stats.js"],
   "exclude": ["node_modules"]
 }

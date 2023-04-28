@@ -1,62 +1,298 @@
-'use client'
+/* 'use client'
+
+import React, { useContext, useEffect, useState } from 'react';
+import Portfolio from './dashboard_components/Portfolio';
+import ChartComponent from './dashboard_components/ChartComponent';
+import { AuthContext } from '@/contexts/AuthContext';
+
+import { useRouter } from 'next/navigation';
 
 
-import { useEffect, useState } from 'react';
-import { getStocks, getTransactions, createTransaction, Stock, Transaction } from './api';
-import StockList from './dashboard_components/StockList';
-import TransactionList from './dashboard_components/TransactionList';
-import TransactionForm from './dashboard_components/TransactionForm';
+const stylesLL = {
+  dashboard: 'bg-white'
+}
 
-const Portfolio = () => {
-  const [stocks, setStocks] = useState<Stock[]>([]);
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
-  const [shares, setShares] = useState(0);
-  const [transactionType, setTransactionType] = useState<'buy' | 'sell'>('buy');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setStocks(await getStocks());
-      setTransactions(await getTransactions());
-    };
+const Dashboard: React.FC = () => {
+  const { auth } = useContext(AuthContext);
+  const { isAuthenticated } = auth;
 
-    fetchData();
-  }, []);
+  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!selectedStock) return;
+  console.log('User is authenticated?: ' + isAuthenticated);
+  console.log(auth.user?.name);
 
-    const newTransaction = {
-      stock: selectedStock,
-      shares: shares,
-      transaction_type: transactionType,
-    };
-    const createdTransaction = await createTransaction(newTransaction);
-    setTransactions([...transactions, createdTransaction]);
+  // Move the stocks state from Portfolio to Dashboard
+  const [stocks, setStocks] = useState([]);
+
+  // Move the fetchPortfolio function from Portfolio to Dashboard
+  const fetchPortfolio = async () => {
+    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio`;
+    const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio`;
+
+    const response = await fetch(apiUrl_local, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+    setStocks(data);
   };
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login');
+    } else {
+      fetchPortfolio(); // Fetch the data only if the user is authenticated
+    }
+  }, [isAuthenticated]);
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <StockList stocks={stocks} />
-        <TransactionList transactions={transactions} />
+      <div className="dashboard">
+        <h1>Dashboard</h1>
+        <Portfolio stocks={stocks} />
+        <ChartComponent portfolioData={stocks} />
       </div>
-      <div className="mt-8">
-        <TransactionForm
-          stocks={stocks}
-          onSubmit={handleSubmit}
-          selectedStock={selectedStock}
-          setSelectedStock={setSelectedStock}
-          shares={shares}
-          setShares={setShares}
-          transactionType={transactionType}
-          setTransactionType={setTransactionType}
-        />
-      </div>
-    </div>
   );
 };
 
-export default Portfolio;
+export default Dashboard;
+ */
+
+/* 'use client'
+
+import "./mockDashboard_components/App.css";
+import Header from "./mockDashboard_components/Header";
+import NewsFeed from "./mockDashboard_components/Newsfeed";
+import Stats from "./mockDashboard_components/Stats";
+
+function App() {
+  return (
+    <div className="app">
+      <div className="app__header">
+        <Header />
+      </div>
+      <div className="app__body">
+        <div className="app__container">
+          <NewsFeed />
+          <Stats />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App; */
+
+
+'use client'
+
+import DashboardHeader from '../../components/DashboardHeader'
+import './styles/globals.css'
+import PortfolioChart from './mockDashboard_components/PortfolioChart'
+import styles from '@/styles/Grainy.module.css'
+import { useState } from 'react'
+
+import './mockDashboard_components/NewsFeed.css'
+
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+
+
+//Icons
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { AiOutlinePlus } from "react-icons/ai";
+
+
+import chartImage from '@/public/chartImage.png'
+import Link from 'next/link'
+
+
+
+const stylesL = {
+  wrapper: "w-screen h-screen flex flex-col bg-black",
+  mainContainer: ' w-5/6 h-full m-auto flex mt-16 rounded-3xl bg-[#252522]',
+  leftMain: 'flex flex-col w-3/4 h-full p-6 overflow-y-scroll',
+  portfolioAmountContainer: 'flex flex-col',
+  portfolioAmount: 'text-white text-4xl',
+  portfolioPercent: 'text-white font-bold text-sm',
+  pastHour: 'text-gray-400',
+  chartContainer: 'text-5xl flex justify-center w-full h-auto text-white mt-11 mb-11',
+  buyingPowerContainer: 'w-full border-t mb-12 border-b h-16 border-[#30363b] flex justify-between item items-center rounded-2xl bg-orange-500 bg-opacity-10',
+  buyingPowerTitle: 'text-white font-bolder text-lg items-center p-5 hover:font-bold',
+  buyingPowerAmount: 'flex text-white font-bolder text-xl h-20 items-center p-5 ',
+  notice: 'flex border border-[#303636] mx-11 my-4 p-5 flex-col rounded-3xl',
+  noticeContainer: 'flex-1',
+  noticeTitle: 'text-gray-500',
+  noticeMessage: 'text-white font-bold',
+  noticeCTS: 'font-bold text-green-500 cursor-pointer mt-5',
+  rightMain: 'flex flex-col flex-1 h-4/5 bg-[#1E2123] mt-6 rounded-lg overflow-y-scroll noScroll',
+  rightMainItem: 'flex items-center text-white px-5 py-3',
+  rightMainItemStocks: 'flex items-center justify-left text-white px-5 py-3 ',
+  stocksContainer: 'flex flex-row flex-1 bg-purple-500 rounded-lg px-5 justify-between',
+  ItemTitle: 'flex-1 font-bold',
+  moreOptions: 'curesor-pointer text-xl',
+
+}
+
+export default function Home() {
+  const [popularTopics, setTopics] = useState([
+    "Technology",
+    "Top Movies",
+    "Upcoming Earnings",
+    "Crypto",
+    "Cannabis",
+    "Healthcare Supplies",
+    "Index ETFs",
+    "Technology",
+    "China",
+    "Pharma",
+  ]);
+
+
+  return (
+    
+    <div className={stylesL.wrapper}>
+      <DashboardHeader />
+      <div className={stylesL.mainContainer}>
+        <div className={stylesL.leftMain}>
+          <div className={stylesL.portfolioAmountContainer}>
+            <div className={stylesL.portfolioAmount}>$107,486.21</div>
+            <div className={stylesL.portfolioPercent}>
+              +12.420(+1.69%)
+              <span className={stylesL.pastHour}>Past Hour</span>
+            </div>
+          </div>
+          <div>
+            <div className={stylesL.chartContainer}>
+              {/* <PortfolioChart */}
+              <img className='rounded-2xl' src={chartImage.src} alt="charrt" width='700' height='300' />
+            </div>
+          </div>
+          <div className={stylesL.buyingPowerContainer}>
+            <div className={stylesL.buyingPowerTitle}>Buying Power</div>
+            <div className={stylesL.buyingPowerAmount}>$12,534.21</div>
+          </div>
+          <div className={stylesL.buyingPowerContainer}>
+            <Link href={"/info"}>
+              <div className={stylesL.buyingPowerTitle}>Value at Risk</div>
+            </Link>
+            <div className={stylesL.buyingPowerAmount}>2.06%</div>
+          </div>
+          <div className={stylesL.buyingPowerContainer}>
+            <div className={stylesL.buyingPowerTitle}>Buying Power</div>
+            <div className={stylesL.buyingPowerAmount}>$12,534.21</div>
+          </div>
+          <div className={stylesL.notice}>
+            <div className="newsfeed__popularlists__section">
+              <div className="newsfeed__popularlists__intro">
+                <div className='font-bold text-white text-xl'>Popular lists</div>
+                <p>Show More</p>
+              </div>
+              <div className="newsfeed_popularlists_badges">
+                {popularTopics.map((topic) => (
+                  <Chip 
+                    className="topic__badge"
+                    variant="outlined"
+                    label={topic}
+                    avatar={<Avatar
+                      src={`https://avatars.dicebear.com/api/human/${topic}.svg`}
+                    />} 
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* <Notice/> */}
+        </div>
+        <div className={stylesL.rightMain}>
+          <div className={stylesL.rightMainItem}>
+            <div className={stylesL.ItemTitle}> Performing </div>
+
+            <BiDotsHorizontalRounded className={stylesL.moreOptions} />
+            
+          </div>
+          {/* Map through stocks and for every stock make an Asset component */}
+          {/* <Asset /> */}
+
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-44 bg-opacity-30 hover:bg-opacity-60'>
+                <div>AAPL</div>
+                <div>32.5%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-40 bg-opacity-30 hover:bg-opacity-60'>
+                <div>TSLA</div>
+                <div>27.2%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-52 bg-opacity-30 hover:bg-opacity-60'>
+                <div>NYSE</div>
+                <div>11.7%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-48 bg-opacity-30 hover:bg-opacity-60'>
+                <div>BABA</div>
+                <div>30.5%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-56 bg-opacity-30 hover:bg-opacity-60'>
+                <div>MSFT</div>
+                <div>43.4%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-purple-500 items-center rounded-lg h-7 px-5 justify-between w-44 bg-opacity-30 hover:bg-opacity-60'>
+                <div>TWTR</div>
+                <div>69%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-40 bg-opacity-30 hover:bg-opacity-60'>
+                <div>NIO</div>
+                <div>21.1%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-36 bg-opacity-30 hover:bg-opacity-60'>
+                <div>ADA</div>
+                <div>11.1%</div>
+              </div>
+            </div>
+          </div>
+          <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.ItemTitle}>
+              <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-48 bg-opacity-30 hover:bg-opacity-60'>
+                <div>NDAQ</div>
+                <div>28.1%</div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+  )
+  
+}
+

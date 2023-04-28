@@ -38,7 +38,6 @@ const LoginPage = () => {
   const router = useRouter();
 
 
-
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -55,6 +54,7 @@ const LoginPage = () => {
       })
     });
     console.log(email, password);
+
     console.log('login success');
     router.push('/'); // redirect to home page
 
