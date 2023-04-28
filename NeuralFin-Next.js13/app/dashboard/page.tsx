@@ -10,6 +10,7 @@ import { useState } from 'react'
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 
+import PortfolioChart from '@/components/PortfolioChart';
 
 //Icons
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -21,14 +22,14 @@ import Link from 'next/link'
 
 
 const stylesL = {
-  wrapper: "w-screen h-screen flex flex-col bg-black",
+  wrapper: "w-screen h-screen flex flex-col bg-black z-10",
   mainContainer: ' w-5/6 h-full m-auto flex mt-16 rounded-3xl bg-[#252522] z-100',
   leftMain: 'flex flex-col w-3/4 h-full p-6 overflow-y-scroll z-100',
   portfolioAmountContainer: 'flex flex-col',
   portfolioAmount: 'text-white text-4xl',
   portfolioPercent: 'text-white font-bold text-sm',
   pastHour: 'text-gray-400',
-  chartContainer: 'text-5xl flex justify-center w-full h-auto text-white mt-11 mb-11',
+  chartContainer: 'text-md   w-full h-auto text-white mt-11 mb-11',
   buyingPowerContainer: 'w-full border-t mb-12 border-b h-16 border-[#30363b] flex justify-between item items-center rounded-2xl bg-orange-500 bg-opacity-10',
   buyingPowerTitle: 'text-white font-bolder text-lg items-center p-5 hover:font-bold',
   buyingPowerAmount: 'flex text-white font-bolder text-xl h-20 items-center p-5 ',
@@ -48,7 +49,7 @@ const stylesL = {
   shape2: "absolute top-0 -right-4 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob2 z[-100]",
   shape3: "absolute bottom-0 -right-4 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob3 z[-100]",
   shape4: "absolute bottom-0 -left-4 w-96 h-96 bg-green-200 rounded-3xl mix-blend-multiply filter blur-3xl animate-blob4 z[-100]",
-  blobContainer: "flex flex-col items-center justify-center w-full z-[-100]",
+  blobContainer: "flex flex-col items-center justify-center w-full z-[-10]",
 
 }
 
@@ -89,7 +90,8 @@ export default function Dashboard() {
             <div>
               <div className={stylesL.chartContainer}>
                 {/* <PortfolioChart */}
-                <img className='rounded-2xl' src={chartImage.src} alt="charrt" width='700' height='300' />
+                {/* <img className='rounded-2xl' src={chartImage.src} alt="charrt" width='700' height='300' /> */}
+                <PortfolioChart />
               </div>
             </div>
             <div className={stylesL.buyingPowerContainer}>
@@ -108,14 +110,14 @@ export default function Dashboard() {
             </div>
             <div className={stylesL.notice}>
               <div className="newsfeed__popularlists__section">
-                <div className="newsfeed__popularlists__intro">
+                <div className="newsfeed__popularlists__intro flex justify-between text-white mb-3">
                   <div className='font-bold text-white text-xl'>Popular lists</div>
                   <p>Show More</p>
                 </div>
                 <div className="newsfeed_popularlists_badges">
                   {popularTopics.map((topic) => (
                     <Chip 
-                      className="topic__badge"
+                      className="topic__badge text-white"
                       variant="outlined"
                       label={topic}
                       avatar={<Avatar
@@ -210,7 +212,6 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>

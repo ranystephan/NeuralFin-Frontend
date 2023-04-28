@@ -6,7 +6,14 @@ type OverviewData = {
   Description: string;
   Sector: string;
   Empty : string;
+
 };
+
+
+type RiskData = {
+  symbol: string;
+  risk_score: number;
+}
 
 const styles = {
   wrapper: "overflow-hidden",
@@ -18,6 +25,7 @@ const styles = {
 function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
   const [symbol, setSymbol] = useState('');
   const [overviewData, setOverviewData] = useState(null as OverviewData | null);
+  const [riskData, setRiskData] = useState(null as RiskData | null);
   const [isLoading, setIsLoading] = useState(false);
   const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
 
@@ -25,11 +33,15 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
     try {
       setIsLoading(true);
       const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`);
+      const secondresp = await fetch(`https://neuralfin-backend-production.up.railway.app/api/risk/stockRisk/${symbol}`);
       const data = await response.json();
+      const riskdata = await secondresp.json();
       if (Object.keys(data).length === 0) {
         setOverviewData( {Name: '', Exchange: '', Description: '', Sector: '', Empty: 'Empty'} );
+        setRiskData( {symbol: 'SPY', risk_score: 4.2} );
       } else {
         setOverviewData(data);
+        setRiskData(riskdata);
       }
         setIsLoading(false);
     } catch (error) {
@@ -38,13 +50,35 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
     }
   }
 
+  async function fetchRiskData() {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`https://neuralfin-backend-production.up.railway.app/api/risk/stockRisk/${symbol}`);
+      const data = await response.json();
+      console.log("RISK DATA!");
+      console.log(data);
+      
+      if (Object.keys(data).length === 0) {
+        setRiskData( {symbol: '', risk_score: 0} );
+      } else {
+        setRiskData(data);
+      }
+        setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error fetching risk score data:', error);
+    }
+  }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onSymbolChange(symbol);
     if (symbol.trim() !== ''){
       fetchOverviewData();
+      fetchRiskData();
     } else {
       setOverviewData(null);
+      setRiskData(null);
     }
 
   }
@@ -112,6 +146,14 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
                       <div className={styles.companyName}>{overviewData.Name}</div>
                       <div className={styles.sector}>{overviewData.Sector}</div>
                       <div className={styles.description}>{overviewData.Description}</div>
+                    </div>
+                  )}
+                  {riskData && (
+                    <div>
+                      <div className={styles.sector}>Risk Score</div>
+                      <div className="flex items-center justify-center h-24 text-black bg-red-500 bg-opacity-40 rounded-lg">
+                        {riskData.risk_score}
+                      </div>
                     </div>
                   )}
                 </div>
