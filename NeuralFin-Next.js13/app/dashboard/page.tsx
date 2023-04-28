@@ -144,7 +144,7 @@ export default function Dashboard() {
               <div className={stylesL.ItemTitle}>
                 <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-44 bg-opacity-30 hover:bg-opacity-60'>
                   <div>AAPL</div>
-                  <div>32.5%</div>
+                  <div>4.76%</div>
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function Dashboard() {
               <div className={stylesL.ItemTitle}>
                 <div className='flex flex-row flex-1 bg-orange-500 items-center rounded-lg h-7 px-5 justify-between w-40 bg-opacity-30 hover:bg-opacity-60'>
                   <div>TSLA</div>
-                  <div>27.2%</div>
+                  <div>7.69%</div>
                 </div>
               </div>
             </div>

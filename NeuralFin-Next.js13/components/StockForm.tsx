@@ -33,15 +33,11 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
     try {
       setIsLoading(true);
       const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`);
-      const secondresp = await fetch(`https://neuralfin-backend-production.up.railway.app/api/risk/stockRisk/${symbol}`);
       const data = await response.json();
-      const riskdata = await secondresp.json();
       if (Object.keys(data).length === 0) {
         setOverviewData( {Name: '', Exchange: '', Description: '', Sector: '', Empty: 'Empty'} );
-        setRiskData( {symbol: 'SPY', risk_score: 4.2} );
       } else {
         setOverviewData(data);
-        setRiskData(riskdata);
       }
         setIsLoading(false);
     } catch (error) {
@@ -55,8 +51,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
       setIsLoading(true);
       const response = await fetch(`https://neuralfin-backend-production.up.railway.app/api/risk/stockRisk/${symbol}`);
       const data = await response.json();
-      console.log("RISK DATA!");
-      console.log(data);
+
       
       if (Object.keys(data).length === 0) {
         setRiskData( {symbol: '', risk_score: 0} );
@@ -148,19 +143,38 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
                       <div className={styles.description}>{overviewData.Description}</div>
                     </div>
                   )}
-                  {riskData && (
-                    <div>
-                      <div className={styles.sector}>Risk Score</div>
-                      <div className="flex items-center justify-center h-24 text-black bg-red-500 bg-opacity-40 rounded-lg">
-                        {riskData.risk_score}
-                      </div>
-                    </div>
-                  )}
+
                 </div>
+                
               )}
             </form>
           </div>
         </div>
+      </div>
+        {/* Risk score display */}
+      <div className="mt-4 px-4 sm:px-6">
+        <h2 className="text-lg font-bold mb-2 font-mono">Risk Score</h2>
+        {isLoading ? (
+          <div>
+            <div className="flex items-center justify-center">
+              <span className="mr-2">Loading...</span>
+              <div className="w-6 h-6 border-4 border-gray-400 rounded-full animate-spin"></div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            {riskData === null && (
+              <div className="text-sm text-gray-400">
+                Enter a stock symbol and press enter to see the risk score.
+              </div>
+            )}
+            {riskData && (
+              <div className="text-xl text-gray-900 font-mono">
+                {riskData.symbol}: {riskData.risk_score.toFixed(2)}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
