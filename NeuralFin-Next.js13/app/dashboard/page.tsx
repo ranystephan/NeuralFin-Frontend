@@ -53,7 +53,6 @@ const stylesL = {
 type PortfolioMetrics = {
   portfolio_value: number,
   pnl: number,
-  beta: number,
 }
 
 
@@ -61,7 +60,6 @@ type PortfolioMetrics = {
 const Dashboard: React.FC<PortfolioMetrics> = (props) => {
   const [portfolioValue, setPortfolioValue] = useState(props.portfolio_value)
   const [pnl, setPnl] = useState(props.pnl)
-  const [beta, setBeta] = useState(props.beta)
 
 
   async function getPortfolioMetrics(abortController: AbortController) {
@@ -84,7 +82,6 @@ const Dashboard: React.FC<PortfolioMetrics> = (props) => {
       console.log('Portfolio metrics found')
       setPortfolioValue(data.portfolio_value)
       setPnl(data.pnl)
-      setBeta(data.beta)
     }
   }
 
