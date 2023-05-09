@@ -12,7 +12,6 @@ import InnerDashboard from '@/components/InnerDashboard';
 
 //Icons
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import Link from 'next/link'
 
 
 const stylesL = {
@@ -59,7 +58,7 @@ type PortfolioMetrics = {
 
 
 
-export default function Dashboard( props: PortfolioMetrics ) {
+const Dashboard: React.FC<PortfolioMetrics> = (props) => {
   const [portfolioValue, setPortfolioValue] = useState(props.portfolio_value)
   const [pnl, setPnl] = useState(props.pnl)
   const [beta, setBeta] = useState(props.beta)
@@ -186,3 +185,4 @@ export default function Dashboard( props: PortfolioMetrics ) {
 
 
 
+export default Dashboard;
