@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react'
 
 
 import PortfolioChart from '@/components/PortfolioChart';
-import PortfolioItems from '@/components/PortfolioItems';
 import InnerDashboard from '@/components/InnerDashboard';
 
 
