@@ -50,7 +50,7 @@ const stylesL = {
 
 }
 
-type PortfolioMetrics = {
+interface PortfolioMetrics {
   portfolio_value: number,
   pnl: number,
 }
