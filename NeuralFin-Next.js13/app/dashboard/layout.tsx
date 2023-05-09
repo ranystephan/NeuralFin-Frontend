@@ -1,7 +1,7 @@
-import styles from './styles/news.module.css';
+import styles from './styles/dashboard.module.css';
 
 
-export default function NewsLayout({
+export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {
   children: React.ReactNode;

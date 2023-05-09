@@ -113,11 +113,6 @@ const LoginPage = () => {
           <div className={styles.forgotPassword}>Forgot your password?</div>
         </div>
       </div>
-
-
-
-
-
     </div>
 
 

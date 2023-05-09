@@ -2,19 +2,18 @@
 
 
 
-
 .grainyh1 {
-  font-size: 60px;
+  font-size: 80px;
   font-weight: normal;
   margin: 0;
 }
 
 .grainyh2 {
-  font-size: 32px;
+  font-size: 42px;
 }
 
 .grainyp {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .grainya {
@@ -181,6 +180,7 @@
   width: 100%;
   height: 130%;
   gap: 3em;
+  padding: 3em;
   background:
     linear-gradient(to right, #151515 1px, transparent 1px) 0 0,
     linear-gradient(to right, #151515 1px, transparent 1px) 0 100%,
@@ -192,7 +192,6 @@
     linear-gradient(to top, #151515 1px, transparent 1px) 100% 100%;
   background-repeat: no-repeat;
   background-size: 20px 20px;
-
 }
 
 .heroText {

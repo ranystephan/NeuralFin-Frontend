@@ -5,12 +5,13 @@ import StockForm from '@/components/StockForm';
 import Header_News from '../../components/Header_News';
 import Header_News_Phones from '../../components/Header_News_Phones';
 import NewsBar from '@/components/NewsBar';
-import '@/styles/globals.css';
 import StockChart from '@/components/StockChart';
+
+import './styles/news.module.css';
 
 const styles = {
   wrapper: "flex-col page-container h-screen w-screen overflow-hidden ",
-  mainContainer: "h-screen w-screen flex",
+  mainContainer: "h-screen w-screen flex ",
   leftContainer: "w-2/3 flex ",
   leftSidebar: "w-72 mt-4 border-r flex flex-col border-gray-200",
   leftChart: "m-4 flex-1 ",

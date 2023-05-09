@@ -1,14 +1,23 @@
+'use client'
+
+
 // Grainy.tsx
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 import styles from '@/styles/Grainy.module.css';
 import Link from 'next/link';
+//import { Forum } from '@next/font/google'
 
-
+/* const forum = Forum({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+});
+ */
 const Grainy: React.FC = () => {
   return (
 
-    <div className=''>
+    <div>
 
       {/* Hero */}
       <div className={styles.hero}>
