@@ -50,16 +50,11 @@ const stylesL = {
 
 }
 
-interface PortfolioMetrics {
-  portfolio_value: number,
-  pnl: number,
-}
 
 
-
-const Dashboard: React.FC<PortfolioMetrics> = (props) => {
-  const [portfolioValue, setPortfolioValue] = useState(props.portfolio_value)
-  const [pnl, setPnl] = useState(props.pnl)
+const Dashboard = () => {
+  const [portfolioValue, setPortfolioValue] = useState('')
+  const [pnl, setPnl] = useState('')
 
 
   async function getPortfolioMetrics(abortController: AbortController) {
