@@ -15,14 +15,14 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 
 const stylesL = {
-  wrapper: "w-screen flex flex-col z-10 text-gray-100 ",
+  wrapper: "w-screen flex flex-col z-10 text-gray-100",
   mainContainer: ' w-5/6 h-full m-auto flex mt-16 rounded-3xl bg-black z-100',
   leftMain: 'flex flex-col h-full p-6 z-100',
   portfolioAmountContainer: 'flex flex-col',
   portfolioAmount: 'text-4xl font-bold',
   portfolioPercent: 'font-bold text-sm font-mono',
   pastHour: 'text-gray-400',
-  chartContainer: 'text-md border border-black rounded-2xl p-4  w-full h-auto mt-11 mb-11',
+  chartContainer: 'text-md border border-white rounded-2xl p-4  w-full h-auto mt-11 mb-11',
   buyingPowerContainer: 'w-full border-t mb-12 border-b h-16 border-[#30363b] flex justify-between item items-center rounded-2xl bg-orange-500 bg-opacity-10',
   buyingPowerTitle: 'font-bolder text-lg items-center p-5 hover:font-bold',
   buyingPowerAmount: 'flex font-bolder text-xl h-20 items-center p-5 ',
@@ -53,8 +53,8 @@ const stylesL = {
 
 
 const Dashboard = () => {
-  const [portfolioValue, setPortfolioValue] = useState('')
-  const [pnl, setPnl] = useState('')
+  const [portfolioValue, setPortfolioValue] = useState(0)
+  const [pnl, setPnl] = useState(0)
 
 
   async function getPortfolioMetrics(abortController: AbortController) {
@@ -129,28 +129,6 @@ const Dashboard = () => {
             </div>
 
 
-
-            {/* 
-            <div className={stylesL.buyingPowerContainer}>
-              <div className={stylesL.buyingPowerTitle}>Diversification Score</div>
-              <div className={stylesL.buyingPowerAmount}>5.77/10</div>
-            </div>
-            <div className={stylesL.buyingPowerContainer}>
-              <Link href={"/info"}>
-                <div className={stylesL.buyingPowerTitle}>Value at Risk</div>
-              </Link>
-              <div className={stylesL.buyingPowerAmount}>2.06%</div>
-            </div>
-            <div className={stylesL.buyingPowerContainer}>
-              <div className={stylesL.buyingPowerTitle}>Buying Power</div>
-              <div className={stylesL.buyingPowerAmount}>$12,534.21</div>
-            </div>
-            <div className={stylesL.buyingPowerContainer}>
-              <div className={stylesL.buyingPowerTitle}>Portfolio Beta</div>
-              <div className={stylesL.buyingPowerAmount}>{beta?.toFixed(2)}</div>
-            </div>
-             */}
-            {/* <Notice/> */}
           </div>
           <div className={stylesL.rightMain}>
             <div className={stylesL.rightMainItem}>

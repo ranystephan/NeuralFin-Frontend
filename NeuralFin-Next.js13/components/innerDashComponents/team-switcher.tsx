@@ -44,7 +44,7 @@ const groups = [
     label: "Personal Account",
     teams: [
       {
-        label: "Alicia Koch",
+        label: "Rany Stephan",
         value: "personal",
       },
     ],
@@ -53,11 +53,11 @@ const groups = [
     label: "Teams",
     teams: [
       {
-        label: "Acme Inc.",
+        label: "NeuralFin Inc.",
         value: "acme-inc",
       },
       {
-        label: "Monsters Inc.",
+        label: "CMPS271 Inc.",
         value: "monsters",
       },
     ],
@@ -100,7 +100,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="w-[200px] p-0 bg-white bg-opacity-30 backdrop-filter backdrop-blur-md">
           <Command>
             <CommandList>
               <CommandInput placeholder="Search team..." />
