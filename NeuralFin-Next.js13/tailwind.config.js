@@ -60,12 +60,46 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        blob1: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(130px, -50px) scale(1.2)' },
+          '66%': { transform: 'stranslate(-15px, 22px) cale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        blob2: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(-130px, -50px) scale(1.2)' },
+          '66%': { transform: 'stranslate(-13px, 10px) cale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        blob3: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(-130px, 0px) scale(1.2)' },
+          '66%': { transform: 'stranslate(-30px, 350px) cale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        blob4: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(130px, 0px) scale(1.2)' },
+          '66%': { transform: 'stranslate(-20px, 20px) cale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        blob1: 'blob1 7s infinite',
+        blob2: 'blob2 6s infinite',
+        blob3: 'blob3 7s infinite',
+        blob4: 'blob4 5s infinite',
       },
+
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar-hide'),
+  ]
 }

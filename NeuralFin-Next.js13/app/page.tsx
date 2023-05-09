@@ -59,9 +59,9 @@ const Page: React.FC = () => {
   return (
 
     <ThemeProvider attribute="class">
-      <div ref={scrollContainerRef} className="overflow-x-hidden overflow-y-scroll scrollbar-hide">
+      <div ref={scrollContainerRef} className=" overflow-y-scroll scrollbar-hide">
         {/* set the navbar over BallAnimation */}
-        <div className="flex-col page-container h-screen w-screen  relative">
+        <div className="flex-col page-container h-screen w-screen relative">
           <div className="">
             {auth.isAuthenticated == true ? (
               <UserNavbar  name={auth.user?.name !== undefined ? auth.user.name : ''}  /> 
