@@ -10,7 +10,7 @@ import PortfolioChart from '@/components/PortfolioChart';
 import InnerDashboard from '@/components/InnerDashboard';
 
 
-//Icons
+//Icons idk
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 
