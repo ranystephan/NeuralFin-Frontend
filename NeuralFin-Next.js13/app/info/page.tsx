@@ -1,11 +1,11 @@
 'use client'
 
 import Chat from '@/components/Chat'
-import { DataTable } from '@/components/DataTable'
-import { Payment, columns } from "./columns"
+/* import { DataTable } from '@/components/DataTable'
+import { Payment, columns } from "./columns" */
 
 
-async function getData(): Promise<Payment[]> {
+/* async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
   return [
     {
@@ -16,17 +16,17 @@ async function getData(): Promise<Payment[]> {
     },
     // ...
   ]
-}
+} */
 
 export default async function Info() {
-  const data = await getData()
-
+/*   const data = await getData()
+ */
   return(
-    <div>
+    <div className=''>
       <Chat />
-      <div className='container mx-auto py-10'>
+{/*       <div className='container mx-auto py-10'>
         <DataTable columns={columns} data={data} />
-      </div>
+      </div> */}
     </div>
   )
 
