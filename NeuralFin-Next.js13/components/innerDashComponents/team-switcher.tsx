@@ -3,6 +3,9 @@
 import * as React from "react"
 import { Check, ChevronsUpDown, PlusCircle } from "lucide-react"
 
+import { AuthContext } from '@/contexts/AuthContext';
+import { useContext, useState,useEffect } from "react"
+
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/innerDashComponents/avatar"
 import { Button } from "@/components/innerDashComponents/button"
@@ -39,43 +42,133 @@ import {
   SelectValue,
 } from "@/components/innerDashComponents/select"
 
-const groups = [
-  {
-    label: "Personal Account",
-    teams: [
-      {
-        label: "Rany Stephan",
-        value: "personal",
-      },
-    ],
-  },
-  {
-    label: "Teams",
-    teams: [
-      {
-        label: "NeuralFin Inc.",
-        value: "acme-inc",
-      },
-      {
-        label: "CMPS271 Inc.",
-        value: "monsters",
-      },
-    ],
-  },
-]
 
-type Team = (typeof groups)[number]["teams"][number]
+type Portfolio = {
+  label: string;
+  value: string;
+};
+
+type Group = {
+  label: string;
+  portfolios: Portfolio[];
+};
+
+
+
+type Team = Portfolio;
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface TeamSwitcherProps extends PopoverTriggerProps {}
 
 export default function TeamSwitcher({ className }: TeamSwitcherProps) {
+  const { auth } = useContext(AuthContext);
+
+  const [groups, setGroups] = useState<Group[]>([]);
+
+
+
   const [open, setOpen] = React.useState(false)
   const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false)
-  const [selectedTeam, setSelectedTeam] = React.useState<Team>(
-    groups[0].teams[0]
-  )
+  const [selectedTeam, setSelectedTeam] = React.useState<Portfolio | null>(null);
+
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+
+
+
+  const createNewPortfolio = async (name: string, description: string) => {  
+    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolios/`;
+
+    await fetch(apiUrl_deployed, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        name,
+        description,
+      })
+    });
+  }
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    if (auth.user) {
+      getUserPortfolios(abortController);
+    }
+
+    return () => {
+      abortController.abort();
+    };
+  }, [auth.user]);
+
+
+
+  async function getUserPortfolios(abortController: AbortController) {
+
+    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolios/${auth.user?.id}/`;
+
+    console.log(auth.user?.id)
+    console.log('lol')
+
+    const res = await fetch(apiUrl_deployed, {
+      credentials: 'include',
+      signal: abortController.signal,
+
+    })
+
+    const data = await res.json();
+
+    console.log(data)
+
+    if (Array.isArray(data) && data.length > 0) {
+      console.log('Portfolios found');
+
+      const personalPortfolios = data.filter(
+        (portfolio: any) => portfolio.description.includes("personal")
+      );
+      const mockPortfolios = data.filter(
+        (portfolio: any) => portfolio.description.includes("mock")
+      );
+
+      const personalPortfolioData = personalPortfolios.map((portfolio: any) => ({
+        label: portfolio.name,
+        value: portfolio.id,
+      }));
+
+      const mockPortfolioData = mockPortfolios.map((portfolio: any) => ({
+        label: portfolio.name,
+        value: portfolio.id,
+      }));
+
+      setGroups([
+        {
+          label: "Personal Account",
+          portfolios: personalPortfolioData,
+        },
+        {
+          label: "Mock Portfolios",
+          portfolios: mockPortfolioData,
+        },
+      ]);
+
+      if (personalPortfolioData.length > 0) {
+        setSelectedTeam(personalPortfolioData[0]);
+      } else if (mockPortfolioData.length > 0) {
+        setSelectedTeam(mockPortfolioData[0]);
+      } else {
+        setSelectedTeam(null);
+      }
+    } else {
+      console.log('No portfolios found');
+      return;
+    }
+  }
+
+
+
 
   return (
     <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
@@ -91,12 +184,13 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
-                alt={selectedTeam.label}
+                src={`https://avatar.vercel.sh/${selectedTeam?.value}.png`}
+                alt={selectedTeam?.label}
               />
+                
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
-            {selectedTeam.label}
+            {selectedTeam? selectedTeam.label : "Select a Portfolio"}
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -107,7 +201,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
               <CommandEmpty>No team found.</CommandEmpty>
               {groups.map((group) => (
                 <CommandGroup key={group.label} heading={group.label}>
-                  {group.teams.map((team) => (
+                  {group.portfolios.map((team: Portfolio) => (
                     <CommandItem
                       key={team.value}
                       onSelect={() => {
@@ -127,7 +221,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                       <Check
                         className={cn(
                           "ml-auto h-4 w-4",
-                          selectedTeam.value === team.value
+                          selectedTeam?.value === team.value
                             ? "opacity-100"
                             : "opacity-0"
                         )}
@@ -148,7 +242,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                     }}
                   >
                     <PlusCircle className="mr-2 h-5 w-5" />
-                    Create Team
+                    Create Portfolio
                   </CommandItem>
                 </DialogTrigger>
               </CommandGroup>
@@ -158,34 +252,41 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
       </Popover>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create team</DialogTitle>
+          <DialogTitle>Create Portfolio</DialogTitle>
           <DialogDescription>
-            Add a new team to manage products and customers.
+            Add a new portfolio to track and analyze your investments.
           </DialogDescription>
         </DialogHeader>
         <div>
           <div className="space-y-4 py-2 pb-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Team name</Label>
-              <Input id="name" placeholder="Acme Inc." />
+              <Label htmlFor="name">Portfolio Name</Label>
+              <Input 
+                id="name"
+                placeholder="Main Portfolio"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="plan">Subscription plan</Label>
-              <Select>
+              <Label htmlFor="desc">Portfolio Description</Label>
+              <Select
+                onValueChange={(value) => setDescription(value)}
+              >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a plan" />
+                  <SelectValue placeholder="Select what applies" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="free">
-                    <span className="font-medium">Free</span> -{" "}
+                  <SelectItem value="personal">
+                    <span className="font-medium">Personal</span> -{" "}
                     <span className="text-muted-foreground">
-                      Trial for two weeks
+                      This portfolio tracks my personal investments
                     </span>
                   </SelectItem>
-                  <SelectItem value="pro">
-                    <span className="font-medium">Pro</span> -{" "}
+                  <SelectItem value="mock">
+                    <span className="font-medium">Mock</span> -{" "}
                     <span className="text-muted-foreground">
-                      $9/month per user
+                      This portfolio tracks test investments
                     </span>
                   </SelectItem>
                 </SelectContent>
@@ -197,7 +298,15 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           <Button variant="outline" onClick={() => setShowNewTeamDialog(false)}>
             Cancel
           </Button>
-          <Button type="submit">Continue</Button>
+          <Button 
+            type="submit"
+            onClick={() => {
+              createNewPortfolio(name, description);
+              setShowNewTeamDialog(false);
+            }}
+          >
+            Continue
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

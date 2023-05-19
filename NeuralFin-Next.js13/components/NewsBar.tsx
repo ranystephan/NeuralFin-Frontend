@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 type NewsData = {
   title: string;
   summary: string;
+  sentiment: string;
 };
 
 type NewsBarProps = {
@@ -15,11 +16,12 @@ const NewsBar = (props: NewsBarProps) => {
 
   const fetchNewsData = async () => {
     try {
-      const response = await fetch(`https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${props.symbol}&apikey=${apiKey}`);
+      const response = await fetch(`https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${props.symbol}&sort=RELEVANCE&apikey=${apiKey}`);
       const data = await response.json();
-      const articles = data.feed.map((article: { title: any; summary: any; }) => ({
+      const articles = data.feed.map((article: { title: any; summary: any; overall_sentiment_label: any}) => ({
         title: article.title,
         summary: article.summary,
+        sentiment: article.overall_sentiment_label,
       }));
       setNewsData(articles);
     } catch (error) {
@@ -33,14 +35,15 @@ const NewsBar = (props: NewsBarProps) => {
 
 
   return (
-    <div className='overflow-y-scroll max-h-auto'>
+    <div className='overflow-y-scroll max-h-auto scrollbar-hide'>
       {newsData && newsData.length && newsData.map((article, index) => (
-        <div key={index}>
-          <div className='m-3 text-md text-white font-bold font-mono '>{article.title}</div>
+        <div key={index} className='flex flex-col hover:bg-gray-800 rounded-lg'>
+          <div className='m-3 text-md text-white font-bold '>{article.title}</div>
           <div className='m-3 text-md text-white'>{article.summary}</div>
-          <div className='text-center'>
-            <div className='border-b border-gray-600 w-52 inline-block'></div>
+          <div className='m-3 text-md text-red-400 flex justify-end'>
+            <span className='bg-gray-800 border border-white rounded-full px-2 py-1'>{article.sentiment}</span>
           </div>
+
         </div>
       ))}
     </div>

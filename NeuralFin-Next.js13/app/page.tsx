@@ -32,7 +32,8 @@ const Page: React.FC = () => {
           }
 
           const content = await response.json()
-          updateAuth({ isAuthenticated: true, user: { name: content.name, email: content.email} });
+
+          updateAuth({ isAuthenticated: true, user: {id: content.id, name: content.name, email: content.email} });
           console.log('Logged in');
           console.log(auth.user?.name);
         } catch (err) {

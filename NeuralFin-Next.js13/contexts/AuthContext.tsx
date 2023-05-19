@@ -5,7 +5,7 @@ import { createContext, useState, ReactNode } from 'react';
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: { name: string; email: string } | null;
+  user: {id: number, name: string; email: string } | null;
 }
 
 interface AuthContextType {

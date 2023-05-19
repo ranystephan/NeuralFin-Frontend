@@ -49,9 +49,11 @@ const dropdownVariants = {
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
-          <h2 className="font-extrabold sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-            neuralfin
-          </h2> 
+          <Link href={"/"}>
+            <h2 className="font-extrabold sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              neuralfin
+            </h2> 
+          </Link>
           <motion.div
             className="hidden absolute group-hover:block"
             variants={dropdownVariants}

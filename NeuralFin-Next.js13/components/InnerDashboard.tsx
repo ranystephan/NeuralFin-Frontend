@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 
 
 
 import { Metadata } from "next"
 
-import { Activity, CreditCard, DollarSign, Download, Users } from "lucide-react"
+import { Activity, CreditCard, DollarSign, Download, Users, RefreshCw } from "lucide-react"
+import AddStock from "./innerDashComponents/addstock"
 
 import { Button } from "@/components/innerDashComponents/button"
 import {
@@ -25,6 +26,7 @@ import { Search } from "@/components/innerDashComponents/search"
 import TeamSwitcher from "@/components/innerDashComponents/team-switcher"
 import { UserNav } from "@/components/innerDashComponents/user-nav"
 
+
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app using the components.",
@@ -42,13 +44,20 @@ type PortfolioMetrics = {
 
 
 export default function InnerDashboard(props: PortfolioMetrics) {
+
   const [portfolioValue, setPortfolioValue] = useState(props.portfolio_value)
   const [pnl, setPnl] = useState(props.pnl)
   const [beta, setBeta] = useState(props.beta)
   const [valueAtRisk, setValueAtRisk] = useState(props.value_at_risk)
   const [expectedShortfall, setExpectedShortfall] = useState(props.expected_shortfall)
 
+  const [refreshKey, setRefreshKey] = useState(0);
 
+
+
+  const handleRefresh = () => {
+    setRefreshKey(oldKey => oldKey + 1);
+  }
 
   async function getPortfolioMetrics(abortController: AbortController) {
 
@@ -82,14 +91,12 @@ export default function InnerDashboard(props: PortfolioMetrics) {
   useEffect(() => {
     const abortController = new AbortController();
 
-
     getPortfolioMetrics(abortController)
 
     return () => {
       abortController.abort();
     }
   }, [])
-
 
 
 
@@ -204,13 +211,19 @@ export default function InnerDashboard(props: PortfolioMetrics) {
                 </Card>
                 <Card className="col-span-3">
                   <CardHeader>
-                    <CardTitle>Recent Transactions</CardTitle>
+                    <div className="flex justify-between">
+                      <CardTitle>Recent Transactions</CardTitle>
+                      <AddStock />
+                    </div>
                     <CardDescription>
                       These are your last 5 transactions.
+                      <button onClick={handleRefresh}>
+                        <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
+                      </button>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <TransactionList />
+                    <TransactionList refreshKey={refreshKey} />
                   </CardContent>
                 </Card>
               </div>
