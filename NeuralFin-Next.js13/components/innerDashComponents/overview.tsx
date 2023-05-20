@@ -11,7 +11,7 @@ interface SectorAllocation {
 
 
 export function Overview() {
-  const [sectorAlloc, setSectorAlloc] = useState([])
+  const [sectorAlloc, setSectorAlloc] = useState<SectorAllocation[]>([])
 
   useEffect(() => {
     const abortController = new AbortController();
