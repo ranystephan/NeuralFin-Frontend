@@ -2,6 +2,14 @@
 import { useEffect, useState } from "react"
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 
+
+interface SectorAllocation {
+  name: string;
+  value: number;
+}
+
+
+
 export function Overview() {
   const [sectorAlloc, setSectorAlloc] = useState([])
 
