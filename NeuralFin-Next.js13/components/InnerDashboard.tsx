@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react"
 
 
 
+
 import { Metadata } from "next"
 
 import { Activity, CreditCard, DollarSign, Download, Users, RefreshCw } from "lucide-react"
@@ -29,7 +30,7 @@ import { UserNav } from "@/components/innerDashComponents/user-nav"
 
 export const metadata: Metadata = {
   title: "Dashboard",
-  description: "Example dashboard app using the components.",
+  description: "Different portfolio metrics",
 }
 
 type PortfolioMetrics = {
@@ -43,7 +44,10 @@ type PortfolioMetrics = {
 
 
 
+
+
 export default function InnerDashboard(props: PortfolioMetrics) {
+
 
   const [portfolioValue, setPortfolioValue] = useState(props.portfolio_value)
   const [pnl, setPnl] = useState(props.pnl)
@@ -82,6 +86,7 @@ export default function InnerDashboard(props: PortfolioMetrics) {
       setBeta(data.beta)
       setValueAtRisk(data.value_at_risk)
       setExpectedShortfall(data.expected_shortfall)
+
     }
   }
 
@@ -104,9 +109,7 @@ export default function InnerDashboard(props: PortfolioMetrics) {
 
   return (
     <>
-      <div className="md:hidden">
-        image
-        image
+      <div className="">
       </div>
       <div className="hidden flex-col md:flex">
         <div className="border-b">
@@ -133,7 +136,7 @@ export default function InnerDashboard(props: PortfolioMetrics) {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
+              <TabsTrigger value="analytics">
                 Analytics
               </TabsTrigger>
               <TabsTrigger value="reports" disabled>
@@ -203,7 +206,92 @@ export default function InnerDashboard(props: PortfolioMetrics) {
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                   <CardHeader>
-                    <CardTitle>Overview</CardTitle>
+                    <CardTitle>Asset Allocation</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <Overview />
+                  </CardContent>
+                </Card>
+                <Card className="col-span-3">
+                  <CardHeader>
+                    <div className="flex justify-between">
+                      <CardTitle>Recent Transactions</CardTitle>
+                      <AddStock />
+                    </div>
+                    <CardDescription>
+                      These are your last 5 transactions.
+                      <button onClick={handleRefresh}>
+                        <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
+                      </button>
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <TransactionList refreshKey={refreshKey} />
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+            <TabsContent value="analytics" className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Current Market Value
+                    </CardTitle>
+                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">${portfolioValue?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 })}</div>
+                    <p className={`text-xs ${pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                      {pnl >= 0 ? `+${pnl?.toFixed(2)}` : pnl?.toFixed(2)} <span className="text-white">from last close</span>
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Portfolio Beta
+                    </CardTitle>
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{beta?.toFixed(2)}</div>
+                    <p className="text-xs text-muted-foreground">
+                      This is the market risk of your portfolio
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Value at Risk (VaR)</CardTitle>
+                    <CreditCard className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{(valueAtRisk*100)?.toFixed(2)}%</div>
+                    <p className="text-xs text-muted-foreground">
+                      The potential loss of your portfolio to 95% confidence
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Expected Shortfall
+                    </CardTitle>
+                    <Activity className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-red-400">{(expectedShortfall*100)?.toFixed(2)}%</div>
+                    <p className="text-xs text-muted-foreground">
+                      This is the expected loss of your portfolio to 95% confidence
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                <Card className="col-span-4">
+                  <CardHeader>
+                    <CardTitle>Asset Allocation</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
                     <Overview />
