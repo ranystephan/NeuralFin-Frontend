@@ -12,7 +12,7 @@ interface GenerateNextApiRequest extends NextApiRequest {
 }
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
