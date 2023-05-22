@@ -69,9 +69,6 @@ const StockChart = (props: StockChartProps) => {
       const response = await fetch(apiUrl_deployed);
       const data: ChartResponse = await response.json();
 
-      console.log('response: ', response);
-      console.log('data.chart_data: ', data.chart_data);
-      console.log('data: ', data);
 
 
       // Filter the data based on the selected chart range

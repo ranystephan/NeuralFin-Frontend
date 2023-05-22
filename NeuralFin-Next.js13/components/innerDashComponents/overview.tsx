@@ -61,12 +61,11 @@ export function Overview() {
       <BarChart data={skeletonData}>
         <XAxis
           dataKey="name"
-          stroke="#888888"
+          stroke=""
           fontSize={12}
           tickLine={false}
           axisLine={false}
           interval={0} // show all ticks
-          tick={<XAxisSkeleton />} // use custom skeleton component for x-axis
 
         />
         <YAxis

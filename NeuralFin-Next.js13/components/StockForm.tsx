@@ -1,31 +1,52 @@
 import { SetStateAction, useState } from 'react';
 
 type OverviewData = {
+  Empty: string;
   Name: string;
-  Exchange: string;
   Description: string;
   Sector: string;
-  Empty : string;
+  Exchange: string;
+  AnalystTargetPrice: number;
+  DividendDate: string;
+  DividendYield: number;
+  Beta: number,
+  EPS: number,
+  PERatio: number,
+  EVToEBITDA: number,
+  EVToRevenue: number,
+  ProfitMargin: number,
+  MarketCapitalization: number,
+
 
 };
 
-
-type RiskData = {
-  symbol: string;
-  risk_score: number;
-}
 
 const styles = {
   wrapper: "overflow-hidden",
-  companyName: "text-2xl font-bold mb-2 font-mono",
+  companyName: "text-2xl font-bold mb-2 ",
   sector: "text-sm text-gray-400 font-bold mb-1 font-mono",
-  description: "text-sm text-gray-400",
+  description: "text-sm text-gray-400 mb-2",
+  metrics: "text-sm text-gray-400 font-bold ",
+  metricsData: "text-sm text-gray-600 font-bold",
+  
 };
+
+function formatMarketCap(value: number): string {
+  if (value >= 1e12) {
+    return (value / 1e12).toFixed(2) + 'T';
+  } else if (value >= 1e9) {
+    return (value / 1e9).toFixed(2) + 'B';
+  } else if (value >= 1e6) {
+    return (value / 1e6).toFixed(2) + 'M';
+  } else {
+    return value.toString();
+  }
+}
+
 
 function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
   const [symbol, setSymbol] = useState('');
   const [overviewData, setOverviewData] = useState(null as OverviewData | null);
-  const [riskData, setRiskData] = useState(null as RiskData | null);
   const [isLoading, setIsLoading] = useState(false);
   const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
 
@@ -46,34 +67,14 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
     }
   }
 
-  async function fetchRiskData() {
-    try {
-      setIsLoading(true);
-      const response = await fetch(`https://neuralfin-backend-production.up.railway.app/api/risk/stockRisk/${symbol}`);
-      const data = await response.json();
-
-      
-      if (Object.keys(data).length === 0) {
-        setRiskData( {symbol: '', risk_score: 0} );
-      } else {
-        setRiskData(data);
-      }
-        setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.error('Error fetching risk score data:', error);
-    }
-  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onSymbolChange(symbol);
     if (symbol.trim() !== ''){
       fetchOverviewData();
-      fetchRiskData();
     } else {
       setOverviewData(null);
-      setRiskData(null);
     }
 
   }
@@ -83,7 +84,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
   };
 
 
-
+  console.log(overviewData);
 
   return (
     <div>
@@ -138,9 +139,57 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
                   }
                   {overviewData && (
                     <div>
-                      <div className={styles.companyName}>{overviewData.Name}</div>
-                      <div className={styles.sector}>{overviewData.Sector}</div>
-                      <div className={styles.description}>{overviewData.Description}</div>
+                      <div>
+                        <div className={styles.companyName}>{overviewData.Name}</div>
+                        <div className={styles.sector}>{overviewData.Sector}</div>
+                        <div className={styles.description}>{overviewData.Description}</div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Exchange</div>
+                          <div className={styles.metricsData}>{overviewData.Exchange}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Market Cap</div>
+                          <div className={styles.metricsData}>
+                            {overviewData && formatMarketCap(Number(overviewData.MarketCapitalization))}
+                          </div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Target Price</div>
+                          <div className={styles.metricsData}>{overviewData.AnalystTargetPrice}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Yield</div>
+                          <div className={styles.metricsData}>{(overviewData.DividendYield * 100).toFixed(2)}%</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Div Date</div>
+                          <div className={styles.metricsData}>{overviewData.DividendDate}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Beta</div>
+                          <div className={styles.metricsData}>{overviewData.Beta}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>EPS</div>
+                          <div className={styles.metricsData}>{overviewData.EPS}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>PE Ratio</div>
+                          <div className={styles.metricsData}>{overviewData.PERatio}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>EV/EBITDA</div>
+                          <div className={styles.metricsData}>{overviewData.EVToEBITDA}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>EV/Revenue</div>
+                          <div className={styles.metricsData}>{overviewData.EVToRevenue}</div>
+                        </div>
+                        <div className='flex justify-between mt-1 mb-1'>
+                          <div className={styles.metrics}>Profit Margin</div>
+                          <div className={styles.metricsData}>{overviewData.ProfitMargin}</div>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -150,31 +199,6 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
             </form>
           </div>
         </div>
-      </div>
-        {/* Risk score display */}
-      <div className="mt-4 px-4 sm:px-6">
-        <h2 className="text-lg font-bold mb-2 font-mono">Risk Score</h2>
-        {isLoading ? (
-          <div>
-            <div className="flex items-center justify-center">
-              <span className="mr-2">Loading...</span>
-              <div className="w-6 h-6 border-4 border-gray-400 rounded-full animate-spin"></div>
-            </div>
-          </div>
-        ) : (
-          <div>
-            {riskData === null && (
-              <div className="text-sm text-gray-400">
-                Enter a stock symbol and press enter to see the risk score.
-              </div>
-            )}
-            {riskData && (
-              <div className="text-xl text-gray-900 font-mono">
-                {riskData.symbol}: {riskData.risk_score.toFixed(2)}
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

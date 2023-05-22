@@ -9,6 +9,7 @@ import { Metadata } from "next"
 
 import { Activity, CreditCard, DollarSign, Download, Users, RefreshCw } from "lucide-react"
 import AddStock from "./innerDashComponents/addstock"
+import { Skeleton } from "./innerDashComponents/skeleton"
 
 import { Button } from "@/components/innerDashComponents/button"
 import {
@@ -33,27 +34,88 @@ export const metadata: Metadata = {
   description: "Different portfolio metrics",
 }
 
-type PortfolioMetrics = {
-  portfolio_value: number,
-  pnl: number,
-  beta: number,
-  value_at_risk: number,
-  expected_shortfall: number,
 
+const CardSkeleton = () => (
+  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">
+          Current Market Value
+        </CardTitle>
+        <Skeleton className="h-4 w-4 text-muted-foreground  bg-gray-400 " />
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold"><Skeleton className="h-8 w-20 bg-gray-400 mb-2"/></div>
+        <p className="text-xs text-muted-foreground flex items-center">
+          <span className="mr-2">+/-</span>
+          <span className="mr-2"><Skeleton className="h-3 w-6 my-2 bg-gray-400"/></span>
+          <span className="text-white">from last close</span>
+        </p>
+      </CardContent>
+    </Card>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">
+          Portrfolio Beta
+        </CardTitle>
+        <Skeleton className="h-4 w-4 text-muted-foreground bg-gray-400" />
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold"><Skeleton className="h-8 w-20 bg-gray-400 mb-2"/></div>
+        <p className="text-xs text-muted-foreground flex items-center">
+          This is the market risk of your portfolio
+        </p>
+      </CardContent>
+    </Card>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">
+          Value at Risk (VaR)
+        </CardTitle>
+        <Skeleton className="h-4 w-4 text-muted-foreground bg-gray-400" />
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold"><Skeleton className="h-8 w-20 bg-gray-400 mb-2"/></div>
+        <p className="text-xs text-muted-foreground flex items-center">
+          The potential loss of your portfolio to 95% confidence
+        </p>
+      </CardContent>
+    </Card>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">
+          Expected Shortfall
+        </CardTitle>
+        <Skeleton className="h-4 w-4 text-muted-foreground bg-gray-400" />
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold"><Skeleton className="h-8 w-20 bg-gray-400 mb-2"/></div>
+        <p className="text-xs text-muted-foreground flex items-center">
+          This is the expected loss of your portfolio to 95% confidence
+        </p>
+      </CardContent>
+    </Card>
+  </div>
+
+);
+
+type portfolioMetrics = {
+  portfolio_value?: number,
+  pnl?: number,
+  beta?: number,
+  value_at_risk?: number,
+  expected_shortfall?: number
+}
+
+interface InnerDashboardProps {
+  portfolioMetrics: portfolioMetrics;
 }
 
 
 
+export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) {
+  const [metrics, setMetrics] = useState<portfolioMetrics>(portfolioMetrics);
 
-
-export default function InnerDashboard(props: PortfolioMetrics) {
-
-
-  const [portfolioValue, setPortfolioValue] = useState(props.portfolio_value)
-  const [pnl, setPnl] = useState(props.pnl)
-  const [beta, setBeta] = useState(props.beta)
-  const [valueAtRisk, setValueAtRisk] = useState(props.value_at_risk)
-  const [expectedShortfall, setExpectedShortfall] = useState(props.expected_shortfall)
 
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -63,47 +125,11 @@ export default function InnerDashboard(props: PortfolioMetrics) {
     setRefreshKey(oldKey => oldKey + 1);
   }
 
-  async function getPortfolioMetrics(abortController: AbortController) {
-
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-metrics/`;
-    const apiUrl_local = `http://localhost:8000/api/portfolio-metrics/`;
-
-    const res = await fetch(apiUrl_deployed, {
-      credentials: 'include',
-      signal: abortController.signal,
-
-    })
-
-    const data = await res.json()
-
-    if (Object.keys(data).length === 0) {
-      console.log('No portfolio metrics found')
-      return
-    } else {
-      console.log('Portfolio metrics found')
-      setPortfolioValue(data.portfolio_value)
-      setPnl(data.pnl)
-      setBeta(data.beta)
-      setValueAtRisk(data.value_at_risk)
-      setExpectedShortfall(data.expected_shortfall)
-
-    }
-  }
-
-
 
 
   useEffect(() => {
-    const abortController = new AbortController();
-
-    getPortfolioMetrics(abortController)
-
-    return () => {
-      abortController.abort();
-    }
-  }, [])
-
-
+    setMetrics(portfolioMetrics);
+  }, [portfolioMetrics]);
 
 
 
@@ -117,8 +143,8 @@ export default function InnerDashboard(props: PortfolioMetrics) {
             <TeamSwitcher />
             <MainNav className="mx-6" />
             <div className="ml-auto flex items-center space-x-4">
-              <Search />
-              <UserNav />
+              {/* <Search /> */}
+              {/* <UserNav /> */}
             </div>
           </div>
         </div>
@@ -147,89 +173,92 @@ export default function InnerDashboard(props: PortfolioMetrics) {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Current Market Value
-                    </CardTitle>
-                    <DollarSign className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">${portfolioValue?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 })}</div>
-                    <p className={`text-xs ${pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                      {pnl >= 0 ? `+${pnl?.toFixed(2)}` : pnl?.toFixed(2)} <span className="text-white">from last close</span>
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Portfolio Beta
-                    </CardTitle>
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{beta?.toFixed(2)}</div>
-                    <p className="text-xs text-muted-foreground">
-                      This is the market risk of your portfolio
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Value at Risk (VaR)</CardTitle>
-                    <CreditCard className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{(valueAtRisk*100)?.toFixed(2)}%</div>
-                    <p className="text-xs text-muted-foreground">
-                      The potential loss of your portfolio to 95% confidence
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Expected Shortfall
-                    </CardTitle>
-                    <Activity className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-red-400">{(expectedShortfall*100)?.toFixed(2)}%</div>
-                    <p className="text-xs text-muted-foreground">
-                      This is the expected loss of your portfolio to 95% confidence
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
-                  <CardHeader>
-                    <CardTitle>Asset Allocation</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pl-2">
-                    <Overview />
-                  </CardContent>
-                </Card>
-                <Card className="col-span-3">
-                  <CardHeader>
-                    <div className="flex justify-between">
-                      <CardTitle>Recent Transactions</CardTitle>
-                      <AddStock />
+              {!metrics.portfolio_value ? <CardSkeleton /> : (
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                          Current Market Value
+                        </CardTitle>
+                        <DollarSign className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">${metrics.portfolio_value?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 })}</div>
+                        <p className={`text-xs ${metrics.pnl !== undefined && metrics.pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          {metrics.pnl !== undefined && metrics.pnl >= 0 ? `+${metrics.pnl?.toFixed(2)}` : metrics.pnl?.toFixed(2)} <span className="text-white">from last close</span>
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                          Portfolio Beta
+                        </CardTitle>
+                        <Users className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{metrics.beta?.toFixed(2)}</div>
+                        <p className="text-xs text-muted-foreground">
+                          This is the market risk of your portfolio
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Value at Risk (VaR)</CardTitle>
+                        <CreditCard className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{(metrics.value_at_risk !== undefined ? (metrics.value_at_risk * 100)?.toFixed(2): 'N/A')}%</div>
+                        <p className="text-xs text-muted-foreground">
+                          The potential loss of your portfolio to 95% confidence
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                          Expected Shortfall
+                        </CardTitle>
+                        <Activity className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold text-red-400">{(metrics.expected_shortfall !== undefined ? (metrics.expected_shortfall * 100)?.toFixed(2): 'N/A')}%</div>
+                        <p className="text-xs text-muted-foreground">
+                          This is the expected loss of your portfolio to 95% confidence
+                        </p>
+                      </CardContent>
+                    </Card>
                     </div>
-                    <CardDescription>
-                      These are your last 5 transactions.
-                      <button onClick={handleRefresh}>
-                        <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
-                      </button>
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <TransactionList refreshKey={refreshKey} />
-                  </CardContent>
-                </Card>
-              </div>
+                    )}
+
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                    <Card className="col-span-4">
+                      <CardHeader>
+                        <CardTitle>Asset Allocation</CardTitle>
+                      </CardHeader>
+                      <CardContent className="pl-2">
+                        <Overview />
+                      </CardContent>
+                    </Card>
+                    <Card className="col-span-3">
+                      <CardHeader>
+                        <div className="flex justify-between">
+                          <CardTitle>Recent Transactions</CardTitle>
+                          <AddStock />
+                        </div>
+                        <CardDescription>
+                          These are your last 5 transactions.
+                          <button onClick={handleRefresh}>
+                            <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
+                          </button>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <TransactionList refreshKey={refreshKey} />
+                      </CardContent>
+                    </Card>
+                  </div>
             </TabsContent>
             <TabsContent value="analytics" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -241,9 +270,9 @@ export default function InnerDashboard(props: PortfolioMetrics) {
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">${portfolioValue?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 })}</div>
-                    <p className={`text-xs ${pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                      {pnl >= 0 ? `+${pnl?.toFixed(2)}` : pnl?.toFixed(2)} <span className="text-white">from last close</span>
+                    <div className="text-2xl font-bold">${metrics.portfolio_value?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 })}</div>
+                    <p className={`text-xs ${metrics.pnl !== undefined && metrics.pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                        {metrics.pnl !== undefined ? (metrics.pnl >= 0 ? `+${metrics.pnl.toFixed(2)}` : metrics.pnl.toFixed(2)) : 'N/A'} <span className="text-white">from last close</span>
                     </p>
                   </CardContent>
                 </Card>
@@ -255,7 +284,7 @@ export default function InnerDashboard(props: PortfolioMetrics) {
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{beta?.toFixed(2)}</div>
+                    <div className="text-2xl font-bold">{metrics.beta?.toFixed(2)}</div>
                     <p className="text-xs text-muted-foreground">
                       This is the market risk of your portfolio
                     </p>
@@ -267,7 +296,7 @@ export default function InnerDashboard(props: PortfolioMetrics) {
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{(valueAtRisk*100)?.toFixed(2)}%</div>
+                    <div className="text-2xl font-bold">{(metrics.value_at_risk !== undefined ? (metrics.value_at_risk*100)?.toFixed(2) : 'N/A')}%</div>
                     <p className="text-xs text-muted-foreground">
                       The potential loss of your portfolio to 95% confidence
                     </p>
@@ -281,7 +310,7 @@ export default function InnerDashboard(props: PortfolioMetrics) {
                     <Activity className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-red-400">{(expectedShortfall*100)?.toFixed(2)}%</div>
+                    <div className="text-2xl font-bold text-red-400">{(metrics.expected_shortfall !== undefined ? (metrics.expected_shortfall * 100)?.toFixed(2): 'N/A')}%</div>
                     <p className="text-xs text-muted-foreground">
                       This is the expected loss of your portfolio to 95% confidence
                     </p>
