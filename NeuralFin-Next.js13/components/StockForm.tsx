@@ -56,7 +56,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
       const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`);
       const data = await response.json();
       if (Object.keys(data).length === 0) {
-        setOverviewData( {Name: '', Exchange: '', Description: '', Sector: '', Empty: 'Empty'} );
+        setOverviewData( null );
       } else {
         setOverviewData(data);
       }
