@@ -179,7 +179,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
             size="sm"
             role="combobox"
             aria-expanded={open}
-            aria-label="Select a team"
+            aria-label="Select a Portfolio"
             className={cn("w-[200px] justify-between", className)}
           >
             <Avatar className="mr-2 h-5 w-5">
@@ -197,8 +197,8 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
         <PopoverContent className="w-[200px] p-0 bg-white bg-opacity-30 backdrop-filter backdrop-blur-md">
           <Command>
             <CommandList>
-              <CommandInput placeholder="Search team..." />
-              <CommandEmpty>No team found.</CommandEmpty>
+              <CommandInput placeholder="Search portfolio..." />
+              <CommandEmpty>No portfolio found</CommandEmpty>
               {groups.map((group) => (
                 <CommandGroup key={group.label} heading={group.label}>
                   {group.portfolios.map((team: Portfolio) => (

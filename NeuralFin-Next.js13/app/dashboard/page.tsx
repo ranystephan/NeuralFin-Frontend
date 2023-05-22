@@ -40,7 +40,7 @@ const stylesL = {
   rightMainItemStocks: 'flex items-center justify-left text-white px-5 py-3 ',
   stocksContainer: 'flex flex-row flex-1 bg-purple-500 rounded-lg px-5 justify-between',
   ItemTitle: 'flex-1 font-bold',
-  moreOptions: 'curesor-pointer text-xl',
+  moreOptions: 'cursor-pointer text-xl',
   container: " h-screen w-screen overflow-hidden bg-purple-100 z[-10]",
   shape1: "absolute top-0 -left-4 w-96 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob1 z[-100] ",
   shape2: "absolute top-0 -right-4 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob2 z[-100]",
@@ -51,10 +51,11 @@ const stylesL = {
 }
 
 
-
 const Dashboard = () => {
   const [portfolioValue, setPortfolioValue] = useState(0)
   const [pnl, setPnl] = useState(0)
+
+  const [portfolioMetrics, setPortfolioMetrics] = useState({})
 
 
   async function getPortfolioMetrics(abortController: AbortController) {
@@ -77,6 +78,7 @@ const Dashboard = () => {
       console.log('Portfolio metrics found')
       setPortfolioValue(data.portfolio_value)
       setPnl(data.pnl)
+      setPortfolioMetrics(data)
     }
   }
 
@@ -124,26 +126,27 @@ const Dashboard = () => {
               </div>
             </div>
             <div className={stylesL.innerDashboard}>
-              <InnerDashboard portfolio_value={0} pnl={0} beta={0} value_at_risk={0} expected_shortfall={0} />
+              <InnerDashboard portfolioMetrics={portfolioMetrics} />
 
             </div>
 
 
           </div>
+          {/*}
           <div className={stylesL.rightMain}>
             <div className={stylesL.rightMainItem}>
               <div className={stylesL.ItemTitle}> Performing </div>
 
               <BiDotsHorizontalRounded className={stylesL.moreOptions} />
-              
+
             </div>
 
 
-            {/* <div className={stylesL.rightMainItemStocks}>
+            <div className={stylesL.rightMainItemStocks}>
               <PortfolioItems />
-            </div> */}
-            
-          </div>
+            </div>
+
+          </div> */}
         </div>
       </div>
     </div>

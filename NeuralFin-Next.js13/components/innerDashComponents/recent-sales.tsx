@@ -14,6 +14,7 @@ type PortfolioItem = {
 };
 
 import { useState, useEffect } from 'react';
+import { Skeleton } from '@/components/innerDashComponents/skeleton';
 
 export function TransactionList({ refreshKey }: { refreshKey: number }) {
   const [transactions, setTransactions] = useState<PortfolioItem[] | null>(null);
@@ -36,7 +37,12 @@ export function TransactionList({ refreshKey }: { refreshKey: number }) {
 
 
   if (!transactions) {
-    return <div>Loading...</div>;
+    return <div>
+      <Skeleton className="h-8 w-full bg-gray-400 my-4" />
+      <Skeleton className="h-8 w-full bg-gray-400 my-4" />
+      <Skeleton className="h-8 w-full bg-gray-400 my-4" />
+      <Skeleton className="h-8 w-full bg-gray-400 my-4" />
+    </div>;
   }
 
 
