@@ -7,7 +7,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={styles.pageContainer}>
+    <div className={`${styles.pageContainer} scrollbar-hide overflow-hidden`}>
 
 
       {children}
