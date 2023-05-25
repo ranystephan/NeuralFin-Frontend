@@ -97,6 +97,8 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
 
     if (auth.user) {
       getUserPortfolios(abortController);
+    } else {
+      console.log('Yoo my man, this is not working for some reason');
     }
 
     return () => {
@@ -107,29 +109,28 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
 
 
   async function getUserPortfolios(abortController: AbortController) {
+    try {
+      const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolios/${auth.user?.id}/`;
 
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolios/${auth.user?.id}/`;
+      const res = await fetch(apiUrl_deployed, {
+        credentials: 'include',
+        signal: abortController.signal,
+      })
 
-    console.log(auth.user?.id)
-    console.log('lol')
+      if (!res.ok) {
+        throw new Error(`API responded with HTTP ${res.status}`);
+      }
 
-    const res = await fetch(apiUrl_deployed, {
-      credentials: 'include',
-      signal: abortController.signal,
+      const data = await res.json();
+      // check if data is not array then wrap it into an array
+      const portfolios = Array.isArray(data) ? data : [data];
 
-    })
+      console.log(portfolios);
 
-    const data = await res.json();
-
-    console.log(data)
-
-    if (Array.isArray(data) && data.length > 0) {
-      console.log('Portfolios found');
-
-      const personalPortfolios = data.filter(
+      const personalPortfolios = portfolios.filter(
         (portfolio: any) => portfolio.description.includes("personal")
       );
-      const mockPortfolios = data.filter(
+      const mockPortfolios = portfolios.filter(
         (portfolio: any) => portfolio.description.includes("mock")
       );
 
@@ -161,11 +162,11 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
       } else {
         setSelectedTeam(null);
       }
-    } else {
-      console.log('No portfolios found');
-      return;
+    } catch (error) {
+      console.error('Failed to fetch portfolios', error);
     }
   }
+
 
 
 

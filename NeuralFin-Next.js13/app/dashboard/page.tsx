@@ -12,12 +12,15 @@ import InnerDashboard from '@/components/InnerDashboard';
 
 //Icons idk
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { Skeleton } from '@/components/innerDashComponents/skeleton';
+import PortfolioItems from '@/components/PortfolioItems';
 
 
 const stylesL = {
-  wrapper: "w-screen flex flex-col z-10 text-gray-100",
-  mainContainer: ' w-5/6 h-full m-auto flex mt-16 rounded-3xl bg-black z-100',
-  leftMain: 'flex flex-col h-full p-6 z-100',
+  bgWrapper: "w-screen flex bg-purple-400 ",
+  wrapper: "w-screen flex flex-col items-center z-10 text-gray-100 bg-black bg-opacity-80 ",
+  mainContainer: ' w-11/12 h-full m-auto  mt-16 rounded-3xl overflow-hidden scrollbar-hide',
+  leftMain: 'flex flex-col  h-full p-6 ',
   portfolioAmountContainer: 'flex flex-col',
   portfolioAmount: 'text-4xl font-bold',
   portfolioPercent: 'font-bold text-sm font-mono',
@@ -28,7 +31,7 @@ const stylesL = {
   buyingPowerAmount: 'flex font-bolder text-xl h-20 items-center p-5 ',
 
 
-  innerDashboard: 'flex border border-black p-5 flex-col rounded-xl',
+  innerDashboard: 'flex flex-shrink-1 border border-white p-5 flex-col rounded-xl',
   noticeContainer: 'flex-1',
   noticeTitle: 'text-gray-500',
   noticeMessage: 'font-bold',
@@ -46,9 +49,25 @@ const stylesL = {
   shape2: "absolute top-0 -right-4 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob2 z[-100]",
   shape3: "absolute bottom-0 -right-4 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob3 z[-100]",
   shape4: "absolute bottom-0 -left-4 w-96 h-96 bg-green-200 rounded-3xl mix-blend-multiply filter blur-3xl animate-blob4 z[-100]",
-  blobContainer: "flex flex-col items-center justify-center w-full z-[-10]",
+  blobContainer: "flex flex-col items-center justify-center max-w-full z-[-10]",
 
 }
+
+const PortfolioValueSkeleton = () => {
+  return (
+    <div className={stylesL.portfolioAmountContainer}>
+      <div className={`${stylesL.portfolioAmount} flex items-center`}>
+        $ <Skeleton className="h-10 w-40 bg-gray-400 m-2" />
+      </div>
+      <div className={stylesL.portfolioPercent}>
+        <div className="text-xs">
+          +0.00 <span className={stylesL.pastHour}> Since Last Close</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 
 const Dashboard = () => {
@@ -102,51 +121,49 @@ const Dashboard = () => {
 
   return (
     <div>
-      {/* <div className={stylesL.blobContainer}>
-        <div className={stylesL.shape2}></div>
-        <div className={stylesL.shape3}></div>
-        <div className={stylesL.shape1}></div>
-        <div className={stylesL.shape4}></div>
-      </div> */}
-      <div className={stylesL.wrapper}>
-        <DashboardHeader />
-        <div className={stylesL.mainContainer}>
-          <div className={stylesL.leftMain}>
-            <div className={stylesL.portfolioAmountContainer}>
-              <div className={stylesL.portfolioAmount}> $ { portfolioValue?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 }) } </div>
-              <div className={stylesL.portfolioPercent}>
-                  <p className={`text-xs ${pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                      {pnl >= 0 ? `+${pnl?.toFixed(2)}` : pnl?.toFixed(2)} <span className={stylesL.pastHour}>        Since Last Close</span>
-                  </p>
+
+      <div className={stylesL.bgWrapper}>
+        <div className={stylesL.wrapper}>
+          <DashboardHeader />
+          <div className={stylesL.mainContainer}>
+            <div className={stylesL.leftMain}>
+              {!portfolioValue ? <PortfolioValueSkeleton /> : (
+                <div className={stylesL.portfolioAmountContainer}>
+                  <div className={stylesL.portfolioAmount}> $ { portfolioValue?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 }) } </div>
+                  <div className={stylesL.portfolioPercent}>
+                    <div className={`text-xs ${pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                        {pnl >= 0 ? `+${pnl?.toFixed(2)}` : pnl?.toFixed(2)} <span className={stylesL.pastHour}>Since Last Close</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div>
+                <div className={stylesL.chartContainer}>
+                  <PortfolioChart />
+                </div>
               </div>
-            </div>
-            <div>
-              <div className={stylesL.chartContainer}>
-                <PortfolioChart />
+              <div className={stylesL.innerDashboard}>
+                <InnerDashboard portfolioMetrics={portfolioMetrics} />
+
               </div>
-            </div>
-            <div className={stylesL.innerDashboard}>
-              <InnerDashboard portfolioMetrics={portfolioMetrics} />
+
 
             </div>
+{/*             <div className={stylesL.rightMain}>
+              <div className={stylesL.rightMainItem}>
+                <div className={stylesL.ItemTitle}> Performing </div>
+
+                <BiDotsHorizontalRounded className={stylesL.moreOptions} />
+
+              </div>
 
 
+              <div className={stylesL.rightMainItemStocks}>
+                <PortfolioItems />
+              </div>
+
+            </div> */}
           </div>
-          {/*}
-          <div className={stylesL.rightMain}>
-            <div className={stylesL.rightMainItem}>
-              <div className={stylesL.ItemTitle}> Performing </div>
-
-              <BiDotsHorizontalRounded className={stylesL.moreOptions} />
-
-            </div>
-
-
-            <div className={stylesL.rightMainItemStocks}>
-              <PortfolioItems />
-            </div>
-
-          </div> */}
         </div>
       </div>
     </div>

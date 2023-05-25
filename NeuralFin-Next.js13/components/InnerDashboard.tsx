@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 
 
 
@@ -134,9 +134,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
 
 
   return (
-    <>
-      <div className="">
-      </div>
+    <div className="">
       <div className="hidden flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
@@ -348,6 +346,6 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
           </Tabs>
         </div>
       </div>
-    </>
+    </div>
   )
 }

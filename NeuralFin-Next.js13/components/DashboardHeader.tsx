@@ -1,7 +1,4 @@
-import React, { useContext, useEffect } from 'react'
-import logo from '../assets/logo.png'
-import Image from 'next/image'
-import { AiOutlineSearch } from 'react-icons/ai'
+import React from 'react'
 import Link from 'next/link'
 
 const styles = {
@@ -15,7 +12,7 @@ const styles = {
   searchInputWrapper: 'text-gray-400 text-lg w-full',
   searchInput: 'bg-transparent outline-none w-full',
   rightHeader: 'flex items-center justify-end  gap-8',
-  menuItem: 'cursor-pointer font-bold hover:text-purple-500 duration-300',
+  menuItem: 'cursor-pointer font-bold hover:text-purple-500 duration-300'
 }
 
 const DashboardHeader = () => {
