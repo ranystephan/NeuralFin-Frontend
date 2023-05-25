@@ -15,7 +15,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       <html lang="en">
         <Head>
         </Head>
-        <body>
+        <body >
           {children}
         </body>
       </html>

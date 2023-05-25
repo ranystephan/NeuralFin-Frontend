@@ -8,8 +8,6 @@ export default function DashboardLayout({
 }) {
   return (
     <div className={styles.pageContainer}>
-
-
       {children}
     </div>
   );
