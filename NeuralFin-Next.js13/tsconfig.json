@@ -21,9 +21,22 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "contentlayer/generated": ["./.contentlayer/generated"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js", "sections/Hero.jsx", "components/WaveGrid.jsx", "components/StockChartModal.jsx", "components/StockChart.jsx", "components/PortfolioChart.js", "components/Stats.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts", "**/*.tsx",
+    ".next/types/**/*.ts",
+    "tailwind.config.js",
+    "sections/Hero.jsx",
+    "components/WaveGrid.jsx",
+    "components/StockChartModal.jsx",
+    "components/StockChart.jsx",
+    "components/PortfolioChart.js",
+    "components/Stats.js",
+    ".contentlayer/generated"
+, "components/docsComponents/mdx-components.jsx"  ],
   "exclude": ["node_modules"]
 }
