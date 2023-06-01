@@ -1,6 +1,6 @@
-import { Separator } from "@/components/ui/separator"
-import { AccountForm } from "@/app/examples/forms/account/account-form"
-import { NotificationsForm } from "@/app/examples/forms/notifications/notifications-form"
+import { Separator } from "@/components/docsComponents/ui/separator"
+import { AccountForm } from "@/app/profile/account/account-form"
+import { NotificationsForm } from "@/app/profile/notifications/notifications-form"
 
 export default function SettingsNotificationsPage() {
   return (

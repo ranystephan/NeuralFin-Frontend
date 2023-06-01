@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { Doc } from "contentlayer/generated"
+import { NavItem, NavItemWithChildren } from "types/nav"
 
 import { docsConfig } from "@/config/docs"
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/docsComponents/ui/button"
+import { buttonVariants } from "@/components/innerDashComponents/button"
 import { Icons } from "@/components/docsComponents/icons"
 
 interface DocsPagerProps {
@@ -19,19 +19,19 @@ export function DocsPager({ doc }: DocsPagerProps) {
 
   return (
     <div className="flex flex-row items-center justify-between">
-      {pager?.prev && (
+      {pager?.prev?.href && (
         <Link
           href={pager.prev.href}
-          className={cn(buttonVariants({ variant: "ghost" }))}
+          className={buttonVariants({ variant: "outline" })}
         >
           <Icons.chevronLeft className="mr-2 h-4 w-4" />
           {pager.prev.title}
         </Link>
       )}
-      {pager?.next && (
+      {pager?.next?.href && (
         <Link
           href={pager.next.href}
-          className={cn(buttonVariants({ variant: "ghost" }), "ml-auto")}
+          className={buttonVariants({ variant: "outline" })}
         >
           {pager.next.title}
           <Icons.chevronRight className="ml-2 h-4 w-4" />
@@ -57,8 +57,10 @@ export function getPagerForDoc(doc: Doc) {
   }
 }
 
-export function flatten(links: { items? }[]) {
-  return links.reduce((flat, link) => {
-    return flat.concat(link.items ? flatten(link.items) : link)
-  }, [])
+export function flatten(links: NavItemWithChildren[]): NavItem[] {
+  return links
+    .reduce<NavItem[]>((flat, link) => {
+      return flat.concat(link.items?.length ? flatten(link.items) : link)
+    }, [])
+    .filter((link) => !link?.disabled)
 }

@@ -5,6 +5,10 @@ import { motion } from 'framer-motion'
 import styles from '../styles'
 import { navVariants } from '../utils/motion'
 import Link from 'next/link'
+import Image from 'next/image'
+
+import transLogo from '@/public/neuralfinLogo/transLogo.png';
+
 
 type UserProps = {
   name: string,
@@ -47,33 +51,33 @@ const dropdownVariants = {
       variants={navVariants}
       initial="hidden"
       whileInView="show"
-      className={`${styles.xPaddings} py-8 relative`}
+      className={`${styles.xPaddings} px-10 py-4 mt-2 relative`}
     >
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
-          <h2 className="font-extrabold sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-            neuralfin
+          <h2 className=" sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+            <Image src={transLogo} alt="logo"  width={60} height={60} />
           </h2> 
           <motion.div
-            className="hidden absolute group-hover:block"
+            className="hidden absolute group-hover:block rounded-md bg-transparent bg-opacity-25 backdrop-filter backdrop-blur-sm ml-4"
             variants={dropdownVariants}
             initial="hidden"
             whileInView="show"
 
           >
             <Link href={"/news"}>
-              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className=" sm:text-2xl text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300 hover:font-bold">
                 news
               </div>
             </Link>
             <Link href={"/dashboard"}>
-              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="sm:text-2xl text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300 hover:font-bold">
                 dashboard
               </div>
             </Link>
             <Link href={"/docs"}>
-              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="sm:text-2xl text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300 hover:font-bold">
                 documentation
               </div>
             </Link>
@@ -81,7 +85,7 @@ const dropdownVariants = {
     </div>
         <div className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
           <Link href={"/profile"}>
-            <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+            <div className="font-extrabold sm:text-2xl text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
               {props.name}
             </div>
           </Link>

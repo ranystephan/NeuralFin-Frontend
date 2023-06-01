@@ -51,7 +51,7 @@ const Grainy: React.FC = () => {
       </svg>
 
       {/* Github */}
-      <a href="https://www.github.com/ranystephan" target="_blank" className={styles.youtube}>Check us out on Github</a>
+      {/* <a href="https://www.github.com/ranystephan" target="_blank" className={styles.youtube}>Check us out on Github</a> */}
     </div>
 
   );
