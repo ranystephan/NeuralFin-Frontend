@@ -1,7 +1,7 @@
 import Link from "next/link"
 
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { siteConfig } from "@/config/site" 
+import { cn } from "@/lib/utils" // cn = classnames
 import { buttonVariants } from "@/components/docsComponents/ui/button"
 import { CommandMenu } from "@/components/docsComponents/command-menu"
 import { Icons } from "@/components/docsComponents/icons"
