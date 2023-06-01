@@ -1,0 +1,56 @@
+---
+title: Value at Risk (VaR) of Portfolio Documentation
+description: Documentation for the Value at Risk (VaR) metric of a portfolio in finance.
+---
+
+# Metric Documentation: Value at Risk (VaR) of Portfolio
+
+## Overview
+
+Value at Risk (VaR) is a financial metric used to estimate the potential loss in the value of a portfolio over a given time period and at a specified confidence level. It provides insights into the downside risk and potential losses that a portfolio may experience under normal market conditions.
+
+## Calculation
+
+The VaR of a portfolio is typically calculated using statistical models and techniques. There are various methods available to estimate VaR, including parametric, historical, and Monte Carlo simulation approaches. The choice of method depends on the characteristics of the portfolio and the available data.
+
+The most commonly used approach for calculating VaR is the parametric method, which assumes that returns follow a specific probability distribution, often the normal distribution. The formula for calculating VaR using the parametric method is as follows:
+
+```plaintext title="Formula"
+VaR = Portfolio Value * z * σ
+```
+
+Where:
+- VaR is the Value at Risk
+- Portfolio Value is the current value of the portfolio
+- z is the z-score corresponding to the desired confidence level
+- σ is the portfolio's standard deviation of returns
+
+The z-score represents the number of standard deviations required to capture the desired confidence level. For example, a z-score of 1.96 corresponds to a 95% confidence level, assuming a normal distribution.
+
+## Interpretation
+
+The VaR of a portfolio provides an estimate of the potential loss that the portfolio may experience over a given time period and at a specified confidence level. It helps investors and risk managers assess the downside risk and potential losses associated with holding the portfolio.
+
+For example, if the VaR of a portfolio is $100,000 at a 95% confidence level over a one-day time period, it means that there is a 5% probability that the portfolio may experience a loss of $100,000 or more within one day.
+
+The VaR metric is useful for portfolio risk management, setting risk limits, and evaluating the adequacy of risk-adjusted returns. It allows investors to assess the potential downside risk and make informed decisions regarding portfolio allocation and risk management strategies.
+
+## Considerations
+
+When interpreting the VaR of a portfolio, consider the following:
+
+1. **Confidence Level**: The choice of confidence level determines the probability of exceeding the VaR. Higher confidence levels correspond to lower probabilities of losses exceeding the estimated VaR.
+
+2. **Time Period**: The VaR is typically calculated for a specific time period, such as one day, one week, or one month. Consider the appropriate time period based on the investment horizon and the frequency of portfolio rebalancing.
+
+3. **Distribution Assumptions**: The parametric approach assumes a specific probability distribution, often the normal distribution. It's important to consider the validity of this assumption for the portfolio's returns. Non-normal return distributions may require alternative VaR estimation methods.
+
+4. **Portfolio Composition**: The VaR calculation takes into account the portfolio's standard deviation of returns. Consider the diversification of the portfolio, as a well-diversified portfolio may have a lower VaR compared to a concentrated portfolio.
+
+5. **Market Conditions**: VaR calculations are based on historical data, and they assume that future market conditions will be similar. Extraordinary events or extreme market conditions that deviate from historical patterns may result in VaR underestimation.
+
+6. **Limitations**: VaR is a probabilistic measure and provides an estimate of potential losses. It does not guarantee that losses will not exceed the estimated VaR. It's important to complement VaR analysis with stress testing and scenario analysis to capture tail risks and extreme events.
+
+## Conclusion
+
+Value at Risk (VaR) is a key metric for assessing the potential downside risk and losses associated with holding a portfolio. It provides investors and risk managers with insights into the potential loss in portfolio value over a given time period and at a specified confidence level. The VaR metric aids in portfolio risk management, setting risk limits, and evaluating risk-adjusted returns.

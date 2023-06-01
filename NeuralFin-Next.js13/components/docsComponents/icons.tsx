@@ -9,7 +9,6 @@ import {
   File,
   FileText,
   HelpCircle,
-  Image,
   Laptop,
   Loader2,
   LucideProps,
@@ -26,10 +25,23 @@ import {
   type Icon as LucideIcon,
 } from "lucide-react"
 
+
+import transLogo from '@/public/neuralfinLogo/transLogo.png';
+
+import Image from 'next/image';
+
+
+import React from 'react';
+
+const Logo = () => {
+  return <Image src={transLogo} alt="logo"  width={40} height={40} />;
+};
+
+
 export type Icon = LucideIcon
 
 export const Icons = {
-  logo: Command,
+  logo: Logo,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,

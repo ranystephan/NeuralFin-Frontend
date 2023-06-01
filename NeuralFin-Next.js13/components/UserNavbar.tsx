@@ -80,7 +80,7 @@ const dropdownVariants = {
           </motion.div>
     </div>
         <div className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-          <Link href={"/user"}>
+          <Link href={"/profile"}>
             <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
               {props.name}
             </div>

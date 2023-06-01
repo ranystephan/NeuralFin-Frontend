@@ -1,0 +1,56 @@
+---
+title: Expected Shortfall Documentation
+description: Documentation for the Expected Shortfall metric in finance.
+---
+
+# Metric Documentation: Expected Shortfall
+
+## Overview
+
+Expected Shortfall, also known as Conditional Value at Risk (CVaR), is a financial metric used to measure the average loss beyond the Value at Risk (VaR) level. It provides a more comprehensive measure of downside risk by considering the tail of the distribution of portfolio returns.
+
+## Calculation
+
+The Expected Shortfall is typically calculated using historical data or Monte Carlo simulation. The steps to calculate Expected Shortfall are as follows:
+
+1. Determine the VaR at a specific confidence level (e.g., 95%).
+2. Identify all portfolio returns that are below the VaR threshold.
+3. Calculate the average of these returns, representing the Expected Shortfall.
+
+The formula for Expected Shortfall can be expressed as follows:
+
+```plaintext title="Formula"
+Expected Shortfall = Average(Returns <= VaR)
+```
+
+Where:
+
+```plaintext title="Variables"
+- Returns <= VaR represents the subset of portfolio returns that are below the VaR threshold.
+```
+
+## Interpretation
+
+The Expected Shortfall represents the average loss beyond the VaR level. It provides additional information compared to VaR alone by quantifying the magnitude of potential losses beyond the VaR threshold. For example, if the VaR at a 95% confidence level is $100,000, and the Expected Shortfall is $120,000, it means that on average, the losses beyond the VaR level are expected to be $20,000.
+
+The Expected Shortfall is particularly useful for risk managers and investors who want a deeper understanding of potential losses and downside risk. By considering the tail of the return distribution, Expected Shortfall captures extreme events and provides a more robust measure of risk.
+
+## Considerations
+
+When interpreting the Expected Shortfall, consider the following:
+
+1. **Confidence Level**: The confidence level determines the probability associated with the VaR. The Expected Shortfall provides insights into the average losses beyond this confidence level.
+
+2. **Time Period**: The Expected Shortfall can be calculated for different time periods, such as daily, weekly, or monthly. Consider the appropriate time horizon based on the investment strategy and desired risk assessment.
+
+3. **Portfolio Composition**: The Expected Shortfall considers the entire portfolio's returns, capturing the combined effect of individual asset or security returns. It takes into account diversification effects and provides a holistic view of downside risk.
+
+4. **Distribution Assumptions**: The calculation of Expected Shortfall assumes that the return distribution is stationary and similar to historical data. It's important to evaluate the validity of this assumption and consider the potential impact of non-normal return distributions.
+
+5. **Tail Risk**: Expected Shortfall focuses on the tail of the return distribution, which represents extreme events. It provides insights into the severity of potential losses and helps evaluate the portfolio's exposure to tail risk.
+
+6. **Risk Management**: Expected Shortfall can be used as a risk management tool for setting risk limits, determining capital requirements, and assessing the adequacy of risk-adjusted returns. It provides a more comprehensive measure of downside risk compared to VaR alone.
+
+## Conclusion
+
+Expected Shortfall is a valuable metric for quantifying the average loss beyond the VaR level, providing insights into the potential severity of downside risk. By considering the tail of the return distribution, Expected Shortfall offers a more robust measure of risk and helps investors and risk managers make informed decisions regarding risk management and portfolio allocation.

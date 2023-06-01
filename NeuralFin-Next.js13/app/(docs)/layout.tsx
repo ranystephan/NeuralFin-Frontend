@@ -1,4 +1,4 @@
-import "@/styles/globals.css"
+import "./styles/docs.css"
 import { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
@@ -78,21 +78,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <head />
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            "min-h-screen bg-[#000000] z-10 font-sans antialiased overflow-auto",
             fontSans.variable
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen flex-col bg-[#110618]">
               <SiteHeader />
               <div className="flex-1">{children}</div>
-              <SiteFooter />
+              {/* <SiteFooter /> */}
             </div>
-            <TailwindIndicator />
+            {/* <TailwindIndicator /> */}
           </ThemeProvider>
           <StyleSwitcher />
           <Analytics />
           <Toaster />
+          
         </body>
       </html>
     </>

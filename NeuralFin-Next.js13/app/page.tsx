@@ -60,7 +60,7 @@ const Page: React.FC = () => {
   return (
 
     <ThemeProvider attribute="class" >
-      <div ref={scrollContainerRef} className=" overflow-y-scroll scrollbar-hide ">
+      <div ref={scrollContainerRef} className="homepage overflow-y-scroll scrollbar-hide ">
         {/* set the navbar over BallAnimation */}
         <div className="flex-col page-container h-screen w-screen relative ">
           <div className="">

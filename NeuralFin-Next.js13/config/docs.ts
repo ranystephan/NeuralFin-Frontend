@@ -7,8 +7,12 @@ export const docsConfig: DocsConfig = {
       href: "/docs",
     },
     {
-      title: "Guides",
-      href: "/guides",
+      title: "News",
+      href: "/news",
+    },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
     },
   ],
   sidebarNav: [
@@ -53,22 +57,43 @@ export const docsConfig: DocsConfig = {
       ],
     },
     {
-      title: "Blog",
+      title: "News",
       items: [
         {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Overview",
+          href: "docs/news",
         },
         {
-          title: "Build your own",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Market Cap",
+          href: "/docs/news/market-cap",
         },
         {
-          title: "Writing Posts",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Dividend Yiels",
+          href: "/docs/news/yield",
+        },
+        {
+          title: "Beta",
+          href: "/docs/news/beta",
+        },
+        {
+          title: "EPS",
+          href: "/docs/news/eps",
+        },
+        {
+          title: "PE Ratio",
+          href: "/docs/news/pe-ratio",
+        },
+        {
+          title: "EV to EBITDA",
+          href: "/docs/news/ev-ebitda",
+        },
+        {
+          title: "EV to Revenue",
+          href: "/docs/news/ev-revenue",
+        },
+        {
+          title: "Profit Margin",
+          href: "/docs/news/profit-margin",
         },
       ],
     },
@@ -76,39 +101,33 @@ export const docsConfig: DocsConfig = {
       title: "Dashboard",
       items: [
         {
-          title: "Introduction",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Overview",
+          href: "/docs/dashboard",
         },
         {
-          title: "Layouts",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Market Value and PnL",
+          href: "/docs/dashboard/mv-pnl",
         },
         {
-          title: "Server Components",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Portfolio Beta",
+          href: "/docs/news/beta",
         },
         {
-          title: "Authentication",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Value at Risk (VaR)",
+          href: "/docs/dashboard/var",
         },
         {
-          title: "Database with Prisma",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Expected Shortfall (ES)",
+          href: "/docs/dashboard/es",
         },
         {
-          title: "API Routes",
-          href: "/docs/in-progress",
-          disabled: true,
+          title: "Asset Allocation Chart",
+          href: "/docs/dashboard/asset-allocation",
         },
       ],
     },
     {
-      title: "Marketing Site",
+      title: "Info Page",
       items: [
         {
           title: "Introduction",
