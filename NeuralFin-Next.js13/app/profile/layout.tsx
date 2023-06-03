@@ -33,6 +33,14 @@ const sidebarNavItems = [
     title: "Display",
     href: "/profile/display",
   },
+  {
+    title: "Assessment",
+    href: "/profile/assessment",
+  },
+  {
+    title: "Going Further",
+    href: "/profile/going_further",
+  },
 ]
 
 interface SettingsLayoutProps {
