@@ -24,9 +24,10 @@ import { CalendarDateRangePicker } from "@/components/innerDashComponents/date-r
 import { MainNav } from "@/components/innerDashComponents/main-nav"
 import { Overview } from "@/components/innerDashComponents/overview"
 import { TransactionList } from "@/components/innerDashComponents/recent-sales"
-import { Search } from "@/components/innerDashComponents/search"
 import TeamSwitcher from "@/components/innerDashComponents/team-switcher"
-import { UserNav } from "@/components/innerDashComponents/user-nav"
+import  DiversificationChart from "@/components/DiversificationChart"
+import BenchmarkChart from "@/components/BenchmarkChart"
+import Link from "next/link"
 
 
 export const metadata: Metadata = {
@@ -104,7 +105,15 @@ type portfolioMetrics = {
   pnl?: number,
   beta?: number,
   value_at_risk?: number,
-  expected_shortfall?: number
+  expected_shortfall?: number,
+  alpha?: number,
+  sharpe_ratio?: number,
+  sortino_ratio?: number,
+  information_ratio?: number,
+  information_coefficient?: number,
+  jensen_alpha?: number,
+  portfolio_performance?: any,
+  diversification?: any,
 }
 
 interface InnerDashboardProps {
@@ -185,6 +194,9 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                         <p className={`text-xs ${metrics.pnl !== undefined && metrics.pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                           {metrics.pnl !== undefined && metrics.pnl >= 0 ? `+${metrics.pnl?.toFixed(2)}` : metrics.pnl?.toFixed(2)} <span className="text-white">from last close</span>
                         </p>
+                        <p className={`text-xs ${metrics.portfolio_performance[1] !== undefined && metrics.portfolio_performance[1] >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                          {metrics.pnl !== undefined && metrics.portfolio_performance[1] >= 0 ? `+${metrics.portfolio_performance[1]?.toFixed(2)}` : metrics.portfolio_performance[1]?.toFixed(2)} <span className="text-white">from initial investments</span>
+                        </p>
                       </CardContent>
                     </Card>
                     <Card>
@@ -262,85 +274,118 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Current Market Value
+                    <CardTitle className="text-sm font-medium hover:underline">
+                      <Link href="/docs">
+                        Portfolio Alpha
+                      </Link>
                     </CardTitle>
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">${metrics.portfolio_value?.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 })}</div>
-                    <p className={`text-xs ${metrics.pnl !== undefined && metrics.pnl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                        {metrics.pnl !== undefined ? (metrics.pnl >= 0 ? `+${metrics.pnl.toFixed(2)}` : metrics.pnl.toFixed(2)) : 'N/A'} <span className="text-white">from last close</span>
+                    <div className="text-2xl font-bold">{metrics.alpha?.toFixed(4)}</div>
+                    <p className="text-xs text-muted-foreground">
+                      This is the excess return of your portfolio
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Portfolio Beta
+                      Sharpe Ratio
                     </CardTitle>
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{metrics.beta?.toFixed(2)}</div>
+                    <div className="text-2xl font-bold">{metrics.sharpe_ratio?.toFixed(2)}</div>
                     <p className="text-xs text-muted-foreground">
-                      This is the market risk of your portfolio
+                      This is the risk-adjusted return of your portfolio
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Value at Risk (VaR)</CardTitle>
+                    <CardTitle className="text-sm font-medium">Information Ratio</CardTitle>
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{(metrics.value_at_risk !== undefined ? (metrics.value_at_risk*100)?.toFixed(2) : 'N/A')}%</div>
+                    <div className="text-2xl font-bold">{(metrics.information_ratio !== undefined ? (metrics.information_ratio*100)?.toFixed(2) : 'N/A')}%</div>
                     <p className="text-xs text-muted-foreground">
-                      The potential loss of your portfolio to 95% confidence
+                      This is the excess return of your portfolio over the benchmark (S&P500)
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Expected Shortfall
+                      Information Coefficien (IC)
                     </CardTitle>
                     <Activity className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-red-400">{(metrics.expected_shortfall !== undefined ? (metrics.expected_shortfall * 100)?.toFixed(2): 'N/A')}%</div>
+                    <div className="text-2xl font-bold text-red-400">{(metrics.information_coefficient !== undefined ? (metrics.information_coefficient * 100)?.toFixed(2): 'N/A')}%</div>
                     <p className="text-xs text-muted-foreground">
-                      This is the expected loss of your portfolio to 95% confidence
+                      This is the correlation between your portfolio and the benchmark (S&P500)
                     </p>
                   </CardContent>
                 </Card>
               </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
                 <Card className="col-span-4">
                   <CardHeader>
-                    <CardTitle>Asset Allocation</CardTitle>
+                    <CardTitle>Diversification Matrix</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Overview />
+                    {/* <DiversificationChart diversification={metrics.diversification} /> */}
                   </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <div className="col-span-4 grid grid-ros-2 gap-4 ">
+                  <div className="flex gap-4">
+                    <Card >
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                          Sortino Ratio
+                        </CardTitle>
+                        <Activity className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{metrics.sortino_ratio?.toFixed(2)}</div>
+                        <p className="text-xs text-muted-foreground">
+                          This is the risk-adjusted return of your portfolio
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card >
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">
+                          Jensen's Alpha
+                        </CardTitle>
+                        <Activity className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{metrics.jensen_alpha?.toFixed(4)}</div>
+                        <p className="text-xs text-muted-foreground">
+                          This is the excess return of your portfolio over the benchmark (S&P500)
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+            
+                  <Card >
                   <CardHeader>
-                    <div className="flex justify-between">
-                      <CardTitle>Recent Transactions</CardTitle>
-                      <AddStock />
-                    </div>
-                    <CardDescription>
-                      These are your last 5 transactions.
-                      <button onClick={handleRefresh}>
-                        <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
-                      </button>
-                    </CardDescription>
+                    <CardTitle>
+                      <div className="flex items-center justify-between">
+                        <div className="text-md font-bold">Benchmark Chart</div>
+                        <div className="text-sm font-medium text-gray-400">S&P 500</div>
+                      </div>
+                    </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <TransactionList refreshKey={refreshKey} />
+                  <CardContent className="pl-2">
+                    <div className="ml-2">
+                      {/* <BenchmarkChart /> */}
+                    </div>
                   </CardContent>
                 </Card>
+                </div>
               </div>
             </TabsContent>
           </Tabs>
