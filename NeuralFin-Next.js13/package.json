@@ -59,8 +59,6 @@
     "nextra": "^2.6.1",
     "nextra-theme-docs": "^2.6.1",
     "openai": "^3.2.1",
-    "plotly.js-basic-dist": "^2.23.2",
-    "plotly.js-dist": "^2.23.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-day-picker": "^8.7.1",
@@ -97,8 +95,6 @@
   "devDependencies": {
     "@types/d3": "^7.4.0",
     "@types/node": "18.13.0",
-    "@types/plotly.js": "^2.12.18",
-    "@types/plotly.js-basic-dist": "^1.54.1",
     "@types/react": "18.0.28",
     "@types/react-pdf": "^6.2.0",
     "@types/react-plotly.js": "^2.6.0",
