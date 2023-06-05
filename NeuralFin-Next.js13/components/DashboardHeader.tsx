@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 
 const styles = {
-  container: 'flex w-screen h-14 px-24 py-3 mb-5 fixed justify-between z-10 text-white',
+  container: 'flex w-screen h-14 px-24 py-3 mb-5 fixed justify-between z-10 text-white bg-transparent backdrop-filter backdrop-blur',
   leftHeader: 'flex flex-1text-black items-center gap-8 text-2xl',
   logo: 'object-cover cursor-pointer',
   searchWrapper: 'flex flex-1',

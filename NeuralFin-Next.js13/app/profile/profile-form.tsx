@@ -26,6 +26,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/react-hook-form/form"
+import { AuthContext } from "@/contexts/AuthContext"
+import { useRouter } from "next/navigation"
+import { useContext } from "react"
 
 const profileFormSchema = z.object({
   username: z
@@ -63,6 +66,34 @@ const defaultValues: Partial<ProfileFormValues> = {
 }
 
 export function ProfileForm() {
+  const { auth, updateAuth } = useContext(AuthContext);
+
+  const router = useRouter();
+
+
+
+  const logout = async () => {
+    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/logout`;
+    const apiUrl_local = `http://localhost:8000/api/logout`;
+    await fetch(apiUrl_deployed, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    })
+    
+
+    updateAuth({ isAuthenticated: false, user: null });
+    console.log('Logged out');
+    console.log(auth.user?.name);
+    router.push('/'); 
+  }
+
+
+
+
+
+
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -184,8 +215,12 @@ export function ProfileForm() {
             Add URL
           </Button>
         </div>
-        <Button type="submit">Update profile</Button>
+        <div className="flex items-center justify-between">
+          <Button type="submit">Update profile</Button>
+        </div>
       </form>
+      <Button type="submit" className="text-red-800" onClick={logout}>Logout</Button>
     </Form>
+    
   )
 }

@@ -18,22 +18,22 @@ export function MainNav({
         Overview
       </Link>
       <Link
-        href="/dashboard"
+        href="/news"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Customers
+        News
       </Link>
       <Link
-        href="/dashboard"
+        href="/docs"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Products
+        Documentation
       </Link>
       <Link
-        href="/dashboard"
+        href="/profile"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Settings
+        Profile
       </Link>
     </nav>
   )
