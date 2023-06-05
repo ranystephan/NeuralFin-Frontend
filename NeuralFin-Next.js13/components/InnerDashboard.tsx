@@ -381,7 +381,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                   </CardHeader>
                   <CardContent className="pl-2">
                     <div className="ml-2">
-                      {/* <BenchmarkChart /> */}
+                      <BenchmarkChart />
                     </div>
                   </CardContent>
                 </Card>
