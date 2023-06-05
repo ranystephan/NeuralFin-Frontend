@@ -335,7 +335,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                     <CardTitle>Diversification Matrix</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    {/* <DiversificationChart diversification={metrics.diversification} /> */}
+                    <DiversificationChart diversification={metrics.diversification} />
                   </CardContent>
                 </Card>
                 <div className="col-span-4 grid grid-ros-2 gap-4 ">
