@@ -1,6 +1,5 @@
-import Plotly from "plotly.js"
-import createPlotlyComponent from 'react-plotly.js/factory';
-const Plot = createPlotlyComponent(Plotly);
+import dynamic from "next/dynamic";
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false, })
 
 interface DiversificationChartProps {
   diversification: { [symbol: string]: number[] };
