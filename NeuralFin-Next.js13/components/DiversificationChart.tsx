@@ -1,5 +1,6 @@
-import React from 'react';
-import Plot from 'react-plotly.js';
+import Plotly from "plotly.js"
+import createPlotlyComponent from 'react-plotly.js/factory';
+const Plot = createPlotlyComponent(Plotly);
 
 interface DiversificationChartProps {
   diversification: { [symbol: string]: number[] };
