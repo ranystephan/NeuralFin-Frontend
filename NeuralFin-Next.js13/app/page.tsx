@@ -20,7 +20,7 @@ const Page: React.FC = () => {
     (
       async () => {
         try {
-          const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/user`;
+          const apiUrl_deployed = `https://api.neuralfin.xyz/api/user`;
           const apiUrl_local = `http://localhost:8000/api/user`;
           const response = await fetch(apiUrl_deployed, {
             credentials: 'include',

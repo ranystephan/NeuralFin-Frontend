@@ -73,7 +73,7 @@ export function ProfileForm() {
 
 
   const logout = async () => {
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/logout`;
+    const apiUrl_deployed = `https://api.neuralfin.xyz/api/logout`;
     const apiUrl_local = `http://localhost:8000/api/logout`;
     await fetch(apiUrl_deployed, {
       method: 'POST',

@@ -114,6 +114,8 @@ type portfolioMetrics = {
   jensen_alpha?: number,
   portfolio_performance?: any,
   diversification?: any,
+  sector_allocation?: any,
+
 }
 
 interface InnerDashboardProps {
@@ -248,7 +250,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                         <CardTitle>Asset Allocation</CardTitle>
                       </CardHeader>
                       <CardContent className="pl-2">
-                        <Overview />
+                        <Overview portfolioMetrics={portfolioMetrics} />
                       </CardContent>
                     </Card>
                     <Card className="col-span-3">

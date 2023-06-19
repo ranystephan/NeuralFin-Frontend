@@ -41,10 +41,10 @@ const LoginPage = () => {
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/login`;
+    const apiUrl_deployed = `https://api.neuralfin.xyz/api/login`;
     const apiUrl_local = `http://localhost:8000/api/login`;
 
-    await fetch(apiUrl_deployed, {
+    await fetch("https://api.neuralfin.xyz/api/login", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',

@@ -79,8 +79,8 @@ const Dashboard = () => {
 
   async function getPortfolioMetrics(abortController: AbortController) {
 
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-metrics/`;
-    const apiUrl_local = `http://localhost:8000/api/portfolio-metrics/`;
+    const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolio-metrics/`;
+    const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio-metrics/`;
 
     const res = await fetch(apiUrl_deployed, {
       credentials: 'include',

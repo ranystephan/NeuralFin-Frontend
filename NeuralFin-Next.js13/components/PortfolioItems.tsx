@@ -21,7 +21,10 @@ const PortfolioItems = () => {
   useEffect(() => {
     const abortController = new AbortController();
     const fetchData = async () => {
-      const response = await fetch('https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-items/', {
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolio-items/`;
+      const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio-items/`;
+      
+      const response = await fetch(apiUrl_deployed, {
         credentials: 'include',
         signal: abortController.signal,
       });

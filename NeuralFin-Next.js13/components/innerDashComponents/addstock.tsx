@@ -29,8 +29,9 @@ export default function AddStock() {
 
   useEffect(() => {
     const fetchStocks = async () => {
-      const apiUrl = `https://neuralfin-backend-production.up.railway.app/api/stock/stocks/`;
-      const response = await fetch(apiUrl, {
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/stock/stocks/`;
+      const apiUrl_local = `http://localhost:8000/api/stock/stocks/`;
+      const response = await fetch(`https://api.neuralfin.xyz/api/stock/stocks/`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -76,10 +77,12 @@ export default function AddStock() {
 
   const submitData = async () => {
     // Your API endpoint
-    const apiUrl = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-items/`;
+    const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolio-items/`;
+    const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio-items/`;
+
 
     if (selectedStock) { // Check if selectedStock is not null
-        const response = await fetch(apiUrl, {
+        const response = await fetch(apiUrl_local, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',

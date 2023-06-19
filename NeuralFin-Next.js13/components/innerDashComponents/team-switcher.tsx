@@ -79,7 +79,8 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
 
 
   const createNewPortfolio = async (name: string, description: string) => {  
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolios/`;
+    const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolios/`;
+    const apiUrl_local = `http://localhost:8000/api/portfolio/portfolios/`;
 
     await fetch(apiUrl_deployed, {
       method: 'POST',
@@ -110,7 +111,8 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
 
   async function getUserPortfolios(abortController: AbortController) {
     try {
-      const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolios/${auth.user?.id}/`;
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolios/${auth.user?.id}/`;
+      const apiUrl_local = `http://localhost:8000/api/portfolio/portfolios/${auth.user?.id}/`;
 
       const res = await fetch(apiUrl_deployed, {
         credentials: 'include',

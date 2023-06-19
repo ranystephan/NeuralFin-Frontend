@@ -21,15 +21,18 @@ export function TransactionList({ refreshKey }: { refreshKey: number }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-items/', {
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolio-items/`;
+      const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio-items/`;
+      
+      const response = await fetch(`https://api.neuralfin.xyz/api/portfolio/portfolio-items/`, {
         credentials: 'include',
       });
       const data = await response.json();
-      data.results.sort((a: PortfolioItem, b: PortfolioItem) => {
+      data.sort((a: PortfolioItem, b: PortfolioItem) => {
         // Compare the transaction dates in descending order
         return new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime();
       });
-      setTransactions(data.results);
+      setTransactions(data);
     };
 
     fetchData();

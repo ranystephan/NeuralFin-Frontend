@@ -20,14 +20,27 @@ import { format } from 'date-fns';
 const generateDataFromAPI = async (days) => {
 
   const abortController = new AbortController();
+  const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolio-value-over-time/`;
+  const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio-value-over-time/`;
 
-  const response = await fetch('https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-value-over-time/', {
+  const response = await fetch(`https://api.neuralfin.xyz/api/portfolio/portfolio-value-over-time/`, {
       credentials: 'include',
       signal: abortController.signal,
   });
 
-  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`An error occurred: ${response.statusText}`);
+  }
 
+  const contentType = response.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    throw new TypeError("The response is not JSON");
+  }
+
+
+  const data = await response.json();
+  console.log("THIS IS THE PORTFOLIO CHART DATA")
+  console.log(data);
   return Object.keys(data).map((date) => ({
     date: format(new Date(date), 'yyyy-MM-dd HH:mm:ss'),
     value: data[date],
@@ -76,12 +89,16 @@ const PortfolioChart = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await generateDataFromAPI(selectedRange.days);
-      setData(result);
+      try {
+        const result = await generateDataFromAPI(selectedRange.days);
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
     fetchData();
-
   }, [selectedRange]);
+
 
 
   const customTicks = createCustomTicks(data, 14);

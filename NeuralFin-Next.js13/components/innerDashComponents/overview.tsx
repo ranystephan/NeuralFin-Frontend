@@ -19,42 +19,31 @@ const XAxisSkeleton = () => {
   return <div className="h-2 w-10 bg-gray-400 animate-pulse"></div>;
 };
 
-export function Overview() {
-  const [sectorAlloc, setSectorAlloc] = useState<SectorAllocation[]>([])
+type portfolioMetrics = {
+  sector_allocation?: any,
+}
+
+interface AssetAllocationProps {
+  portfolioMetrics: portfolioMetrics;
+}
+
+
+
+export function Overview({portfolioMetrics}: AssetAllocationProps) {
+  const [sectorAlloc, setSectorAlloc] = useState<SectorAllocation[]>([]);
+
+  const transformedData = Object.keys(portfolioMetrics.sector_allocation || {}).map(key => {
+    return {
+      name: key,
+      value: portfolioMetrics.sector_allocation[key]
+    }
+  })
+
 
   useEffect(() => {
-    const abortController = new AbortController();
-    fetchData(abortController);
-    }, [])
+    setSectorAlloc(transformedData)
+    }, [portfolioMetrics])
 
-  const fetchData = async (abortController: AbortController) => {
-    try {
-      const response = await fetch("https://neuralfin-backend-production.up.railway.app/api/portfolio/portfolio-metrics/", {
-        credentials: 'include',
-        signal: abortController.signal,
-      })
-      const data = await response.json()
-
-      if (Object.keys(data).length === 0) {
-        console.log('No portfolio metrics found')
-        return
-      } else {
-        console.log('Portfolio metrics found')
-
-        // Transform data.sector_allocation into an array of objects
-        const transformedData = Object.keys(data.sector_allocation).map(key => {
-          return {
-            name: key,
-            value: data.sector_allocation[key]
-          }
-        })
-        setSectorAlloc(transformedData)
-        console.log(transformedData)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   if (Array.isArray(sectorAlloc) && sectorAlloc.length === 0) {
     return     <ResponsiveContainer width="100%" height={350}>
