@@ -43,7 +43,7 @@ const RegisterPage = () => {
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
   
-    const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/register`;
+    const apiUrl_deployed = `https://api.neuralfin.xyz/api/register`;
     const apiUrl_local = `http://localhost:8000/api/register`;
 
     await fetch(apiUrl_deployed, {

@@ -64,7 +64,7 @@ const StockChart = (props: StockChartProps) => {
 
   useEffect(() => {
     const fetchStockData = async () => {
-      const apiUrl_deployed = `https://neuralfin-backend-production.up.railway.app/api/charts/${props.symbol}/`;
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/charts/${props.symbol}/`;
       const apiUrl_local = `http://localhost:8000/api/charts/${props.symbol}/`;
       const response = await fetch(apiUrl_deployed);
       const data: ChartResponse = await response.json();
