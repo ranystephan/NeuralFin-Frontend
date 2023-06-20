@@ -25,7 +25,7 @@ import { MainNav } from "@/components/innerDashComponents/main-nav"
 import { Overview } from "@/components/innerDashComponents/overview"
 import { TransactionList } from "@/components/innerDashComponents/recent-sales"
 import TeamSwitcher from "@/components/innerDashComponents/team-switcher"
-import  DiversificationChart from "@/components/DiversificationChart"
+/* import  DiversificationChart from "@/components/DiversificationChart" */
 import BenchmarkChart from "@/components/BenchmarkChart"
 import Link from "next/link"
 
@@ -337,7 +337,8 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                     <CardTitle>Diversification Matrix</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <DiversificationChart diversification={metrics.diversification} />
+                    Still under development
+                    {/* <DiversificationChart diversification={metrics.diversification} /> */}
                   </CardContent>
                 </Card>
                 <div className="col-span-4 grid grid-ros-2 gap-4 ">
