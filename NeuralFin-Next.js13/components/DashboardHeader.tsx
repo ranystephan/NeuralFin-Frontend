@@ -36,7 +36,7 @@ const DashboardHeader = () => {
         <Link href={"/news"}>
           <div className={styles.menuItem}>News</div>
         </Link>
-        <Link href={"/user"}>
+        <Link href={"/profile"}>
           <div className={styles.menuItem}>Profile</div>
         </Link>
         
