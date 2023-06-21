@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 
-/* @layer base {
-  body{
-    @apply dark:bg-black dark:text-white bg-white text-black;
+@layer base {
+  html{
+    @apply scroll-smooth;
 
     
 
   }
 }
- */
+
 :root {
   --bg: #006f30;
   --text: #151515;

@@ -23,13 +23,13 @@ type OverviewData = {
 
 const styles = {
   wrapper: "overflow-hidden",
-  companyName: "text-2xl font-bold mb-2 ",
+  companyName: "text-2xl font-bold mb-2",
   sector: "text-sm text-gray-400 font-bold mb-1 font-mono",
   description: "text-sm text-gray-400 mb-2",
-  metrics: "text-sm text-gray-400 font-bold ",
+  metrics: "text-sm text-gray-400 font-bold",
   metricsData: "text-sm text-gray-600 font-bold",
-  
 };
+
 
 function formatMarketCap(value: number): string {
   if (value >= 1e12) {
@@ -88,7 +88,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
 
   return (
     <div>
-      <div className={styles.wrapper}>
+      <div className={`${styles.wrapper} `}>
         <div className="px-4 sm:px-6">
           <div>
             <form onSubmit={handleSubmit}>
@@ -131,7 +131,7 @@ function StockForm(props: { onSymbolChange: (arg0: string) => void; }) {
                     <div>
                       <div className={styles.companyName}>NeuralFin</div>
                       <div className={styles.sector}>FINTECH - TECHNOLOGY</div>
-                      <div className={styles.description}>
+                      <div className={`${styles.description}`}>
                         NeuralFin is a Fintech startup that is disrupting the investment industry through its cutting-edge technology and AI-powered platform. The company aims to provide a comprehensive platform for stock market analysis and investment recommendations, with a user-friendly interface and transparent fee structure.
                         NeuralFin's mission is to democratize finance by making information and tools available to everyone.
                       </div>

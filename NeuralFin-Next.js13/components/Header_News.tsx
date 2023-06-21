@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const styles = {
   headerContainer: 'w-screen flex',
-  leftHeader: 'flex w-1/2 gap-8 ml-5 mt-3 text-2xl ',
+  leftHeader: 'flex w-1/2 gap-8 ml-5 mt-3 lg:text-2xl text-xl',
   logo: 'object-cover cursor-pointer',
   rightHeader: 'flex w-1/2 gap-8 mr-5 mt-3 text-2xl',
   logoname: 'cursor-pointer font-bold hover:text-purple-700 duration-300 text-black',

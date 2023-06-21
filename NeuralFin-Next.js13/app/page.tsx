@@ -9,6 +9,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import Grainy from '@/components/Grainy';
 import LineAnimation from '@/components/LineAnimation';
 
+import { ChevronDown } from 'lucide-react'
 
 
 const Page: React.FC = () => {
@@ -70,10 +71,14 @@ const Page: React.FC = () => {
             <Navbar />
             )}
           </div>
-          <div className="m-16" >
+          <div className="" >
             {/* <BallAnimation /> */}
             <Grainy />
           </div>
+          <div className="flex items-center justify-center">
+            <ChevronDown className="h-8 w-8 animate-bounce" />
+          </div>
+
           <div>
             <LineAnimation scrollContainer={scrollContainerRef.current}/>
           </div>

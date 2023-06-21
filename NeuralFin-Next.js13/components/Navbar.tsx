@@ -6,6 +6,10 @@ import { navVariants } from '../utils/motion'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
+import Image from 'next/image'
+
+import transLogo from '@/public/neuralfinLogo/transLogo.png';
+
 
 
 
@@ -50,9 +54,9 @@ const dropdownVariants = {
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
           <Link href={"/"}>
-            <h2 className="font-extrabold sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-              neuralfin
-            </h2> 
+            <h2 className="lg:w-20 w-14 ">
+              <Image src={transLogo} alt="logo" />
+            </h2>
           </Link>
           <motion.div
             className="hidden absolute group-hover:block"
@@ -62,20 +66,20 @@ const dropdownVariants = {
 
           >
             <Link href={"/news"}>
-              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="font-extrabold text-2xl lg:text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
                 news
               </div>
             </Link>
             <Link href={"/info"}>
-              <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="font-extrabold text-2xl lg:text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
                 info
               </div>
             </Link>
           </motion.div>
     </div>
-        <div className="font-extrabold text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+        <div className="font-extrabold lg:text-4xl sm:text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
           <Link href={"/register"}>
-            <div className="font-extrabold sm:text-2xl text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+            <div className="font-extrabold text-2xl lg:text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
               register
             </div>
           </Link>
