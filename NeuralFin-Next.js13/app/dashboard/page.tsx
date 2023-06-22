@@ -19,8 +19,8 @@ import PortfolioItems from '@/components/PortfolioItems';
 const stylesL = {
   bgWrapper: "w-screen flex bg-purple-400 ",
   wrapper: "w-screen flex flex-col items-center z-10 text-gray-100 bg-black bg-opacity-80 ",
-  mainContainer: ' w-11/12 h-full m-auto  mt-16 rounded-3xl overflow-hidden scrollbar-hide',
-  leftMain: 'flex flex-col  h-full p-6 ',
+  mainContainer: ' w-11/12 h-full m-auto  mt-16 rounded-3xl scrollbar-hide',
+  leftMain: 'flex flex-col  h-full mt-2 lg:mt-0 lg:p-6 ',
   portfolioAmountContainer: 'flex flex-col',
   portfolioAmount: 'text-4xl font-bold',
   portfolioPercent: 'font-bold text-sm font-mono',
@@ -31,7 +31,7 @@ const stylesL = {
   buyingPowerAmount: 'flex font-bolder text-xl h-20 items-center p-5 ',
 
 
-  innerDashboard: 'flex flex-shrink-1 border border-white p-5 flex-col rounded-xl',
+  innerDashboard: 'flex  border border-white p-5 flex-col rounded-xl',
   noticeContainer: 'flex-1',
   noticeTitle: 'text-gray-500',
   noticeMessage: 'font-bold',

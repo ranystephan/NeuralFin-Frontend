@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 
 
 const CardSkeleton = () => (
-  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+  <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">
@@ -145,19 +145,19 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
 
 
   return (
-    <div className="">
-      <div className="hidden flex-col md:flex">
+    <div className="overflow-x-hidden">
+      <div className=" flex-col md:flex">
         <div className="border-b">
-          <div className="flex h-16 items-center px-4">
+          <div className="flex h-16 items-center lg:px-4">
             <TeamSwitcher />
-            <MainNav className="mx-6" />
+            <MainNav className="mx-6 overflow-x-auto" />
             <div className="ml-auto flex items-center space-x-4">
               {/* <Search /> */}
               {/* <UserNav /> */}
             </div>
           </div>
         </div>
-        <div className="flex-1 space-y-4 p-8 pt-6">
+        <div className="flex-1 space-y-4 lg:p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
@@ -253,7 +253,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                         <Overview portfolioMetrics={portfolioMetrics} />
                       </CardContent>
                     </Card>
-                    <Card className="col-span-3">
+                    <Card className="col-span-3 ">
                       <CardHeader>
                         <div className="flex justify-between">
                           <CardTitle>Recent Transactions</CardTitle>

@@ -51,7 +51,7 @@ const dropdownVariants = {
       variants={navVariants}
       initial="hidden"
       whileInView="show"
-      className={`${styles.xPaddings} py-8 relative`}
+      className={`${styles.xPaddings} pt-2 pb-4 relative`}
     >
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>

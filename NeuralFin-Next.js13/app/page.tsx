@@ -71,7 +71,7 @@ const Page: React.FC = () => {
             <Navbar />
             )}
           </div>
-          <div className="" >
+          <div className="h-4/6 lg:h-11/12" >
             {/* <BallAnimation /> */}
             <Grainy />
           </div>
