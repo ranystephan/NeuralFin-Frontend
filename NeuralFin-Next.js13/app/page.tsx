@@ -76,7 +76,7 @@ const Page: React.FC = () => {
             <Grainy />
           </div>
           <div className="flex items-center justify-center">
-            <ChevronDown className="h-8 w-8 mt-10 animate-bounce" />
+            <ChevronDown className="h-8 w-8 mt-20 animate-bounce" />
           </div>
 
           <div>
