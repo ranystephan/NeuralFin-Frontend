@@ -23,7 +23,7 @@ const UserNavbar = ( props: UserProps ) => {
     setMounted(true)
     }, []);
 
-
+ 
 const dropdownVariants = {
   hidden: {
     opacity: 0,
@@ -51,13 +51,13 @@ const dropdownVariants = {
       variants={navVariants}
       initial="hidden"
       whileInView="show"
-      className={`${styles.xPaddings} px-10 py-4 mt-2 relative`}
+      className={`${styles.xPaddings} py-8 relative`}
     >
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
-          <h2 className=" sm:text-2xl text-4xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
-            <Image src={transLogo} alt="logo"  width={60} height={60} />
+          <h2 className="lg:w-20 w-14">
+            <Image src={transLogo} alt="logo"/>
           </h2> 
           <motion.div
             className="hidden absolute group-hover:block rounded-md bg-transparent bg-opacity-25 backdrop-filter backdrop-blur-sm ml-4"
