@@ -48,13 +48,13 @@ const dropdownVariants = {
       variants={navVariants}
       initial="hidden"
       whileInView="show"
-      className={`${styles.xPaddings} py-8 relative`}
+      className={`${styles.xPaddings} pt-2 pb-4 relative`}
     >
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
           <Link href={"/"}>
-            <h2 className="lg:w-20 w-14 ">
+            <h2 className="lg:w-[70px] w-14 ">
               <Image src={transLogo} alt="logo" />
             </h2>
           </Link>
@@ -66,20 +66,20 @@ const dropdownVariants = {
 
           >
             <Link href={"/news"}>
-              <div className="font-extrabold text-2xl lg:text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
                 news
               </div>
             </Link>
             <Link href={"/info"}>
-              <div className="font-extrabold text-2xl lg:text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+              <div className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
                 info
               </div>
             </Link>
           </motion.div>
-    </div>
-        <div className="font-extrabold lg:text-4xl sm:text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+        </div>
+        <div className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
           <Link href={"/register"}>
-            <div className="font-extrabold text-2xl lg:text-3xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
+            <div className="font-extrabold text-2xl leading-8 cursor-pointer hover:text-purple-700 duration-300">
               register
             </div>
           </Link>

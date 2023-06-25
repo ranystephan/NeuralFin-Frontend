@@ -72,7 +72,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 
 const CustomTickFormatter = (tick) => {
-  const date = new Date(tick);
+  const date = new Date(tick); 
   const hour = date.getHours();
   return hour === 0 ? format(date, 'MMM dd') : format(date, 'HH:mm');
 };

@@ -19,7 +19,7 @@ import PortfolioItems from '@/components/PortfolioItems';
 const stylesL = {
   bgWrapper: "w-screen flex bg-purple-400 ",
   wrapper: "w-screen flex flex-col items-center z-10 text-gray-100 bg-black bg-opacity-80 ",
-  mainContainer: ' w-11/12 h-full m-auto  mt-16 rounded-3xl scrollbar-hide',
+  mainContainer: ' w-11/12 h-full m-auto  mt-16 rounded-3xl ',
   leftMain: 'flex flex-col  h-full mt-2 lg:mt-0 lg:p-6 ',
   portfolioAmountContainer: 'flex flex-col',
   portfolioAmount: 'text-4xl font-bold',

@@ -35,7 +35,7 @@ const styles = {
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  const router = useRouter(); 
 
 
   const submit = async (e: SyntheticEvent) => {

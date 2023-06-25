@@ -40,8 +40,8 @@ export default function AddStock() {
       if (response.ok) {
         const data = await response.json();
         
-        if (Array.isArray(data.results)) {
-          setStocks(data.results);
+        if (Array.isArray(data)) {
+          setStocks(data);
         } else {
           console.log('Error: data.results is not an array');
         }

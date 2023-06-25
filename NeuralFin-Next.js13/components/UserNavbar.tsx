@@ -23,7 +23,6 @@ const UserNavbar = ( props: UserProps ) => {
     setMounted(true)
     }, []);
 
- 
 const dropdownVariants = {
   hidden: {
     opacity: 0,
@@ -56,7 +55,7 @@ const dropdownVariants = {
       <div className="relative w-[50%] inset-0"/> {/* dark:gradient-01 gradient-01-light */}
       <div className={`mx-auto flex items-center justify-between `}>
         <div className="relative group">
-          <h2 className="lg:w-20 w-14">
+          <h2 className="lg:w-[70px] w-14">
             <Image src={transLogo} alt="logo"/>
           </h2> 
           <motion.div
