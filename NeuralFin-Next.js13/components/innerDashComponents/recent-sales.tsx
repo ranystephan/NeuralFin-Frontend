@@ -24,7 +24,7 @@ export function TransactionList({ refreshKey }: { refreshKey: number }) {
       const apiUrl_deployed = `https://api.neuralfin.xyz/api/portfolio/portfolio-items/`;
       const apiUrl_local = `http://localhost:8000/api/portfolio/portfolio-items/`;
       
-      const response = await fetch(`https://api.neuralfin.xyz/api/portfolio/portfolio-items/`, {
+      const response = await fetch(apiUrl_deployed, {
         credentials: 'include',
       });
       const data = await response.json();

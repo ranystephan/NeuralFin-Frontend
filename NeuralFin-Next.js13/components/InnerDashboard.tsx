@@ -150,7 +150,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
         <div className="border-b">
           <div className="flex h-16 items-center lg:px-4">
             <TeamSwitcher />
-            <MainNav className="mx-6 overflow-x-auto" />
+            <MainNav className="mx-6 overflow-x-auto scrollbar-hide" />
             <div className="ml-auto flex items-center space-x-4">
               {/* <Search /> */}
               {/* <UserNav /> */}
@@ -161,7 +161,7 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
-              <CalendarDateRangePicker />
+              {/*<CalendarDateRangePicker />*/}
               <Button size="sm">
                 <Download className="mr-2 h-4 w-4" />
                 Download
@@ -244,33 +244,34 @@ export default function InnerDashboard({portfolioMetrics}: InnerDashboardProps) 
                     </div>
                     )}
 
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                    <Card className="col-span-4">
-                      <CardHeader>
-                        <CardTitle>Asset Allocation</CardTitle>
-                      </CardHeader>
-                      <CardContent className="pl-2">
-                        <Overview portfolioMetrics={portfolioMetrics} />
-                      </CardContent>
-                    </Card>
-                    <Card className="col-span-3 ">
-                      <CardHeader>
-                        <div className="flex justify-between">
-                          <CardTitle>Recent Transactions</CardTitle>
-                          <AddStock />
-                        </div>
-                        <CardDescription>
-                          These are your last 5 transactions.
-                          <button onClick={handleRefresh}>
-                            <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
-                          </button>
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <TransactionList refreshKey={refreshKey} />
-                      </CardContent>
-                    </Card>
-                  </div>
+                    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
+                      <Card className="col-span-1 md:col-span-4 lg:col-span-4">
+                        <CardHeader>
+                          <CardTitle>Asset Allocation</CardTitle>
+                        </CardHeader>
+                        <CardContent className="pl-2">
+                          <Overview portfolioMetrics={portfolioMetrics} />
+                        </CardContent>
+                      </Card>
+                      <Card className="col-span-1 md:col-span-3 lg:col-span-3 overflow-x-scroll">
+                        <CardHeader>
+                          <div className="flex justify-between">
+                            <CardTitle>Recent Transactions</CardTitle>
+                            <AddStock />
+                          </div>
+                          <CardDescription>
+                            These are your last 5 transactions.
+                            <button onClick={handleRefresh}>
+                              <RefreshCw className="mr-2 h-4 w-4 ml-2 " />
+                            </button>
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <TransactionList refreshKey={refreshKey} />
+                        </CardContent>
+                      </Card>
+                    </div>
+
             </TabsContent>
             <TabsContent value="analytics" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

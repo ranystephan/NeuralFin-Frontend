@@ -80,13 +80,15 @@ export function Overview({portfolioMetrics}: AssetAllocationProps) {
           tickLine={false}
           axisLine={false}
           interval={0} // show all ticks
+          tickFormatter={(value) => `${value.slice(0, 4)}`}
+
         />
         <YAxis
           stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `${(value * 100).toFixed(2)}%`}
+          tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
         />
         <Bar dataKey="value" fill="#adfa1d" radius={[4, 4, 0, 0]} />
       </BarChart>

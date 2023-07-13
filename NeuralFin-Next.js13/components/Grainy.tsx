@@ -35,8 +35,8 @@ const Grainy: React.FC = () => {
           <h1 className={stylescss.grainyh1}>Finance, simplified.</h1>
           <p className={stylescss.grainyp}>Democratizing the access to relevant financial data.</p>
           <div className={styles.buttons}>
-            <Link className={[stylescss.button, stylescss.primary].join(" ")} href={"/info"} target="_blank">View Info</Link>
-            <Link className={[stylescss.button, stylescss.secondary].join(" ")} href={"/news"} target="_blank">Get News</Link>
+            <Link className={[stylescss.button, stylescss.primary].join(" ")} href={"/info"}>View Info</Link>
+            <Link className={[stylescss.button, stylescss.secondary].join(" ")} href={"/news"}>Get News</Link>
           </div>
         </div>
         <div className={styles.blobCont}>

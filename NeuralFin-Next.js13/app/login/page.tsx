@@ -44,7 +44,7 @@ const LoginPage = () => {
     const apiUrl_deployed = `https://api.neuralfin.xyz/api/login`;
     const apiUrl_local = `http://localhost:8000/api/login`;
 
-    await fetch("https://api.neuralfin.xyz/api/login", {
+    await fetch(apiUrl_deployed, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
