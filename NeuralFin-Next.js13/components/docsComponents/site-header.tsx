@@ -11,7 +11,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b backdrop-blur ">
+    <header className="sticky top-0 z-40 w-full border-b backdrop-blur px-2">
       <div className=" flex h-14 items-center">
         <MainNav />
         <MobileNav />

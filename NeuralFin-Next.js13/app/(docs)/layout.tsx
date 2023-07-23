@@ -12,7 +12,7 @@ import { StyleSwitcher } from "@/components/docsComponents/style-switcher"
 import { TailwindIndicator } from "@/components/docsComponents/tailwind-indicator"
 import { ThemeProvider } from "@/components/docsComponents/theme-provider"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { 
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
