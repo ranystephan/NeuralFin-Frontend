@@ -16,8 +16,8 @@ import Link from 'next/link';
  */
 
 const stylescss = {
-  grainyh1: "lg:text-[80px] text-[50px]",
-  grainyp: "lg:text-[30px] text-[20px]",
+  grainyh1: "lg:text-[80px] text-[50px] ",
+  grainyp: "lg:text-[30px] text-[20px]  hover:text-white",
   button: "lg:px-11 lg:py-5 px-7 py-3 border border-black border-text text-base",
   primary: "bg-[#01010C] bg-opacity-90 text-white hover:bg-black",
   secondary: " text-black hover:bg-[#D0D0D1]",
@@ -33,7 +33,7 @@ const Grainy: React.FC = () => {
       <div className={styles.hero}>
         <div className={styles.heroText}>
           <h1 className={stylescss.grainyh1}>Finance, simplified.</h1>
-          <p className={stylescss.grainyp}>Democratizing the access to relevant financial data.</p>
+          <p className={stylescss.grainyp}>Democratizing the access to mathematical models in finance.</p>
           <div className={styles.buttons}>
             <Link className={[stylescss.button, stylescss.primary].join(" ")} href={"/info"}>View Info</Link>
             <Link className={[stylescss.button, stylescss.secondary].join(" ")} href={"/news"}>Get News</Link>
