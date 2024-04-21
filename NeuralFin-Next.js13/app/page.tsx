@@ -19,7 +19,7 @@ const Page: React.FC = () => {
       try {
         const apiUrl_deployed = `https://api.neuralfin.xyz/api/user`;
         const apiUrl_local = `http://localhost:8000/api/user`;
-        const response = await fetch(apiUrl_local, {
+        const response = await fetch(apiUrl_deployed, {
           credentials: "include",
           signal: abortController.signal,
         });
