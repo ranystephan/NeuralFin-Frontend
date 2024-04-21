@@ -82,7 +82,7 @@ export default function AddStock() {
 
 
     if (selectedStock) { // Check if selectedStock is not null
-        const response = await fetch(apiUrl_local, {
+        const response = await fetch(apiUrl_deployed, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
