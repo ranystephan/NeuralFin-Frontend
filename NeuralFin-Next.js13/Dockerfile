@@ -1,39 +1,23 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine
 
-# Install dependencies only when needed
-FROM base AS deps
 WORKDIR /app
 
 # Copy package files
-COPY package.json package-lock.json ./
+COPY package.json ./
 
-# Install dependencies with legacy-peer-deps flag
-RUN npm ci --legacy-peer-deps
+# Install dependencies without using package-lock.json
+RUN npm install --legacy-peer-deps
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy the rest of the application
 COPY . .
 
-# Set NODE_OPTIONS for memory
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-
-# Build application (continue even if there are contentlayer warnings)
-RUN npm run build || true
-
-# Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
-
+# Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-# Copy built application
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+# Build application (continue even if there are warnings)
+RUN npm run build || true
 
 # Start the application
 CMD ["npm", "start"] 
