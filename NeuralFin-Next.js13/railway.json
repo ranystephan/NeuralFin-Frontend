@@ -3,6 +3,7 @@
   "build": {
     "builder": "NIXPACKS",
     "nixpacksEnabled": true,
+    "nixpacksConfigPath": "nixpacks.json",
     "buildCommand": "npm run build || true"
   },
   "deploy": {

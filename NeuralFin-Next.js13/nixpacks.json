@@ -1,0 +1,25 @@
+{
+  "providers": [
+    "nodejs"
+  ],
+  "buildImage": "node:18-alpine",
+  "phases": {
+    "setup": {
+      "nixPkgs": ["nodejs_18", "npm"]
+    },
+    "install": {
+      "cmds": ["npm install --legacy-peer-deps --no-package-lock"]
+    },
+    "build": {
+      "cmds": ["npm run build || true"]
+    }
+  },
+  "start": {
+    "cmd": "npm start"
+  },
+  "variables": {
+    "NODE_ENV": "production",
+    "NODE_OPTIONS": "--max-old-space-size=4096",
+    "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
+  }
+} 
