@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
 type ResponseData = {
   text: string;
@@ -11,10 +11,9 @@ interface GenerateNextApiRequest extends NextApiRequest {
   };
 }
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 export default async function handler(
   req: GenerateNextApiRequest,
@@ -28,16 +27,16 @@ export default async function handler(
   }
 
   try {
-    const aiResult = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `${prompt}`,
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
       max_tokens: 2048,
       frequency_penalty: 0.5,
       presence_penalty: 0
     });
 
-    const response = aiResult.data.choices[0].text?.trim() || 'Sorry, there was a problem!';
+    const response = completion.choices[0]?.message?.content?.trim() || 'Sorry, there was a problem!';
     res.status(200).json({ text: response });
 
   } catch (error) {
