@@ -108,7 +108,11 @@
     },
     "@react-three/fiber": "^8.15.16",
     "cross-spawn": "^7.0.3",
-    "got": "^11.8.6"
+    "got": "^11.8.6",
+    "react-native": {
+      "react": "$react",
+      "@types/react": "$@types/react"
+    }
   },
   "scripts": {
     "dev": "next dev",
