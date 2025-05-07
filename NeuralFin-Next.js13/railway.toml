@@ -1,7 +1,7 @@
 [build]
 nixpacks = true
 builder = "NIXPACKS"
-nixpacksConfigPath = "nixpacks.json"
+nixpacksConfigPath = "nixpacks.toml"
 buildCommand = "npm run build || true"
 
 [deploy]
