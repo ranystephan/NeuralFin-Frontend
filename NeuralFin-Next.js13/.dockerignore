@@ -1,0 +1,9 @@
+.git
+.github
+.next
+.contentlayer
+node_modules
+.env*
+npm-debug.log*
+railway.json
+.nixpacks 
