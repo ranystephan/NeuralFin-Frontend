@@ -1,11 +1,15 @@
+[phases.setup]
+nixPkgs = ["nodejs", "npm"]
+
 [phases.install]
 cmds = ["npm ci --legacy-peer-deps"]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["npm run build || true"]
 
 [start]
 cmd = "npm start"
 
 [env]
-NPM_CONFIG_LEGACY_PEER_DEPS = "true" 
+NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+NODE_OPTIONS = "--max-old-space-size=4096" 

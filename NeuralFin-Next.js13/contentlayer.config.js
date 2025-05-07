@@ -28,6 +28,14 @@ const computedFields = {
   },
 }
 
+const RelatedLink = defineNestedType(() => ({
+  name: "RelatedLink",
+  fields: {
+    title: { type: "string", required: true },
+    href: { type: "string", required: true },
+  },
+}))
+
 const RadixProperties = defineNestedType(() => ({
   name: "RadixProperties",
   fields: {
@@ -71,13 +79,56 @@ export const Doc = defineDocumentType(() => ({
       default: false,
       required: false,
     },
+    related: {
+      type: "list",
+      of: RelatedLink,
+      required: false,
+    },
+  },
+  computedFields,
+}))
+
+export const Author = defineDocumentType(() => ({
+  name: "Author",
+  filePathPattern: `authors/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: false,
+    },
+    avatar: {
+      type: "string",
+      required: false,
+    },
+  },
+  computedFields,
+}))
+
+export const Page = defineDocumentType(() => ({
+  name: "Page",
+  filePathPattern: `pages/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+      required: false,
+    },
   },
   computedFields,
 }))
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Doc],
+  documentTypes: [Doc, Author, Page],
   mdx: {
     remarkPlugins: [remarkGfm, codeImport],
     rehypePlugins: [
