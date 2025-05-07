@@ -1,6 +1,19 @@
 ---
 title: Sharpe Ratio Documentation
 description: Documentation for the Sharpe Ratio metric in finance.
+related:
+  - title: Portfolio Alpha
+    href: /docs/dashboard/alpha
+  - title: Information Ratio
+    href: /docs/dashboard/information-ratio
+  - title: Information Coefficient
+    href: /docs/dashboard/information-coefficient
+  - title: Value at Risk
+    href: /docs/dashboard/var
+  - title: Expected Shortfall
+    href: /docs/dashboard/es
+  - title: Beta
+    href: /docs/news/beta
 ---
 
 # Metric Documentation: Sharpe Ratio
@@ -9,12 +22,22 @@ description: Documentation for the Sharpe Ratio metric in finance.
 
 The Sharpe Ratio is a financial metric used to evaluate the risk-adjusted return of an investment or portfolio. It provides insights into the excess return generated per unit of risk assumed and helps investors compare investment opportunities with varying levels of risk. The Sharpe Ratio is named after its creator, Nobel laureate William F. Sharpe.
 
+## Related Metrics
+
+The Sharpe Ratio is part of a family of risk-adjusted return metrics:
+
+- [Portfolio Alpha](/docs/dashboard/alpha) measures excess returns relative to a benchmark, while the Sharpe Ratio uses the risk-free rate
+- The [Information Ratio](/docs/dashboard/information-ratio) is similar to the Sharpe Ratio but uses tracking error instead of total volatility
+- The [Information Coefficient](/docs/dashboard/information-coefficient) helps evaluate the quality of return predictions
+- [Value at Risk (VaR)](/docs/dashboard/var) and [Expected Shortfall](/docs/dashboard/es) provide complementary risk measures
+- [Beta](/docs/news/beta) helps understand the systematic risk component of the portfolio's volatility
+
 ## Calculation
 
 The Sharpe Ratio is typically calculated using the following formula:
 
 ```plaintext title="Formula"
-Sharpe Ratio = (Portfolio Return - Risk-Free Rate)  Portfolio Standard Deviation
+Sharpe Ratio = (Portfolio Return - Risk-Free Rate) / Portfolio Standard Deviation
 ```
 
 Where:
@@ -27,13 +50,10 @@ Where:
 
 The Sharpe Ratio measures the excess return earned per unit of risk taken. A higher Sharpe Ratio indicates a better risk-adjusted performance. By subtracting the risk-free rate from the portfolio return, the Sharpe Ratio captures the incremental return earned above a risk-free investment for each unit of risk.
 
-When interpreting the Sharpe Ratio, consider the following guidelines:
-
-- A positive Sharpe Ratio suggests that the investment or portfolio has provided a return above the risk-free rate, considering the level of risk taken.
-- A higher Sharpe Ratio indicates superior risk-adjusted performance compared to investments with lower ratios.
-- A negative Sharpe Ratio implies that the investment or portfolio has underperformed the risk-free rate, given the level of risk.
-
-The magnitude of the Sharpe Ratio can be used to compare different investments or portfolios. However, it's important to note that the Sharpe Ratio should not be the sole basis for investment decisions, as it does not capture other factors such as market conditions, investment strategy, or qualitative considerations.
+When interpreting the Sharpe Ratio, consider how it relates to other metrics:
+- A high Sharpe Ratio with positive [Alpha](/docs/dashboard/alpha) suggests consistent outperformance
+- The [Information Ratio](/docs/dashboard/information-ratio) can provide additional insights into active management efficiency
+- [Value at Risk (VaR)](/docs/dashboard/var) helps understand the potential downside risk not captured by standard deviation
 
 ## Considerations
 
@@ -55,8 +75,10 @@ When interpreting the Sharpe Ratio, consider the following factors:
 
 8. **Risk Factors**: Consider the specific risk factors relevant to the investment or portfolio being evaluated. Some investments may have unique risk exposures that are not captured by the Sharpe Ratio alone.
 
-9. **Robustness**: Assess the robustness of the Sharpe Ratio by conducting sensitivity analyses, considering different risk-free rates, or using alternative measures of risk-adjusted performance, such as the Sortino Ratio or the Treynor Ratio.
+9. **Complementary Metrics**: Use the Sharpe Ratio in conjunction with other metrics like [Alpha](/docs/dashboard/alpha), [Information Ratio](/docs/dashboard/information-ratio), and [Value at Risk (VaR)](/docs/dashboard/var) to get a more complete picture of portfolio performance and risk.
 
 ## Conclusion
 
 The Sharpe Ratio is a widely used metric for evaluating the risk-adjusted return of an investment or portfolio. It provides insights into the excess return earned per unit of risk assumed and helps investors make informed decisions by considering the trade-off between risk and return. While the Sharpe Ratio is a valuable tool, it should be used in conjunction with other factors and considerations to form a comprehensive investment analysis.
+
+When combined with metrics like [Alpha](/docs/dashboard/alpha), [Information Ratio](/docs/dashboard/information-ratio), and risk measures such as [Value at Risk (VaR)](/docs/dashboard/var) and [Expected Shortfall](/docs/dashboard/es), the Sharpe Ratio helps create a more complete picture of portfolio performance and risk management.

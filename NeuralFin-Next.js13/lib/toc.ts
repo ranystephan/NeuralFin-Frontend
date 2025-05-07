@@ -77,3 +77,28 @@ export async function getTableOfContents(
 
   return result.data
 }
+
+interface TocItem {
+  text: string
+  slug: string
+  level: number
+}
+
+export function generateToc(content: string): TocItem[] {
+  const headings = content.match(/^(#{2,4})\s+(.+)$/gm) || []
+  
+  return headings.map((heading) => {
+    const level = heading.match(/^#+/)?.[0].length || 2
+    const text = heading.replace(/^#+\s+/, "")
+    const slug = text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+
+    return {
+      text,
+      slug,
+      level,
+    }
+  })
+}

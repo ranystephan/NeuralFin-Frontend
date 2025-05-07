@@ -8,7 +8,7 @@ const nextConfig = {
     domains: ["avatars.githubusercontent.com", "images.unsplash.com"],
   },
   experimental: {
-    appDir: true,
+    // The appDir option has been removed as it's the default in Next.js 14+
   },
 }
 

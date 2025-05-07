@@ -1,0 +1,29 @@
+---
+title: Portfolio Analysis
+description: Analyze and optimize your investment portfolios using NeuralFin's advanced models.
+---
+
+# Portfolio Analysis
+
+NeuralFin helps you analyze and optimize your investment portfolios using advanced neural network models.
+
+## Key Features
+- Asset allocation
+- Diversification matrix
+- Performance metrics (Sharpe, Alpha, etc.)
+
+## Example: Calculate Sharpe Ratio
+
+```js
+const result = await client.getSharpeRatio({
+  portfolio: [
+    { symbol: 'AAPL', weight: 0.5 },
+    { symbol: 'MSFT', weight: 0.5 }
+  ]
+});
+console.log(result);
+```
+
+## Related
+- [Risk Management](/docs/risk-management)
+- [Market Data](/docs/market-data) 

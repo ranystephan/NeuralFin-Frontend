@@ -1,18 +1,12 @@
 import "./styles/docs.css"
-import { Metadata } from "next"
-
-import { siteConfig } from "@/config/site"
+import { Metadata, Viewport } from "next"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { Toaster } from "@/components/docsComponents/ui/toaster"
-import { Analytics } from "@/components/docsComponents/analytics"
-import { SiteFooter } from "@/components/docsComponents/site-footer"
-import { SiteHeader } from "@/components/docsComponents/site-header"
-import { StyleSwitcher } from "@/components/docsComponents/style-switcher"
-import { TailwindIndicator } from "@/components/docsComponents/tailwind-indicator"
-import { ThemeProvider } from "@/components/docsComponents/theme-provider"
+import { siteConfig } from "@/config/site"
+import { DocsTocProvider } from "@/components/docsComponents/DocsTocContext"
+import { DocsLayoutClient } from "@/components/docsComponents/DocsLayoutClient"
 
-export const metadata: Metadata = { 
+export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
@@ -27,15 +21,11 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "shadcn",
-      url: "https://shadcn.com",
+      name: siteConfig.name,
+      url: siteConfig.url,
     },
   ],
-  creator: "shadcn",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  creator: siteConfig.name,
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -57,7 +47,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@shadcn",
+    creator: "@ranystephan",
   },
   icons: {
     icon: "/favicon.ico",
@@ -67,35 +57,19 @@ export const metadata: Metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 }
 
-interface RootLayoutProps {
-  children: React.ReactNode
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f0f0f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A0C0E" },
+  ],
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body
-          className={cn(
-            "min-h-screen bg-[#000000] z-10 font-sans antialiased overflow-auto",
-            fontSans.variable
-          )}
-        >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col bg-[#110618]">
-              <SiteHeader />
-              <div className="flex-1">{children}</div>
-              {/* <SiteFooter /> */}
-            </div>
-            {/* <TailwindIndicator /> */}
-          </ThemeProvider>
-          <StyleSwitcher />
-          <Analytics />
-          <Toaster />
-          
-        </body>
-      </html>
-    </>
+    <DocsTocProvider>
+      <div className={cn("relative min-h-screen flex flex-col", fontSans.variable)}>
+        <DocsLayoutClient>{children}</DocsLayoutClient>
+      </div>
+    </DocsTocProvider>
   )
 }

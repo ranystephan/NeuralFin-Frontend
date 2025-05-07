@@ -1,0 +1,36 @@
+---
+title: API Reference
+description: Complete reference for all NeuralFin API endpoints, parameters, and responses.
+---
+
+# API Reference
+
+Welcome to the NeuralFin API Reference. Here you'll find details for all endpoints, parameters, and response formats.
+
+## Example: Get Stock Prediction
+
+**Endpoint:**
+```
+POST /api/predict
+```
+
+**Request Body:**
+```json
+{
+  "symbol": "AAPL",
+  "days": 7,
+  "model": "standard"
+}
+```
+
+**Response:**
+```json
+{
+  "symbol": "AAPL",
+  "predictions": [150.2, 151.1, 152.0, ...]
+}
+```
+
+## More
+- [Authentication](/docs/getting-started)
+- [Portfolio Analysis](/docs/portfolio-analysis) 

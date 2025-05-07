@@ -1,20 +1,19 @@
 "use client"
 
 import * as React from "react"
-import Link, { LinkProps } from "next/link"
-import { useRouter } from "next/navigation"
-import { SidebarOpen } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Menu } from "lucide-react"
 
 import { docsConfig } from "@/config/docs"
-import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/docsComponents/ui/button"
 import { ScrollArea } from "@/components/docsComponents/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/docsComponents/ui/sheet"
-import { Icons } from "@/components/docsComponents/icons"
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false)
+  const pathname = usePathname()
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -23,50 +22,51 @@ export function MobileNav() {
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
-          <SidebarOpen className="h-6 w-6" />
+          <Menu className="h-6 w-6" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent size="xl" position="left" className="pr-0">
-        <MobileLink
-          href="/"
-          className="flex items-center"
-          onOpenChange={setOpen}
-        >
-          <Icons.logo className="mr-2 h-4 w-4" />
-          <span className="font-bold">{siteConfig.name}</span>
-        </MobileLink>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
+      <SheetContent side="left" className="pr-0">
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
           <div className="flex flex-col space-y-3">
             {docsConfig.mainNav?.map(
               (item) =>
                 item.href && (
-                  <MobileLink
+                  <Link
                     key={item.href}
                     href={item.href}
-                    onOpenChange={setOpen}
+                    className={cn(
+                      "flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",
+                      pathname === item.href
+                        ? "bg-muted"
+                        : "transparent"
+                    )}
+                    onClick={() => setOpen(false)}
                   >
                     {item.title}
-                  </MobileLink>
+                  </Link>
                 )
             )}
           </div>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-3">
             {docsConfig.sidebarNav.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3 pt-6">
                 <h4 className="font-medium">{item.title}</h4>
                 {item?.items?.length &&
                   item.items.map((item) => (
-                    <React.Fragment key={item.href}>
-                      {!item.disabled &&
-                        (item.href ? (
-                          <MobileLink href={item.href} onOpenChange={setOpen}>
-                            {item.title}
-                          </MobileLink>
-                        ) : (
-                          item.title
-                        ))}
-                    </React.Fragment>
+                    <Link
+                      key={item.href}
+                      href={item.href || "#"}
+                      className={cn(
+                        "flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",
+                        pathname === item.href
+                          ? "bg-muted"
+                          : "transparent"
+                      )}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
                   ))}
               </div>
             ))}
@@ -74,34 +74,5 @@ export function MobileNav() {
         </ScrollArea>
       </SheetContent>
     </Sheet>
-  )
-}
-
-interface MobileLinkProps extends LinkProps {
-  onOpenChange?: (open: boolean) => void
-  children: React.ReactNode
-  className?: string
-}
-
-function MobileLink({
-  href,
-  onOpenChange,
-  className,
-  children,
-  ...props
-}: MobileLinkProps) {
-  const router = useRouter()
-  return (
-    <Link
-      href={href}
-      onClick={() => {
-        router.push(href.toString())
-        onOpenChange?.(false)
-      }}
-      className={cn(className)}
-      {...props}
-    >
-      {children}
-    </Link>
   )
 }

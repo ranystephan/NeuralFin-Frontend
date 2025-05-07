@@ -1,62 +1,45 @@
 "use client"
 
-import * as React from "react"
-
-import { TableOfContents } from "@/lib/toc"
+import { useEffect, useMemo, useState } from "react"
+import { TableOfContentsType, TableOfContentsItem } from "@/types/docs"
 import { cn } from "@/lib/utils"
-import { useMounted } from "@/hooks/use-mounted"
+import { ChevronRight } from "lucide-react"
 
 interface TocProps {
-  toc: TableOfContents
+  toc: TableOfContentsType
 }
 
-export function DashboardTableOfContents({ toc }: TocProps) {
-  const itemIds = React.useMemo(
-    () =>
+export function TableOfContents({ toc }: TocProps) {
+  const itemIds = useMemo(
+    () => 
       toc.items
         ? toc.items
-            .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
-            .flat()
-            .filter(Boolean)
-            .map((id) => id?.split("#")[1])
+          .flatMap((item: TableOfContentsItem) => [
+            item.url,
+            item.items?.map((item: TableOfContentsItem) => item.url)
+          ])
+          .flat()
+          .filter(Boolean)
+          .map((id: string | undefined) => id?.split("#")[1])
         : [],
     [toc]
   )
-  const activeHeading = useActiveItem(itemIds)
-  const mounted = useMounted()
+  const [activeHeading, setActiveHeading] = useState<string>("")
 
-  if (!toc?.items) {
-    return null
-  }
-
-  return mounted ? (
-    <div className="space-y-2">
-      <p className="font-medium">On This Page</p>
-      <Tree tree={toc} activeItem={activeHeading} />
-    </div>
-  ) : null
-}
-
-function useActiveItem(itemIds: (string | undefined)[]) {
-  const [activeId, setActiveId] = React.useState<string>("")
-
-  React.useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
+            setActiveHeading(entry.target.id)
           }
         })
       },
-      { rootMargin: `0% 0% -80% 0%` }
+      { rootMargin: "0% 0% -80% 0%" }
     )
 
-    itemIds?.forEach((id) => {
-      if (!id) {
-        return
-      }
-
+    itemIds?.forEach((id: string | undefined) => {
+      if (!id) return
       const element = document.getElementById(id)
       if (element) {
         observer.observe(element)
@@ -64,11 +47,8 @@ function useActiveItem(itemIds: (string | undefined)[]) {
     })
 
     return () => {
-      itemIds?.forEach((id) => {
-        if (!id) {
-          return
-        }
-
+      itemIds?.forEach((id: string | undefined) => {
+        if (!id) return
         const element = document.getElementById(id)
         if (element) {
           observer.unobserve(element)
@@ -77,34 +57,48 @@ function useActiveItem(itemIds: (string | undefined)[]) {
     }
   }, [itemIds])
 
-  return activeId
+  if (!toc?.items?.length) {
+    return null
+  }
+
+  return (
+    <div className="pt-6 px-4">
+      <p className="font-semibold text-xs uppercase tracking-widest mb-6 text-foreground/90 border-b border-white/5 pb-3">On This Page</p>
+      <Tree activeItem={activeHeading} items={toc.items} />
+    </div>
+  )
 }
 
 interface TreeProps {
-  tree: TableOfContents
+  activeItem?: string
+  items: TableOfContentsItem[] | undefined
   level?: number
-  activeItem?: string | null
 }
 
-function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  return tree?.items?.length && level < 3 ? (
-    <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
-      {tree.items.map((item, index) => {
+function Tree({ activeItem, items, level = 1 }: TreeProps) {
+  return items?.length ? (
+    <ul className={cn("m-0 list-none space-y-1", { "pl-4 mt-1 pt-1": level !== 1 })}>
+      {items.map((item: TableOfContentsItem, index: number) => {
         return (
           <li key={index} className={cn("mt-0 pt-2")}>
             <a
               href={item.url}
-              className={cn(
-                "inline-block no-underline",
-                item.url === `#${activeItem}`
-                  ? "font-medium text-primary"
-                  : "text-sm text-muted-foreground"
+              className={cn("inline-block no-underline text-sm group relative transition-all duration-200 flex items-center rounded-md px-3 py-2 hover:bg-popover/20 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2 focus:ring-offset-background",
+                item.url === `#${activeItem}` ? 
+                  "font-medium text-foreground bg-popover/70 shadow-sm border border-white/5" : 
+                  "text-muted-foreground border border-transparent"
               )}
+              style={{
+                transitionDelay: `${index * 15}ms`
+              }}
             >
+              <ChevronRight className={cn("mr-2 h-3 w-3 text-indigo-400", item.url === `#${activeItem}` ? "opacity-100" : "opacity-0 group-hover:opacity-100 transition-opacity")} />
               {item.title}
             </a>
             {item.items?.length ? (
-              <Tree tree={item} level={level + 1} activeItem={activeItem} />
+              <div className="overflow-hidden transition-all duration-200">
+                <Tree activeItem={activeItem} items={item.items} level={level + 1} />
+              </div>
             ) : null}
           </li>
         )

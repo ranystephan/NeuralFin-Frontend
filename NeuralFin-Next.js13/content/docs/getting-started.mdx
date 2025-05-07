@@ -1,0 +1,31 @@
+---
+title: Getting Started
+description: Learn how to set up your NeuralFin account, authenticate, and make your first prediction.
+---
+
+# Getting Started
+
+Welcome to NeuralFin! This guide will help you set up your account, authenticate, and make your first prediction.
+
+## 1. Sign Up
+- Go to the [NeuralFin Dashboard](/dashboard) and create your account.
+
+## 2. Get Your API Key
+- After signing up, navigate to the API section to generate your API key.
+
+## 3. Install the SDK
+```bash
+npm install @neuralfin/client
+```
+
+## 4. Authenticate
+Use your API key to authenticate requests:
+
+```js
+import { NeuralFinClient } from '@neuralfin/client';
+const client = new NeuralFinClient({ apiKey: 'your-api-key' });
+```
+
+## Next Steps
+- [API Reference](/docs/api)
+- [Portfolio Analysis](/docs/portfolio-analysis) 

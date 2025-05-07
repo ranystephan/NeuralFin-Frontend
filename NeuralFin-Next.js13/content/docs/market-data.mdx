@@ -1,0 +1,28 @@
+---
+title: Market Data
+description: Access real-time and historical market data with NeuralFin.
+---
+
+# Market Data
+
+Access real-time and historical market data with NeuralFin.
+
+## Data Types
+- Stock prices
+- Indices
+- Economic indicators
+
+## Example: Get Historical Prices
+
+```js
+const data = await client.getHistoricalPrices({
+  symbol: 'AAPL',
+  start: '2023-01-01',
+  end: '2023-06-01'
+});
+console.log(data);
+```
+
+## Related
+- [API Reference](/docs/api)
+- [Portfolio Analysis](/docs/portfolio-analysis) 

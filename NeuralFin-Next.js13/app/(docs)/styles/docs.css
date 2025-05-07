@@ -4,67 +4,67 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --background: var(--bg-light);
+    --foreground: var(--text-dark);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: var(--bg-lighter);
+    --muted-foreground: var(--text-medium);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover: var(--bg-lighter);
+    --popover-foreground: var(--text-dark);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: var(--card-border-light);
+    --input: var(--card-border-light);
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card: var(--card-bg-light);
+    --card-foreground: var(--text-dark);
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--primary-light);
+    --primary-foreground: var(--text-dark);
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--bg-light);
+    --secondary-foreground: var(--text-dark);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: var(--accent-green-light);
+    --accent-foreground: var(--text-dark);
 
     --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: var(--text-dark);
 
-    --ring: 215 20.2% 65.1%;
+    --ring: var(--primary-light);
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: var(--bg-dark);
+    --foreground: var(--text-white);
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: var(--bg-darker);
+    --muted-foreground: var(--text-light);
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: var(--primary);
+    --accent-foreground: var(--text-white);
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    --popover: var(--bg-dark);
+    --popover-foreground: var(--text-white);
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.1);
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --card: var(--bg-darker);
+    --card-foreground: var(--text-white);
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
+    --primary: var(--primary);
+    --primary-foreground: var(--text-white);
 
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: var(--bg-darker);
+    --secondary-foreground: var(--text-white);
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: var(--text-white);
 
-    --ring: 216 34% 17%;
+    --ring: var(--primary);
 
     --radius: 0.5rem;
   }

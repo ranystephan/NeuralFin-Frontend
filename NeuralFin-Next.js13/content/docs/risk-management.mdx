@@ -1,0 +1,30 @@
+---
+title: Risk Management
+description: Learn how to measure and manage financial risk using NeuralFin's tools.
+---
+
+# Risk Management
+
+Learn how to measure and manage financial risk using NeuralFin's tools.
+
+## Key Concepts
+- Value at Risk (VaR)
+- Conditional Value at Risk (CVaR)
+- Stress testing
+
+## Example: Calculate VaR
+
+```js
+const result = await client.getVaR({
+  portfolio: [
+    { symbol: 'AAPL', weight: 0.5 },
+    { symbol: 'MSFT', weight: 0.5 }
+  ],
+  confidence: 0.95
+});
+console.log(result);
+```
+
+## Related
+- [Portfolio Analysis](/docs/portfolio-analysis)
+- [Market Data](/docs/market-data) 
