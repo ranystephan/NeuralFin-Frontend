@@ -1,0 +1,1 @@
+{"phases": {"install": {"cmds": ["npm install --legacy-peer-deps"]}, "build": {"cmds": ["npm run build || true"]}}, "variables": {"NPM_CONFIG_LEGACY_PEER_DEPS": "true", "NODE_OPTIONS": "--max-old-space-size=4096", "RAILWAY_NIXPACKS_ENABLED": "false", "NIXPACKS_INSTALL_CMD": "npm install --legacy-peer-deps"}} 
