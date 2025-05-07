@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm ci --legacy-peer-deps && npm run build"
+buildCommand = "npm run build"
 
 [deploy]
 startCommand = "npm start"
@@ -8,4 +8,7 @@ healthcheckPath = "/"
 healthcheckTimeout = 100
 
 [nixpacks]
-installCommand = "npm ci --legacy-peer-deps" 
+nixPackages = ["nodejs", "npm"]
+
+[nixpacks.env]
+NPM_CONFIG_LEGACY_PEER_DEPS = "true" 
