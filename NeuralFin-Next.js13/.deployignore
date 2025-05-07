@@ -1,3 +1,0 @@
-# Prevent override of custom Dockerfile
-.nixpacks.toml
-nixpacks.toml 

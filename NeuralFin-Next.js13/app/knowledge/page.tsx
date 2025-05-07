@@ -13,20 +13,10 @@ const KnowledgePage = () => {
   const [graphData, setGraphData] = useState<{ nodes: any[]; links: any[] }>({ nodes: [], links: [] });
 
   useEffect(() => {
-    async function loadGraphData() {
-      try {
-        // In a real application, you would fetch this data from an API
-        const response = await fetch('/api/docs');
-        const files = await response.json();
-        const data = await parseMarkdownFiles(files);
-        setGraphData(data);
-      } catch (error) {
-        console.error('Error loading graph data:', error);
-        setGraphData({ nodes: [], links: [] });
-      }
-    }
-
-    loadGraphData();
+    // In a real application, you would fetch this data from an API
+    // For now, we'll use the parsed data directly
+    const data = parseMarkdownFiles('docs');
+    setGraphData(data);
   }, []);
 
   return (

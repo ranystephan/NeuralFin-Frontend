@@ -9,11 +9,9 @@ export function StyleSwitcher() {
   React.useEffect(() => {
     document.body.removeAttribute("data-section")
 
-    if (segments && segments.length > 0) {
-      const section = segments.at(-1)
-      if (section && typeof window !== "undefined") {
-        document.body.setAttribute("data-section", section)
-      }
+    const section = segments.at(-1)
+    if (section && typeof window !== "undefined") {
+      document.body.setAttribute("data-section", section)
     }
   }, [segments])
 
