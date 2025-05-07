@@ -1,5 +1,9 @@
 [build]
-nixpacks = false
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
-buildCommand = "" 
+nixpacks = true
+builder = "NIXPACKS"
+buildCommand = "npm run build || true"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 300 
