@@ -51,4 +51,11 @@ ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
-CMD ["node", "server.js"] 
+CMD ["node", "server.js"]
+
+ENV NIXPACKS_PATH=/app/node_modules/.bin:$NIXPACKS_PATH
+
+COPY . /app/.
+RUN --mount=type=cache,id=s/d5a578ab-edcd-4c67-bea9-19078d277881-/root/npm,target=/root/.npm npm ci --legacy-peer-deps
+
+# build phase 
