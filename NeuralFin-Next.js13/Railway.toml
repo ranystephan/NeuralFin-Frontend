@@ -1,8 +1,1 @@
-[build]
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
-
-[deploy]
-startCommand = "npm run start"
-healthcheckPath = "/"
-healthcheckTimeout = 100 
+ 
