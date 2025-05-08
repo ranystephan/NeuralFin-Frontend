@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight, BookOpen, Check, CheckCircle, ExternalLink, FileText, Info } from 'lucide-react'
 import Link from 'next/link'
-import { Mdx } from '@/components/docsComponents/mdx-components'
-import { Doc } from 'contentlayer/generated'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import MDXContent from '@/components/docsComponents/mdx-content'
 
 // Callout component for the actual doc pages
 export const DocCallout = ({ type = "info", title, children }: { type?: "info" | "tip" | "warning", title: string, children: React.ReactNode }) => {
@@ -119,12 +119,24 @@ export const DocPageHeader = ({ title, description }: { title: string, descripti
   );
 };
 
-// DocPage wrapper with enhanced content experience
-interface DocPageProps {
-  doc: Doc;
+// Document interface to replace contentlayer Doc type
+interface DocData {
+  title: string;
+  description?: string;
+  frontmatter: {
+    title: string;
+    description?: string;
+    [key: string]: any;
+  };
 }
 
-export function DocPageContent({ doc }: DocPageProps) {
+// DocPage wrapper with enhanced content experience
+interface DocPageProps {
+  doc: DocData;
+  source: MDXRemoteSerializeResult<Record<string, unknown>>;
+}
+
+export function DocPageContent({ doc, source }: DocPageProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -155,7 +167,7 @@ export function DocPageContent({ doc }: DocPageProps) {
       </div>
       
       {isMounted ? (
-        <Mdx code={doc.body.code} />
+        <MDXContent source={source} />
       ) : (
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
@@ -195,6 +207,6 @@ export function DocPageContent({ doc }: DocPageProps) {
 }
 
 // Default export for Next.js
-export default function DocPageClient({ doc }: DocPageProps) {
-  return <DocPageContent doc={doc} />;
+export default function DocPageClient({ doc, source }: DocPageProps) {
+  return <DocPageContent doc={doc} source={source} />;
 } 

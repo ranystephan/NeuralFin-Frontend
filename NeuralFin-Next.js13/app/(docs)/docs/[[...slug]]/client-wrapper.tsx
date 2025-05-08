@@ -5,15 +5,26 @@
 
 import { FC } from "react"
 import { MDXRemoteSerializeResult } from "next-mdx-remote"
-import MDXContent from "@/components/docsComponents/mdx-content"
+import DocPageClient from "./page.client"
 
 // Interface for the component props
 interface DocClientWrapperProps {
   source: MDXRemoteSerializeResult<Record<string, unknown>>;
+  doc?: any;
 }
 
-const DocClientWrapper: FC<DocClientWrapperProps> = ({ source }) => {
-  return <MDXContent source={source} />;
+const DocClientWrapper: FC<DocClientWrapperProps> = ({ source, doc }) => {
+  // Create a simplified doc object if none is provided
+  const docData = doc || {
+    title: "Documentation",
+    description: "",
+    frontmatter: {
+      title: "Documentation",
+      description: ""
+    }
+  };
+  
+  return <DocPageClient doc={docData} source={source} />;
 }
 
 export default DocClientWrapper; 

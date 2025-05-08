@@ -175,7 +175,14 @@ export default async function DocPage({
         </div>
         
         <div className="bg-white/[0.02] border border-white/10 rounded-xl p-8 shadow-md">
-          <DocClientWrapper source={mdxSource} />
+          <DocClientWrapper 
+            source={mdxSource} 
+            doc={{
+              title: doc.frontmatter.title,
+              description: doc.frontmatter.description,
+              frontmatter: doc.frontmatter
+            }}
+          />
         </div>
         
         <div className="mt-12 pt-6 border-t border-white/10">

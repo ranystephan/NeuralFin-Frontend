@@ -1,5 +1,3 @@
-import { withContentlayer } from "next-contentlayer"
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -12,5 +10,4 @@ const nextConfig = {
   }
 }
 
-// Export direct config - no more conditional contentlayer
 export default nextConfig
