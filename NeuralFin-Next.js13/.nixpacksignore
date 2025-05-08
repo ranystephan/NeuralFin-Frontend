@@ -1,1 +1,5 @@
-* 
+.git
+node_modules
+.next/cache
+**/.DS_Store
+.contentlayer/cache 
