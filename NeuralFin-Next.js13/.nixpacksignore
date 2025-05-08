@@ -2,4 +2,5 @@
 node_modules
 .next/cache
 **/.DS_Store
-.contentlayer/cache 
+.contentlayer/cache
+.contentlayer 

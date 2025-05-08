@@ -27,7 +27,7 @@ import {
   FormMessage,
 } from "@/components/react-hook-form/form"
 import { AuthContext } from "@/contexts/AuthContext"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 import { useContext } from "react"
 
 const profileFormSchema = z.object({
@@ -70,8 +70,6 @@ export function ProfileForm() {
 
   const router = useRouter();
 
-
-
   const logout = async () => {
     const apiUrl_deployed = `https://api.neuralfin.xyz/api/logout`;
     const apiUrl_local = `http://localhost:8000/api/logout`;
@@ -87,12 +85,6 @@ export function ProfileForm() {
     console.log(auth.user?.name);
     router.push('/'); 
   }
-
-
-
-
-
-
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),

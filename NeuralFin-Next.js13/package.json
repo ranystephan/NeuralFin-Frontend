@@ -102,6 +102,7 @@
     "three": "^0.176.0",
     "types": "^0.1.1",
     "unist-builder": "^3.0.1",
+    "markdown-wasm": "^1.2.0",
     "zod": "^3.21.4"
   },
   "overrides": {
