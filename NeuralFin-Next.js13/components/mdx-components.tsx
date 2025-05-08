@@ -10,8 +10,8 @@ interface MDXContentProps {
 export async function MDXContent({ code }: MDXContentProps) {
   const mdxSource = await serialize(code, {
     mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [rehypePrism],
+      remarkPlugins: [remarkGfm as any],
+      rehypePlugins: [rehypePrism as any],
     },
   });
 

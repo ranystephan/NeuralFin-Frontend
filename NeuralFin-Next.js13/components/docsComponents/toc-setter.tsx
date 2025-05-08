@@ -1,40 +1,19 @@
 "use client"
 
-import { useMemo, useEffect } from "react"
-import { useDocsToc } from "./DocsTocContext"
-
-interface TocSetterProps {
-  doc: any // Using any temporarily for flexibility with the contentlayer doc type
-}
-
-export function TocSetter({ doc }: TocSetterProps) {
-  const { setToc } = useDocsToc()
+// Production-safe TOC component without contentlayer dependency
+export function TocSetter() {
+  if (process.env.NODE_ENV === 'production') {
+    return null
+  }
   
-  // Memoize headings extraction to avoid infinite update loop
-  const toc = useMemo(() => {
-    try {
-      if (!doc) return [];
-      
-      // Extract headings from doc - handle different possible structures
-      const headings = doc.headings || 
-        (doc.structuredData?.tableOfContents?.map((item: { level: string, content: string, slug: string }) => ({
-          level: parseInt(item.level.replace('h', '')),
-          text: item.content,
-          slug: item.slug
-        }))) || [];
-        
-      return headings;
-    } catch (error) {
-      console.error("Error extracting TOC:", error);
-      return [];
-    }
-  }, [doc]);
-  
-  useEffect(() => {
-    if (setToc && Array.isArray(toc)) {
-      setToc(toc);
-    }
-  }, [toc, setToc]);
-  
-  return null;
+  return (
+    <div className="space-y-2">
+      <p className="font-medium">On This Page</p>
+      <div className="text-sm">
+        <div className="text-muted-foreground">
+          Table of contents disabled in production mode
+        </div>
+      </div>
+    </div>
+  )
 } 

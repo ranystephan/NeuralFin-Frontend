@@ -58,9 +58,11 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
     "lucide-react": "^0.214.0",
+    "markdown-wasm": "^1.2.0",
     "mdast-util-toc": "^6.1.1",
     "next": "14.1.0",
     "next-contentlayer": "^0.3.4",
+    "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.2.1",
     "next-transpile-modules": "^10.0.0",
     "nextra": "^2.13.4",
@@ -102,7 +104,6 @@
     "three": "^0.176.0",
     "types": "^0.1.1",
     "unist-builder": "^3.0.1",
-    "markdown-wasm": "^1.2.0",
     "zod": "^3.21.4"
   },
   "overrides": {
