@@ -294,7 +294,9 @@ const Page: React.FC = () => {
                     </button>
                     
                     <button className="py-4 px-8 rounded-md border border-white/10 tracking-wide modern-button backdrop-blur-md hover:bg-white/5 transition-all duration-300">
-                      <span className="font-medium">Documentation</span>
+                      <Link href="/docs" className="font-medium">
+                        Documentation
+                      </Link>
                     </button>
                   </div>
                 </div>

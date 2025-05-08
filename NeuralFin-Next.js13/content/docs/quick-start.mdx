@@ -1,0 +1,58 @@
+---
+title: Quick Start
+description: Get up and running with NeuralFin in minutes.
+---
+
+# Quick Start
+
+This guide will help you get started with NeuralFin quickly.
+
+## Basic Usage
+
+1. First, make sure you have installed the client library:
+
+```bash
+npm install @neuralfin/client
+```
+
+2. Initialize the client:
+
+```typescript
+import { NeuralFinClient } from '@neuralfin/client';
+
+const client = new NeuralFinClient({
+  apiKey: 'your-api-key'
+});
+```
+
+3. Make your first prediction:
+
+```typescript
+// Get stock price prediction
+const prediction = await client.predictPrice({
+  symbol: 'AAPL',
+  timeframe: '1d'
+});
+
+console.log(prediction);
+```
+
+## Example: Portfolio Analysis
+
+```typescript
+// Analyze your portfolio
+const analysis = await client.analyzePortfolio({
+  holdings: [
+    { symbol: 'AAPL', shares: 100 },
+    { symbol: 'GOOGL', shares: 50 }
+  ]
+});
+
+console.log(analysis);
+```
+
+## Next Steps
+
+- [API Reference](/docs/api)
+- [Portfolio Analysis](/docs/portfolio-analysis)
+- [Risk Management](/docs/risk-management) 

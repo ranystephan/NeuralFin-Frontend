@@ -1,0 +1,44 @@
+---
+title: Installation
+description: Learn how to install and set up NeuralFin in your project.
+---
+
+# Installation
+
+This guide will help you install and set up NeuralFin in your project.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+- Node.js 16.x or later
+- npm or yarn package manager
+- A NeuralFin account and API key
+
+## Installation Steps
+
+1. Install the NeuralFin client library:
+
+```bash
+npm install @neuralfin/client
+# or
+yarn add @neuralfin/client
+```
+
+2. Import the client in your project:
+
+```typescript
+import { NeuralFinClient } from '@neuralfin/client';
+```
+
+3. Initialize the client with your API key:
+
+```typescript
+const client = new NeuralFinClient({
+  apiKey: 'your-api-key'
+});
+```
+
+## Next Steps
+
+- [Quick Start Guide](/docs/quick-start)
+- [API Reference](/docs/api) 

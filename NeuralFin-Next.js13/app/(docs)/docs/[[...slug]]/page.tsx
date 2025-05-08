@@ -1,20 +1,16 @@
-import { notFound } from "next/navigation"
 import { allDocs } from "contentlayer/generated"
-
-import "@/styles/mdx.css"
 import { Metadata } from "next"
-import { ChevronRight, ArrowRight, Search as SearchIcon, Info, BookOpen, Terminal, Code, Link2, ExternalLink, Shield, Users, Database, LayoutGrid, UploadCloud, History, FileText, DollarSign, HelpCircle } from "lucide-react"
 import Link from "next/link"
+import { TocSetter } from "@/components/docsComponents/toc-setter"
+import { DocsPager } from "@/components/docsComponents/pager"
+import { ChevronRight, ArrowRight, Search as SearchIcon, Info, BookOpen, Terminal, Code, Link2, ExternalLink, Shield, Users, Database, LayoutGrid, UploadCloud, History, FileText, DollarSign, HelpCircle } from "lucide-react"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { docsConfig } from "@/config/docs"
 import { Search } from "@/components/docsComponents/search"
-import { DocsPager } from "@/components/docsComponents/pager"
-import { TocSetter } from "@/components/docsComponents/toc-setter"
-import dynamic from "next/dynamic"
+import DocClientWrapper from "./client-wrapper"
 
-// Import the DocPageClient component dynamically to avoid SSR issues with effects
-const DocPageClient = dynamic(() => import("./page.client"), { ssr: false });
+import "@/styles/mdx.css"
 
 // Add a reusable CodeExample component for the documentation
 const CodeExample = ({ language = "jsx", code, description }: { language?: string, code: string, description?: string }) => {
@@ -297,8 +293,8 @@ const LandingPage: React.FC = () => {
   );
 };
 
-async function getDocFromParams(params: { slug: string[] }) {
-  const slug = params.slug?.join("/") || ""
+async function getDocFromParams(params: { slug?: string[] }) {
+  const slug = params?.slug?.join("/") || ""
   const doc = allDocs.find((doc) => doc.slugAsParams === slug)
 
   if (!doc) {
@@ -311,8 +307,16 @@ async function getDocFromParams(params: { slug: string[] }) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] }
+  params: { slug?: string[] }
 }): Promise<Metadata> {
+  // If we're on the root docs route, return landing page metadata
+  if (!params.slug || params.slug.length === 0) {
+    return {
+      title: "NeuralFin Documentation",
+      description: "Documentation and guides for using NeuralFin's financial services and APIs."
+    }
+  }
+
   const doc = await getDocFromParams(params)
 
   if (!doc) {
@@ -328,25 +332,31 @@ export async function generateMetadata({
 export default async function DocPage({
   params,
 }: {
-  params: { slug: string[] }
+  params: { slug?: string[] }
 }) {
+  // Always show landing page for root docs route
   if (!params.slug || params.slug.length === 0) {
-    return <LandingPage />;
+    return <LandingPage />
   }
 
-  const doc = await getDocFromParams(params);
+  const doc = await getDocFromParams(params)
 
   if (!doc) {
-    notFound();
+    return <LandingPage />
   }
 
   return (
-    <div className="space-y-6">
-      <TocSetter doc={doc} />
-      
-      <DocPageClient doc={doc} />
-      
-      <DocsPager doc={doc} />
-    </div>
-  );
+    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+      <div className="mx-auto w-full min-w-0">
+        <DocClientWrapper doc={doc} />
+        <hr className="my-4 md:my-6" />
+        <DocsPager doc={doc} />
+      </div>
+      <div className="hidden text-sm xl:block">
+        <div className="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
+          <TocSetter doc={doc} />
+        </div>
+      </div>
+    </main>
+  )
 } 

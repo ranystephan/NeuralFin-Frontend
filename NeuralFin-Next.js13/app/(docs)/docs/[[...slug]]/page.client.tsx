@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowRight, BookOpen, Check, CheckCircle, ExternalLink, FileText, Info } from 'lucide-react'
 import Link from 'next/link'
 import { Mdx } from '@/components/docsComponents/mdx-components'
+import { Doc } from 'contentlayer/generated'
 
 // Callout component for the actual doc pages
 export const DocCallout = ({ type = "info", title, children }: { type?: "info" | "tip" | "warning", title: string, children: React.ReactNode }) => {
@@ -120,11 +121,15 @@ export const DocPageHeader = ({ title, description }: { title: string, descripti
 
 // DocPage wrapper with enhanced content experience
 interface DocPageProps {
-  doc: any; // The doc content
+  doc: Doc;
 }
 
 export function DocPageContent({ doc }: DocPageProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
+    setIsMounted(true);
+    
     // Enhance code blocks with copy button or other features
     const codeBlocks = document.querySelectorAll('pre');
     
@@ -146,10 +151,19 @@ export function DocPageContent({ doc }: DocPageProps) {
       {/* Add a documentation last updated notice */}
       <div className="flex items-center mb-8 text-sm text-muted-foreground">
         <BookOpen className="mr-2 h-4 w-4" />
-        Last updated: {new Date(doc.date || Date.now()).toLocaleDateString()}
+        Last updated: {new Date().toLocaleDateString()}
       </div>
       
-      <Mdx code={doc.body.code} />
+      {isMounted ? (
+        <Mdx code={doc.body.code} />
+      ) : (
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
+          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2.5"></div>
+          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2.5"></div>
+          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+        </div>
+      )}
       
       <div className="mt-16 border-t border-border pt-8">
         <div className="flex justify-between items-center">

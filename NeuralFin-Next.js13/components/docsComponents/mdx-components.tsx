@@ -1,16 +1,52 @@
 "use client"
 
 import * as React from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { useMDXComponent } from "next-contentlayer/hooks"
+import dynamic from 'next/dynamic'
 
 import { cn } from "@/lib/utils"
 import { Callout } from "@/components/docsComponents/callout"
 import { MdxCard } from "@/components/docsComponents/mdx-card"
 
+// Custom error boundary for MDX rendering
+class MDXErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
 
+  static getDerivedStateFromError(_: Error) {
+    return { hasError: true }
+  }
 
-const components = {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error("Error in MDX rendering:", error, errorInfo)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-4 border border-red-200 rounded bg-red-50 dark:bg-red-900/20 dark:border-red-900/30">
+          <h3 className="text-lg font-semibold mb-2 text-red-800 dark:text-red-200">
+            Error loading content
+          </h3>
+          <p className="text-red-700 dark:text-red-300">
+            There was an error rendering this content. Try refreshing the page.
+          </p>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
+// Export the components object
+export const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <h1
       className={cn(
@@ -65,9 +101,9 @@ const components = {
       {...props}
     />
   ),
-  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement> ) => (
+  a: ({ className, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className={cn("font-medium underline underline-offset-4", props.className)}
+      className={cn("font-medium underline underline-offset-4", className)}
       {...props}
     />
   ),
@@ -98,11 +134,22 @@ const components = {
   img: ({
     className,
     alt,
+    src,
     ...props
-  }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className={cn("rounded-md border", className)} alt={alt} {...props} />
-  ),
+  }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    if (!src) return null;
+    
+    return (
+      <Image
+        className={cn("rounded-md border", className)}
+        alt={alt || ""}
+        src={src}
+        width={500}
+        height={300}
+        quality={100}
+      />
+    );
+  },
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto">
@@ -151,21 +198,50 @@ const components = {
       {...props}
     />
   ),
-  Image,
   Callout,
   Card: MdxCard,
-}
+} as const
 
 interface MdxProps {
   code: string
 }
 
-export function Mdx({ code }: MdxProps) {
-  const Component = useMDXComponent(code)
-
-  return (
-    <div className="mdx">
-      <Component components={components} />
+// Dynamically import the MDX component to avoid SSR issues
+const MDXContent = dynamic(() => import('./mdx-content'), {
+  ssr: false,
+  loading: () => (
+    <div className="animate-pulse">
+      <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
+      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2.5"></div>
+      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2.5"></div>
+      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
     </div>
+  ),
+})
+
+export function Mdx({ code }: MdxProps) {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  
+  if (!mounted) {
+    return (
+      <div className="animate-pulse">
+        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2.5"></div>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2.5"></div>
+        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+      </div>
+    )
+  }
+  
+  return (
+    <MDXErrorBoundary>
+      <div className="mdx">
+        <MDXContent code={code} />
+      </div>
+    </MDXErrorBoundary>
   )
 }

@@ -52,8 +52,7 @@ async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
 export async function parseMDXFiles(): Promise<GraphData> {
   try {
     const isDev = process.env.NODE_ENV === 'development';
-    const baseUrl = isDev ? 'http://localhost:3000' : 'https://neuralfin.xyz';
-    const response = await fetchWithRetry(`${baseUrl}/api/docs`);
+    const response = await fetchWithRetry(`/api/docs`);
     
     const data = await response.json();
     

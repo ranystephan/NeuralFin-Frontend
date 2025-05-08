@@ -1,29 +1,116 @@
 ---
 title: Portfolio Analysis
-description: Analyze and optimize your investment portfolios using NeuralFin's advanced models.
+description: Analyze and optimize your investment portfolio with NeuralFin's advanced analytics tools.
 ---
 
 # Portfolio Analysis
 
-NeuralFin helps you analyze and optimize your investment portfolios using advanced neural network models.
+NeuralFin provides powerful tools for portfolio analysis, helping you understand your investments' performance, risk, and potential returns. This guide will walk you through the key features and how to use them effectively.
 
 ## Key Features
-- Asset allocation
-- Diversification matrix
-- Performance metrics (Sharpe, Alpha, etc.)
 
-## Example: Calculate Sharpe Ratio
+### Portfolio Performance
+- Total return calculation
+- Risk-adjusted returns (Sharpe ratio, Sortino ratio)
+- Performance attribution
+- Benchmark comparison
 
-```js
-const result = await client.getSharpeRatio({
-  portfolio: [
-    { symbol: 'AAPL', weight: 0.5 },
-    { symbol: 'MSFT', weight: 0.5 }
-  ]
-});
-console.log(result);
+### Risk Analysis
+- Value at Risk (VaR)
+- Expected Shortfall
+- Portfolio volatility
+- Correlation analysis
+- Sector exposure
+
+### Portfolio Optimization
+- Modern Portfolio Theory (MPT)
+- Risk parity optimization
+- Factor-based optimization
+- Rebalancing recommendations
+
+## Getting Started
+
+First, ensure you have the NeuralFin client library installed:
+
+```bash
+npm install @neuralfin/client
 ```
 
-## Related
-- [Risk Management](/docs/risk-management)
-- [Market Data](/docs/market-data) 
+Initialize the client with your API key:
+
+```js
+import { NeuralFinClient } from '@neuralfin/client';
+
+const client = new NeuralFinClient({
+  apiKey: 'your-api-key'
+});
+```
+
+## Examples
+
+### Analyze Portfolio Performance
+
+```js
+const portfolio = {
+  holdings: [
+    { symbol: 'AAPL', shares: 100 },
+    { symbol: 'GOOGL', shares: 50 },
+    { symbol: 'MSFT', shares: 75 }
+  ]
+};
+
+const analysis = await client.analyzePortfolio(portfolio);
+console.log(analysis);
+// {
+//   totalValue: 45000.00,
+//   dailyReturn: 0.015,
+//   monthlyReturn: 0.045,
+//   yearlyReturn: 0.18,
+//   volatility: 0.15,
+//   sharpeRatio: 1.2
+// }
+```
+
+### Risk Analysis
+
+```js
+const riskMetrics = await client.getPortfolioRisk(portfolio);
+console.log(riskMetrics);
+// {
+//   var95: 0.02,
+//   expectedShortfall: 0.03,
+//   beta: 1.1,
+//   correlation: 0.85
+// }
+```
+
+### Portfolio Optimization
+
+```js
+const optimization = await client.optimizePortfolio({
+  symbols: ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META'],
+  constraints: {
+    maxWeight: 0.3,
+    minWeight: 0.05
+  }
+});
+console.log(optimization);
+```
+
+## Best Practices
+
+1. **Regular Analysis**: Perform portfolio analysis regularly to track performance and risk.
+2. **Diversification**: Ensure your portfolio is properly diversified across sectors and asset classes.
+3. **Rebalancing**: Rebalance your portfolio periodically to maintain target allocations.
+4. **Risk Management**: Monitor risk metrics and adjust positions as needed.
+
+## Related Documentation
+
+- [Market Data](/docs/market-data) - Access market data for analysis
+- [Risk Management](/docs/risk-management) - Detailed risk management strategies
+- [API Reference](/docs/api) - Complete API documentation
+- [Quick Start](/docs/quick-start) - Get started quickly
+
+## Need Help?
+
+If you need assistance with portfolio analysis, check out our [support resources](/docs/support) or contact our team. 

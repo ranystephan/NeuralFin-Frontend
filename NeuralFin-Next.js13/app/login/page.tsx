@@ -1,12 +1,11 @@
 "use strict";
 "use client";
 
-import { SyntheticEvent, useState } from "react";
+import React, { useState } from "react";
 import "@/styles/globals.css";
 import transLogo from "@/public/neuralfinLogo/transLogo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -40,27 +39,32 @@ const styles = {
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
-  const submit = async (e: SyntheticEvent) => {
+  const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    try {
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/login`;
+      const response = await fetch(apiUrl_deployed, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    const apiUrl_deployed = `https://api.neuralfin.xyz/api/login`;
-    const apiUrl_local = `http://localhost:8000/api/login`;
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
 
-    await fetch(apiUrl_deployed, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    console.log(email, password);
-
-    console.log("login success");
-    router.push("/"); // redirect to home page
+      const data = await response.json();
+      console.log("login success");
+      window.location.href = "/"; // Use window.location instead of router
+    } catch (error) {
+      console.error("Login error:", error);
+      // Handle error appropriately
+    }
   };
 
   return (

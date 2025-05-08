@@ -1,28 +1,100 @@
 ---
 title: Market Data
-description: Access real-time and historical market data with NeuralFin.
+description: Access real-time and historical market data with NeuralFin's comprehensive data API.
 ---
 
 # Market Data
 
-Access real-time and historical market data with NeuralFin.
+NeuralFin provides access to comprehensive real-time and historical market data through our powerful API. This guide will help you understand the available data types and how to use them effectively.
 
-## Data Types
-- Stock prices
-- Indices
-- Economic indicators
+## Available Data Types
 
-## Example: Get Historical Prices
+### Stock Prices
+- Real-time quotes
+- Historical daily prices
+- Intraday data (1m, 5m, 15m, 30m, 1h intervals)
+- Adjusted and unadjusted prices
+- Volume and trading statistics
+
+### Market Indices
+- Major global indices (S&P 500, NASDAQ, etc.)
+- Sector-specific indices
+- Custom index calculations
+
+### Economic Indicators
+- GDP data
+- Inflation rates
+- Interest rates
+- Employment statistics
+- Other macroeconomic indicators
+
+## Getting Started
+
+First, ensure you have the NeuralFin client library installed:
+
+```bash
+npm install @neuralfin/client
+```
+
+Then initialize the client with your API key:
+
+```js
+import { NeuralFinClient } from '@neuralfin/client';
+
+const client = new NeuralFinClient({
+  apiKey: 'your-api-key'
+});
+```
+
+## Examples
+
+### Get Real-Time Quote
+
+```js
+const quote = await client.getQuote('AAPL');
+console.log(quote);
+// {
+//   symbol: 'AAPL',
+//   price: 175.04,
+//   change: 1.23,
+//   changePercent: 0.71,
+//   volume: 52345678,
+//   timestamp: '2024-03-20T14:30:00Z'
+// }
+```
+
+### Get Historical Prices
 
 ```js
 const data = await client.getHistoricalPrices({
   symbol: 'AAPL',
   start: '2023-01-01',
-  end: '2023-06-01'
+  end: '2023-06-01',
+  interval: '1d'  // daily data
 });
 console.log(data);
 ```
 
-## Related
-- [API Reference](/docs/api)
-- [Portfolio Analysis](/docs/portfolio-analysis) 
+### Get Market Indices
+
+```js
+const indices = await client.getIndices(['^GSPC', '^IXIC']);
+console.log(indices);
+```
+
+## Best Practices
+
+1. **Rate Limiting**: Be mindful of API rate limits. Use appropriate caching strategies for frequently accessed data.
+2. **Error Handling**: Always implement proper error handling for API requests.
+3. **Data Validation**: Validate the data before using it in your application.
+
+## Related Documentation
+
+- [API Reference](/docs/api) - Detailed API documentation
+- [Portfolio Analysis](/docs/portfolio-analysis) - Using market data for portfolio analysis
+- [Risk Management](/docs/risk-management) - Risk analysis using market data
+- [Quick Start](/docs/quick-start) - Get up and running quickly
+
+## Need Help?
+
+If you need assistance with market data integration, check out our [support resources](/docs/support) or contact our team. 

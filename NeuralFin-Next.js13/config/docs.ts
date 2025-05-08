@@ -8,11 +8,11 @@ export const docsConfig: DocsConfig = {
     },
     {
       title: "News",
-      href: "/news",
+      href: "/docs/news",
     },
     {
       title: "Dashboard",
-      href: "/dashboard",
+      href: "/docs/dashboard",
     },
   ],
   sidebarNav: [
@@ -31,18 +31,30 @@ export const docsConfig: DocsConfig = {
           title: "Quick Start",
           href: "/docs/quick-start",
         },
+        {
+          title: "Getting Started",
+          href: "/docs/getting-started",
+        },
       ],
     },
     {
       title: "Features",
       items: [
         {
-          title: "News Analysis",
-          href: "/docs/news",
+          title: "Market Data",
+          href: "/docs/market-data",
         },
         {
-          title: "Dashboard",
-          href: "/docs/dashboard",
+          title: "Portfolio Analysis",
+          href: "/docs/portfolio-analysis",
+        },
+        {
+          title: "Risk Management",
+          href: "/docs/risk-management",
+        },
+        {
+          title: "Integrations",
+          href: "/docs/integrations",
         },
         {
           title: "API Reference",

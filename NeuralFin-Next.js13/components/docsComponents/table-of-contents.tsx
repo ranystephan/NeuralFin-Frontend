@@ -3,17 +3,14 @@
 import * as React from "react"
 import { ScrollArea } from "@/components/docsComponents/ui/scroll-area"
 import { TableOfContents } from "@/components/docsComponents/toc"
+import { TableOfContentsType } from "@/types/docs"
 
 interface TableOfContentsProps {
-  toc: {
-    level: number
-    text: string
-    slug: string
-  }[]
+  toc: TableOfContentsType
 }
 
 export function DocsTableOfContents({ toc }: TableOfContentsProps) {
-  if (!toc || toc.length === 0) {
+  if (!toc || !toc.items || toc.items.length === 0) {
     return null
   }
 

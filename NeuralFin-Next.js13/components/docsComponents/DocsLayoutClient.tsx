@@ -16,6 +16,9 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { TableOfContentsType } from "@/types/docs"
 
+// Common glass styling for all containers
+const glassStyles = "bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl transition-all duration-300 shadow-lg"
+
 export function DocsLayoutClient({ children }: { children: React.ReactNode }) {
   const { setTheme, theme } = useTheme()
   const { toc, getTableOfContents } = useDocsToc()
@@ -24,9 +27,9 @@ export function DocsLayoutClient({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-black bg-fixed px-2 sm:px-4 bg-[url('/grid-pattern.svg')] bg-repeat bg-[length:50px_50px]">
-      <div className="flex-1">
-        <header className="sticky top-6 z-50 mx-auto bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-300">
-          <div className="container flex h-14 items-center">
+      <div className="flex-1 relative z-10">
+        <header className="sticky top-6 z-50 mx-auto transition-all duration-300">
+          <div className={`container flex h-16 items-center ${glassStyles}`}>
             <MobileNav />
             <div className="mr-4 hidden md:flex">
               <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -61,7 +64,7 @@ export function DocsLayoutClient({ children }: { children: React.ReactNode }) {
               </div>
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full bg-popover/40 backdrop-blur-sm border border-white/10 hover:bg-accent/30 hover:border-indigo-400/30 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2 focus:ring-offset-background"
+                className="p-2 rounded-full bg-white/[0.05] backdrop-blur-md border border-white/10 hover:bg-white/[0.1] hover:border-indigo-400/30 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2 focus:ring-offset-background"
               >
                 {theme === "dark" ? (
                   <Sun className="h-[1.2rem] w-[1.2rem]" />
@@ -81,22 +84,26 @@ export function DocsLayoutClient({ children }: { children: React.ReactNode }) {
           )}
         >
           {!isLanding && (
-            <aside className="sticky top-28 mx-2 md:mx-6 h-[calc(100vh-9rem)] overflow-y-auto bg-white/[0.025] backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-300 scrollbar-thin scrollbar-thumb-indigo-500/20 scrollbar-track-transparent">
-              <SidebarNav items={docsConfig.sidebarNav} />
+            <aside className="sticky top-28 mx-2 md:mx-6 h-[calc(100vh-9rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-500/20 scrollbar-track-transparent">
+              <div className={`p-4 h-full ${glassStyles}`}>
+                <SidebarNav items={docsConfig.sidebarNav} />
+              </div>
             </aside>
           )}
           <main className="relative py-4 px-2 md:px-4">
             {isLanding ? (
               <div className="w-full">{children}</div>
             ) : (
-              <div className="mx-auto w-full max-w-4xl p-6 md:p-8 bg-white/[0.025] backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-300">
+              <div className={`mx-auto w-full max-w-4xl p-6 md:p-8 ${glassStyles}`}>
                 {children}
               </div>
             )}
           </main>
-          {!isLanding && (
-            <aside className="sticky top-28 mx-2 md:mx-6 h-[calc(100vh-9rem)] overflow-y-auto bg-white/[0.025] backdrop-blur-2xl border border-white/10 rounded-2xl transition-all duration-300 scrollbar-thin scrollbar-thumb-indigo-500/20 scrollbar-track-transparent">
-              <TableOfContents toc={getTableOfContents()} />
+          {!isLanding && toc && toc.length > 0 && (
+            <aside className="sticky top-28 mx-2 md:mx-6 h-[calc(100vh-9rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-500/20 scrollbar-track-transparent">
+              <div className={`p-4 h-full ${glassStyles}`}>
+                <TableOfContents toc={getTableOfContents()} />
+              </div>
             </aside>
           )}
         </div>

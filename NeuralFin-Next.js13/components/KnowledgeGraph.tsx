@@ -232,15 +232,17 @@ const KnowledgeGraph: React.FC<KnowledgeGraphProps> = ({ nodes, links }) => {
                   This knowledge graph visualizes the connections between different concepts in our documentation.
                   Each node represents a document, and the links show how they are related.
                 </p>
-                <p>
-                  <span className="font-medium text-white/80">How to use:</span>
+                <div>
+                  <p>
+                    <span className="font-medium text-white/80">How to use:</span>
+                  </p>
                   <ul className="list-disc list-inside mt-2 space-y-1">
                     <li>Hover over nodes to see their names</li>
                     <li>Click on a node to view its details</li>
                     <li>Use the minimap to navigate the graph</li>
                     <li>Zoom and pan to explore connections</li>
                   </ul>
-                </p>
+                </div>
               </div>
             )}
           </AnimatePresence>
