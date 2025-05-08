@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useRouter } from "next/navigation"
 import { Search as SearchIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -16,7 +15,6 @@ import {
 } from "@/components/docsComponents/ui/command"
 
 export function Search() {
-  const router = useRouter()
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -35,6 +33,11 @@ export function Search() {
     setOpen(false)
     command()
   }, [])
+
+  // Navigation function using window.location
+  const navigate = (href: string) => {
+    window.location.href = href
+  }
 
   return (
     <>
@@ -58,17 +61,17 @@ export function Search() {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Documentation">
             <CommandItem
-              onSelect={() => runCommand(() => router.push("/docs"))}
+              onSelect={() => runCommand(() => navigate("/docs"))}
             >
               Getting Started
             </CommandItem>
             <CommandItem
-              onSelect={() => runCommand(() => router.push("/docs/news"))}
+              onSelect={() => runCommand(() => navigate("/docs/news"))}
             >
               News Analysis
             </CommandItem>
             <CommandItem
-              onSelect={() => runCommand(() => router.push("/docs/dashboard"))}
+              onSelect={() => runCommand(() => navigate("/docs/dashboard"))}
             >
               Dashboard
             </CommandItem>

@@ -1,16 +1,12 @@
-'use strict'
 'use client'
 
-
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import '@/styles/globals.css';
 import transLogo from '@/public/neuralfinLogo/transLogo.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
 
 
 const styles = {
@@ -30,7 +26,6 @@ const styles = {
   passwordForm: "w-80 h-16 border border-gray-300 border-2 rounded-xl mt-3 items-center justify-center flex text-black font-mono hover:bg-gray-200 duration-300",
   loginButton: "w-40 h-10 rounded-md bg-blue-700 mt-12 mx-auto items-center justify-center flex text-gray-400 hover:text-white font-bold hover:w-44 hover:h-12 duration-300 font-mono",
   forgotPassword: "text-sm mt-4 text-blue-700 font-mono hover:font-bold duration-300",
-
 }
 
 
@@ -38,25 +33,34 @@ const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
   
-    const apiUrl_deployed = `https://api.neuralfin.xyz/api/register`;
-    const apiUrl_local = `http://localhost:8000/api/register`;
+    try {
+      const apiUrl_deployed = `https://api.neuralfin.xyz/api/register`;
+      const apiUrl_local = `http://localhost:8000/api/register`;
 
-    await fetch(apiUrl_deployed, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        email,
-        password
-      })
-    });
+      const response = await fetch(apiUrl_deployed, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          password
+        })
+      });
 
-    router.push('/login');
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+
+      // Redirect to login page after successful registration
+      window.location.href = '/login';
+    } catch (error) {
+      console.error("Registration error:", error);
+      // Handle error appropriately
+    }
   }
 
   return (

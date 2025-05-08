@@ -27,7 +27,6 @@ import {
   FormMessage,
 } from "@/components/react-hook-form/form"
 import { AuthContext } from "@/contexts/AuthContext"
-import { useRouter } from "next/router"
 import { useContext } from "react"
 
 const profileFormSchema = z.object({
@@ -68,8 +67,6 @@ const defaultValues: Partial<ProfileFormValues> = {
 export function ProfileForm() {
   const { auth, updateAuth } = useContext(AuthContext);
 
-  const router = useRouter();
-
   const logout = async () => {
     const apiUrl_deployed = `https://api.neuralfin.xyz/api/logout`;
     const apiUrl_local = `http://localhost:8000/api/logout`;
@@ -79,11 +76,10 @@ export function ProfileForm() {
       credentials: 'include',
     })
     
-
     updateAuth({ isAuthenticated: false, user: null });
     console.log('Logged out');
     console.log(auth.user?.name);
-    router.push('/'); 
+    window.location.href = '/';
   }
 
   const form = useForm<ProfileFormValues>({

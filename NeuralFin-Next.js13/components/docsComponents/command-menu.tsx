@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useRouter } from "next/navigation"
 import { DialogProps } from "@radix-ui/react-dialog"
 import { Circle, File, Laptop, Moon, SunMedium } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -20,7 +19,6 @@ import {
 } from "@/components/docsComponents/ui/command"
 
 export function CommandMenu({ ...props }: DialogProps) {
-  const router = useRouter()
   const [open, setOpen] = React.useState(false)
   const { setTheme } = useTheme()
 
@@ -40,6 +38,11 @@ export function CommandMenu({ ...props }: DialogProps) {
     setOpen(false)
     command()
   }, [])
+
+  // Navigation function using window.location
+  const navigate = (href: string) => {
+    window.location.href = href
+  }
 
   return (
     <>
@@ -69,7 +72,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   key={navItem.href}
                   value={navItem.title}
                   onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string))
+                    runCommand(() => navigate(navItem.href as string))
                   }}
                 >
                   <File className="mr-2 h-4 w-4" />
@@ -84,7 +87,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   key={navItem.href}
                   value={navItem.title}
                   onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string))
+                    runCommand(() => navigate(navItem.href as string))
                   }}
                 >
                   <div className="mr-2 flex h-4 w-4 items-center justify-center">

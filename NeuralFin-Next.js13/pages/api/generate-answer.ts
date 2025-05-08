@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
 type ResponseData = {
   text: string;
@@ -11,10 +11,10 @@ interface GenerateNextApiRequest extends NextApiRequest {
   };
 }
 
-const configuration = new Configuration({
+// Initialize the OpenAI client
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 export default async function handler(
   req: GenerateNextApiRequest,
@@ -28,7 +28,8 @@ export default async function handler(
   }
 
   try {
-    const aiResult = await openai.createCompletion({
+    // Use the newer completions API
+    const aiResult = await openai.completions.create({
       model: "text-davinci-003",
       prompt: `${prompt}`,
       temperature: 0.7,
@@ -37,7 +38,7 @@ export default async function handler(
       presence_penalty: 0
     });
 
-    const response = aiResult.data.choices[0].text?.trim() || 'Sorry, there was a problem!';
+    const response = aiResult.choices[0].text?.trim() || 'Sorry, there was a problem!';
     res.status(200).json({ text: response });
 
   } catch (error) {
